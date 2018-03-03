@@ -2,7 +2,7 @@
 
 namespace Fondy;
 
-use PHPUnit\Runner\Exception;
+use Fondy\Exeption;
 
 class Configuration
 {
@@ -46,9 +46,17 @@ class Configuration
     }
 
     /**
+     * @return int
+     */
+    public static function getMerchantId()
+    {
+        return self::$MerchantID;
+    }
+
+    /**
      * Define the $SecretKey.
      *
-     * @param string SecretKey
+     * @set string SecretKey
      */
     public static function setSecretKey($SecretKey)
     {
@@ -56,13 +64,29 @@ class Configuration
     }
 
     /**
-     * Define the $SecretKey.
+     * @return string
+     */
+    public static function getSecretKey()
+    {
+        return self::$SecretKey;
+    }
+
+    /**
+     * Define the $CreditKey.
      *
-     * @param string SecretKey
+     * @set string CreditKey
      */
     public static function setCreditKey($CreditKey)
     {
         self::$CreditKey = $CreditKey;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getCreditKey()
+    {
+        return self::$CreditKey;
     }
 
     /**
@@ -74,7 +98,7 @@ class Configuration
     }
 
     /**
-     * @param string ApiVersion The API version to use for requests.
+     * @set string ApiVersion The API version to use for requests.
      */
     public static function setApiVersion($ApiVersion)
     {
@@ -90,7 +114,7 @@ class Configuration
     }
 
     /**
-     * @param string ApiUrl The API url to use for requests.
+     * @set string ApiUrl The API url to use for requests.
      */
     public static function setApiUrl($ApiUrl)
     {
@@ -107,7 +131,7 @@ class Configuration
     }
 
     /**
-     * @return mixed set Http Client
+     * @return mixed http Client
      */
     public static function setHttpClient($client)
     {
@@ -115,8 +139,8 @@ class Configuration
         if (class_exists($HttpClient)) {
             self::$HttpClient = $client;
         } else {
-            throw new Exception(
-                "Client Class not found or name set up incorrectly. Avalibe Client: HttpCurl"
+            throw new Exeption\ApiExeption(
+                "Client Class not found or name set up incorrectly. Available clients: HttpCurl, HttpGuzzle"
             );
         }
     }

@@ -6,7 +6,7 @@ use Fondy\Api\Api;
 use Fondy\Exeption\ApiExeption;
 
 
-class Checkout extends Api
+class Url extends Api
 {
-
+    private $url = '/checkout/url/';
 }

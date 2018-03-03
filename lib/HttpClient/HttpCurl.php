@@ -7,6 +7,21 @@ use Fondy\Exeption;
 class HttpCurl implements ClientInterface
 {
     /**
+     * @var array
+     */
+    private $options = [
+
+        CURLOPT_FOLLOWLOCATION => false,
+        CURLOPT_HEADER => false,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_CONNECTTIMEOUT => 60,
+        CURLOPT_USERAGENT => 'Fondy-sdk-v2',
+        CURLOPT_SSL_VERIFYHOST => 2,
+        CURLOPT_SSL_VERIFYPEER => 1,
+        CURLOPT_TIMEOUT => 60
+    ];
+
+    /**
      * @param string $method
      * @param string $url
      * @param array $headers
@@ -14,44 +29,43 @@ class HttpCurl implements ClientInterface
      * @return array
      * @throws Exeption\HttpClientExeption
      */
-    public function request($method = 'post', $url = '', $headers = [], $params = [])
+    public function request($method, $url, $headers = [], $params = [])
     {
+        $method = strtoupper($method);
         if (!$this->curlEnabled())
-            throw new Exeption\HttpClientExeption('Curl not enabled');
+            throw new Exeption\HttpClientExeption('Curl not enabled.');
         if (empty($url))
-            throw new Exeption\HttpClientExeption('The url iss empty');
+            throw new Exeption\HttpClientExeption('The url is empty.');
 
         $ch = curl_init($url);
+        foreach ($this->options as $option => $value) {
+            curl_setopt($ch, $option, $value);
+        }
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
-        curl_setopt($ch, CURLOPT_ENCODING, 'gzip');
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
-        curl_setopt($ch, CURLOPT_HEADER, false);
         if (!($headers))
             $headers = $this->setDefaultHeader();
+
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         if ($params) {
             curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
         }
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 60);
         $response = curl_exec($ch);
         $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
         if ($httpStatus != 200)
-            throw new Exeption\HttpClientExeption(sprintf('Curl Send Error Header Status is: %s',$httpStatus));
-
+            throw new Exeption\HttpClientExeption(sprintf('Curl send error header, status is: %s', $httpStatus));
         curl_close($ch);
-        return ['code' => $httpStatus, 'response' => trim($response)];
+        return [
+            'code' => $httpStatus,
+            'response' => trim($response)
+        ];
     }
 
     /**
      * @return array default headers
      */
-    private function setDefaultHeader(){
-        return  ['Content-Type: application/json'];
+    private function setDefaultHeader()
+    {
+        return ['Content-Type: application/json'];
     }
 
     /**

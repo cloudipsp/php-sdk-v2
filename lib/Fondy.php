@@ -2,6 +2,8 @@
 
 namespace Fondy;
 
+use Fondy\Api\Api;
+
 /**
  * Class Fondy
  *
@@ -12,10 +14,12 @@ class Fondy extends Configuration
     /**
      * @param array $data
      */
-    public function order($data = [])
+    public function checkout($data)
     {
-        $HttpClient = Configuration::getHttpClient();
         $url = Configuration::getApiUrl();
-        //$this->request();
+        $url .= '/checkout/url/';
+        $headers = [];
+        $n = new Api($method = 'post', $url, $headers, $data);
+        return $n->doRequest();
     }
 }
