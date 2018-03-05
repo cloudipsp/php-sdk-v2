@@ -5,13 +5,21 @@ namespace Fondy\Response;
 use Fondy\Configuration;
 use Fondy\Exeption\ApiExeption;
 use Fondy\Helper\ResponseHelper;
+
 class Response
 {
+    /**
+     * @var string
+     */
     private $requsetType;
     /**
      * @var array
      */
     private $data;
+    /**
+     * @var string
+     */
+    private $apiVersion;
 
     /**
      * Response constructor.
@@ -20,6 +28,8 @@ class Response
     public function __construct($data)
     {
         $this->requestType = Configuration::getRequestType();
+        $this->apiVersion = Configuration::getApiVersion();
+        
         switch ($this->requestType) {
             case 'xml':
                 $data = ResponseHelper::xmlToArray($data);
@@ -31,17 +41,18 @@ class Response
                 $data = ResponseHelper::jsonToArray($data);
                 break;
         }
-        $this->data = $data;
-        if ($data['response']['response_status'] == 'failure')
+        if (isset($data['response']['response_status']) and $data['response']['response_status'] == 'failure')
             throw new ApiExeption('Request is incorrect.', 200, $data);
+        $this->data = $data;
+
     }
 
     /**
-     * @param $data
+     * Redirect to checkout
      */
     public function toCheckout()
     {
-        header(sprintf('location: %s', $this->data['response']['checkout_url']));
+        header(sprintf('location: %s', $this->getData()['checkout_url']));
         exit;
     }
 
@@ -50,6 +61,10 @@ class Response
      */
     public function getData()
     {
-        return $this->data['response'];
+        if ($this->apiVersion == '2.0') {
+            return ResponseHelper::getBase64Data($this->data);
+        } else {
+            return $this->data['response'];
+        }
     }
 }

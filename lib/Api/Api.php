@@ -42,16 +42,34 @@ class Api
         $this->requestType = Configuration::getRequestType();
     }
 
+    /**
+     * @param $method
+     * @param $url
+     * @param $headers
+     * @param $data
+     * @return mixed
+     * @throws ApiExeption
+     */
     public function Request($method, $url, $headers, $data)
     {
-
-        $headers = Helper\RequestHelper::parseHeadres($headers, $this->requestType);
         $url = $this->createUrl($url);
-
         if (!$this->version)
             throw new ApiExeption('Unknown api version');
-        $data = $this->converData($data);
+
+        if ($this->version == '1.0') {
+            $data = $this->converDataV1($data);
+        } else {
+            if ($this->requestType != 'json') {
+                Configuration::setRequestType('json');
+                $this->requestType = 'json';
+                trigger_error('Api protocol v2 can accept only json.', E_USER_NOTICE);
+            }
+
+            $data = $this->converDataV2($data);
+        }
+        $headers = Helper\RequestHelper::parseHeadres($headers, $this->requestType);
         $response = $this->client->request($method, $url, $headers, $data);
+
         if (!$response)
             throw new ApiExeption('Unknown error.');
 
@@ -60,10 +78,10 @@ class Api
     }
 
     /**
-     * @param $url
-     * @return string
+     * @param $data
+     * @return string or array
      */
-    private function converData($data)
+    private function converDataV1($data)
     {
         switch ($this->requestType) {
             case 'xml':
@@ -80,8 +98,27 @@ class Api
     }
 
     /**
-     * @param $params
+     * @param $data
      * @return string
+     */
+    private function converDataV2($data)
+    {
+        if (isset($data['signature']))
+            unset($data['signature']);
+
+        $prepared_data = [
+            "version" => "2.0",
+            "data" => base64_encode(Helper\ApiHelper::toJSON(['order' => $data]))
+        ];
+
+        $prepared_data["signature"] = Helper\ApiHelper::generateSignature($prepared_data["data"], $this->secretKey, $this->version);
+
+        return Helper\ApiHelper::toJSON(['request' => $prepared_data]);
+    }
+
+    /**
+     * @param $params
+     * @return mixed
      */
     public function prepareParams($params)
     {
@@ -96,7 +133,7 @@ class Api
         if (!isset($prepared_params['order_desc'])) {
             $prepared_params['order_desc'] = Helper\ApiHelper::generateOrderDesc($prepared_params['order_id']);
         }
-        if (!isset($prepared_params['signature'])) {
+        if (!isset($prepared_params['signature']) && $this->version == '1.0') {
             $prepared_params['signature'] = Helper\ApiHelper::generateSignature($prepared_params, $this->secretKey, $this->version);
         }
 

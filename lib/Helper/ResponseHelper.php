@@ -9,6 +9,14 @@ class ResponseHelper
      * @param string
      * @return array
      */
+    public static function getBase64Data($data)
+    {
+        return json_decode(base64_decode($data['response']['data']), TRUE)['order'];
+    }
+    /**
+     * @param string
+     * @return array
+     */
     public static function jsonToArray($data)
     {
         return json_decode($data, TRUE);

@@ -12,18 +12,19 @@ class ApiHelper
     /**
      * @param array $params
      * @param $secret_key
-     * @param $version
+     * @param string $version
+     * @param bool $encoded
+     * @return string
      */
     public static function generateSignature($params = [], $secret_key, $version = '1.0', $encoded = true)
     {
 
         if ($version == '2.0') {
             if ($encoded) {
-                $signature = sha1($secret_key . self::signatureSeparator . base64_encode(json_encode($params)));
+                $signature = sha1($secret_key . self::signatureSeparator . $params);
             } else {
-                $signature = $secret_key . self::signatureSeparator . base64_encode(json_encode($params));
+                $signature = $secret_key . self::signatureSeparator . $params;
             }
-
         } else {
             $data = array_filter($params,
                 function ($var) {
@@ -40,6 +41,7 @@ class ApiHelper
                 $signature = $sign_str;
             }
         }
+
         return strtolower($signature);
     }
 
@@ -80,8 +82,8 @@ class ApiHelper
 
     /**
      * @param $data
-     * @param null $node
-     * @return xml
+     * @param string $wrap
+     * @return string
      */
     public static function toXML($data, $wrap = '?xml version="1.0" encoding="UTF-8"?')
     {
