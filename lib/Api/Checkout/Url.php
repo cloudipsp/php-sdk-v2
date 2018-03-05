@@ -3,7 +3,6 @@
 namespace Fondy\Api\Checkout;
 
 use Fondy\Api\Api;
-use Fondy\Helper\ApiHelper;
 
 class Url extends Api
 {
@@ -14,5 +13,5 @@ class Url extends Api
         $data = $this->prepareParams($data);
         return parent::Request($method = 'POST', $this->url, $headers, $data);
     }
-    
+
 }

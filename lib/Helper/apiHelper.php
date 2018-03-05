@@ -130,12 +130,4 @@ class ApiHelper
     {
         return http_build_query($data, NULL, '&');
     }
-    /**
-     * @param string
-     * @return array
-     */
-    public static function jsonToArray($data)
-    {
-        return json_decode($data, TRUE);
-    }
 }

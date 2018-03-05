@@ -2,9 +2,12 @@
 
 namespace Fondy\Response;
 
-
+use Fondy\Configuration;
+use Fondy\Exeption\ApiExeption;
+use Fondy\Helper\ResponseHelper;
 class Response
 {
+    private $requsetType;
     /**
      * @var array
      */
@@ -16,7 +19,21 @@ class Response
      */
     public function __construct($data)
     {
+        $this->requestType = Configuration::getRequestType();
+        switch ($this->requestType) {
+            case 'xml':
+                $data = ResponseHelper::xmlToArray($data);
+                break;
+            case 'form':
+                $data = ResponseHelper::formToArray($data);
+                break;
+            case 'json':
+                $data = ResponseHelper::jsonToArray($data);
+                break;
+        }
         $this->data = $data;
+        if ($data['response']['response_status'] == 'failure')
+            throw new ApiExeption('Request is incorrect.', 200, $data);
     }
 
     /**

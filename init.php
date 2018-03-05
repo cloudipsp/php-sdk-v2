@@ -8,16 +8,16 @@ $time_start = microtime(true);
 require 'vendor/autoload.php';
 \Fondy\Configuration::setMerchantId(1396424);
 \Fondy\Configuration::setSecretKey('test');
-//\Fondy\Configuration::setRequestType('form');
-//\Fondy\Configuration::setHttpClient('HttpCurl');
-//\Fondy\Configuration::setApiUrl('api.fondy.eu');
-//$fondy = new \Fondy\Fondy();
+\Fondy\Configuration::setRequestType('form');
+\Fondy\Configuration::setHttpClient('HttpCurl');
+\Fondy\Configuration::setApiUrl('api.fondy.eu');
+
 $data = [
     'currency' => 'USD',
     'amount' => 1000,
     'order_desc' => null
 ];
-print_r(Fondy\Checkout::url($data)->toCheckout());
+var_dump(Fondy\Checkout::url($data)->getData());
 //end
 
 $time_end = microtime(true);

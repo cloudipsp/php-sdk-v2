@@ -51,10 +51,9 @@ class Api
         if (!$this->version)
             throw new ApiExeption('Unknown api version');
         $data = $this->converData($data);
-        $response = Helper\ApiHelper::jsonToArray($this->client->request($method, $url, $headers, $data));
-
-        if ($response['response']['response_status'] == 'failure')
-            throw new ApiExeption('Request is incorrect.', 200, $response);
+        $response = $this->client->request($method, $url, $headers, $data);
+        if (!$response)
+            throw new ApiExeption('Unknown error.');
 
         return $response;
 
@@ -64,7 +63,7 @@ class Api
      * @param $url
      * @return string
      */
-    public function converData($data)
+    private function converData($data)
     {
         switch ($this->requestType) {
             case 'xml':

@@ -11,6 +11,6 @@ class HttpGuzzle
      * @return $this
      */
     public function request($method = 'post', $url = '', $headers = [], $params = []){
-        return $this;
+        return false;
     }
 }
