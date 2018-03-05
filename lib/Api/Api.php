@@ -9,22 +9,6 @@ use Fondy\Helper;
 class Api
 {
     /**
-     * @var array
-     */
-    protected $params = [];
-    /**
-     * @var array request headers
-     */
-    protected $headers = [];
-    /**
-     * @var string request url
-     */
-    protected $url;
-    /**
-     * @var string request method
-     */
-    protected $method;
-    /**
      * @var string request client
      */
     protected $client;
@@ -41,45 +25,36 @@ class Api
      */
     protected $secret_key;
 
-    public function __construct($method = 'POST', $url, $headers, $params)
-    {
-        $this->method = $method;
-        $this->url = $url;
-        $this->client = Configuration::getHttpClient();
-        $this->headers = Helper\RequestHelper::parseHeadres($headers, 'json');
-        $this->version = Configuration::getApiVersion();
-        $this->secret_key = Configuration::getSecretKey();
-        $this->mid = Configuration::getMerchantId();
-        $this->params = $this->prepareParams($params);
-    }
-
     /**
      * @param $data
      * @throws ApiExeption
      */
-    public function doRequest()
+    public function __construct()
     {
-        $version = $this->version;
-        if (!$version)
+        $this->version = Configuration::getApiVersion();
+        $this->secret_key = Configuration::getSecretKey();
+        $this->mid = Configuration::getMerchantId();
+        $this->client = Configuration::getHttpClient();
+    }
+
+    public function Request($method, $url, $headers, $params)
+    {
+
+        $headers = Helper\RequestHelper::parseHeadres($headers, 'json');
+        $url = $this->createUrl($url);
+
+        if (!$this->version)
             throw new ApiExeption('Unknown api version');
-        return $this->client->request($this->method, $this->url, $this->headers, $this->params);
+        return $this->client->request($method, $url, $headers, $params);
 
     }
 
     /**
-     * @param $params
-     * @return mixed
+     * @param $url
+     * @return string
      */
-    private function prepareParams($params)
+    public function createUrl($url)
     {
-        $prepared_params = $params;
-        if (!array_key_exists('merchant_id', $prepared_params)){
-            $prepared_params['merchant_id'] = $this->mid;
-        }
-        if (!array_key_exists('signature', $prepared_params)){
-            $prepared_params['signature'] = Helper\ApiHelper::generateSignature($prepared_params, $this->secret_key, $this->version);
-        }
-
-        return json_encode(['request' => $prepared_params]);
+        return Configuration::getApiUrl() . $url;
     }
 }

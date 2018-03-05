@@ -43,4 +43,30 @@ class ApiHelper
         return strtolower($signature);
     }
 
+    /**
+     * @param string $merchant_id
+     * @return string
+     */
+    public static function generateOrderID($merchant_id)
+    {
+        return $merchant_id . '_' . md5(uniqid(rand(), 1));
+    }
+
+    /**
+     * @param $order_id
+     * @return string
+     */
+    public static function generateOrderDesc($order_id)
+    {
+        return sprintf('Order pay #: %s', $order_id);
+    }
+
+    /**
+     * @param $data
+     * @param $url
+     * @return string
+     */
+    public static function generatePaymentForm($data, $url){
+        return 1;
+    }
 }

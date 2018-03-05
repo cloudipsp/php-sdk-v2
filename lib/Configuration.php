@@ -34,6 +34,10 @@ class Configuration
      * @var string request Client
      */
     private static $HttpClient = 'HttpCurl';
+    /**
+     * @var string
+     */
+    private static $RequestType = 'json';
 
     /**
      * Define the Mercahnt id.
@@ -143,5 +147,24 @@ class Configuration
                 "Client Class not found or name set up incorrectly. Available clients: HttpCurl, HttpGuzzle"
             );
         }
+    }
+
+    /**
+     * @return string
+     */
+    public static function setRequestType($RequestType)
+    {
+        $types = ['json', 'xml', 'form'];
+        if(!in_array($RequestType, $types))
+            throw new Exeption\ApiExeption ('Undefined request type! Available types: json, xml, form');
+        self::$RequestType = $RequestType;
+    }
+
+    /**
+     * @set string ApiUrl The API url to use for requests.
+     */
+    public static function getRequestType()
+    {
+        return self::$RequestType;
     }
 }

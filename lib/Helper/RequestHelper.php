@@ -7,7 +7,7 @@ class RequestHelper
     /**
      * @var array
      */
-    private $type = [
+    private static $type = [
         'json' => 'application/json',
         'xml' => 'application/xml',
         'form' => 'application/x-www-form-urlencoded'
@@ -18,15 +18,15 @@ class RequestHelper
      * @param $type
      * @return array headers
      */
-    public function parseHeadres($headers, $type)
+    public static function parseHeadres($headers, $type)
     {
         if (empty($type)) {
-            $headers[] = [
-                'Content-Type' => 'application/json'
+            $headers = [
+                'Content-Type: application/json'
             ];
         } else {
-            $headers[] = [
-                'Content-Type' => $this->type[$type]
+            $headers = [
+                'Content-Type: ' . self::$type[$type]
             ];
         }
         return $headers;
