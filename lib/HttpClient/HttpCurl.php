@@ -42,9 +42,6 @@ class HttpCurl implements ClientInterface
             curl_setopt($ch, $option, $value);
         }
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
-        if (!($headers))
-            $headers = $this->setDefaultHeader();
-
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         if ($params) {
             curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
@@ -54,18 +51,7 @@ class HttpCurl implements ClientInterface
         if ($httpStatus != 200)
             throw new Exeption\HttpClientExeption(sprintf('Curl send error header, status is: %s', $httpStatus));
         curl_close($ch);
-        return [
-            'code' => $httpStatus,
-            'response' => trim($response)
-        ];
-    }
-
-    /**
-     * @return array default headers
-     */
-    private function setDefaultHeader()
-    {
-        return ['Content-Type: application/json'];
+        return trim($response);
     }
 
     /**

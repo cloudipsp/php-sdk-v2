@@ -23,7 +23,11 @@ class Api
     /**
      * @var string
      */
-    protected $secret_key;
+    protected $secretKey;
+    /**
+     * @var string
+     */
+    protected $requestType;
 
     /**
      * @param $data
@@ -32,21 +36,72 @@ class Api
     public function __construct()
     {
         $this->version = Configuration::getApiVersion();
-        $this->secret_key = Configuration::getSecretKey();
+        $this->secretKey = Configuration::getSecretKey();
         $this->mid = Configuration::getMerchantId();
         $this->client = Configuration::getHttpClient();
+        $this->requestType = Configuration::getRequestType();
     }
 
-    public function Request($method, $url, $headers, $params)
+    public function Request($method, $url, $headers, $data)
     {
 
-        $headers = Helper\RequestHelper::parseHeadres($headers, 'json');
+        $headers = Helper\RequestHelper::parseHeadres($headers, $this->requestType);
         $url = $this->createUrl($url);
 
         if (!$this->version)
             throw new ApiExeption('Unknown api version');
-        return $this->client->request($method, $url, $headers, $params);
+        $data = $this->converData($data);
+        $response = Helper\ApiHelper::jsonToArray($this->client->request($method, $url, $headers, $data));
 
+        if ($response['response']['response_status'] == 'failure')
+            throw new ApiExeption('Request is incorrect.', 200, $response);
+
+        return $response;
+
+    }
+
+    /**
+     * @param $url
+     * @return string
+     */
+    public function converData($data)
+    {
+        switch ($this->requestType) {
+            case 'xml':
+                $data = Helper\ApiHelper::toXML(['request' => $data]);
+                break;
+            case 'form':
+                $data = Helper\ApiHelper::toFormData($data);
+                break;
+            case 'json':
+                $data = Helper\ApiHelper::toJSON(['request' => $data]);
+                break;
+        }
+        return $data;
+    }
+
+    /**
+     * @param $params
+     * @return string
+     */
+    public function prepareParams($params)
+    {
+        $prepared_params = $params;
+
+        if (!isset($prepared_params['merchant_id'])) {
+            $prepared_params['merchant_id'] = $this->mid;
+        }
+        if (!isset($prepared_params['order_id'])) {
+            $prepared_params['order_id'] = Helper\ApiHelper::generateOrderID($this->mid);
+        }
+        if (!isset($prepared_params['order_desc'])) {
+            $prepared_params['order_desc'] = Helper\ApiHelper::generateOrderDesc($prepared_params['order_id']);
+        }
+        if (!isset($prepared_params['signature'])) {
+            $prepared_params['signature'] = Helper\ApiHelper::generateSignature($prepared_params, $this->secretKey, $this->version);
+        }
+
+        return $prepared_params;
     }
 
     /**

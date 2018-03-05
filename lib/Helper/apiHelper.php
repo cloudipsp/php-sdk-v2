@@ -14,7 +14,7 @@ class ApiHelper
      * @param $secret_key
      * @param $version
      */
-    public static function generateSignature($params = [], $secret_key, $version, $encoded = true)
+    public static function generateSignature($params = [], $secret_key, $version = '1.0', $encoded = true)
     {
 
         if ($version == '2.0') {
@@ -66,7 +66,76 @@ class ApiHelper
      * @param $url
      * @return string
      */
-    public static function generatePaymentForm($data, $url){
-        return 1;
+    public static function generatePaymentForm($data, $url)
+    {
+        $form = '<form method="POST" action="' . $url . '">' . "\n";
+        foreach ($data as $name => $value) {
+            if (!empty($value)) {
+                $form .= '<input type="hidden" name="' . htmlentities($name, ENT_QUOTES, 'UTF-8') . '" value="' . htmlentities($value, ENT_QUOTES, 'UTF-8') . '" />' . "\n";
+            }
+        }
+        $form .= '<input type="submit" class="f_button"></form>';
+        return $form;
+    }
+
+    /**
+     * @param $data
+     * @param null $node
+     * @return xml
+     */
+    public static function toXML($data, $wrap = '?xml version="1.0" encoding="UTF-8"?')
+    {
+        $xml = '';
+        if ($wrap != null) {
+            $xml .= "<$wrap>\n";
+        }
+        foreach ($data as $key => $value) {
+
+            if (empty($value))
+                continue;
+            if (is_numeric($key))
+                continue;
+            $xml .= "<$key>";
+            if (is_array($value)) {
+                $child = self::toXML($value, null);
+                $xml .= $child;
+                if (!is_array($value))
+                    $xml .= htmlspecialchars(trim($value)) . "</$key>";
+            } else {
+                if (!is_array($value))
+                    $xml .= htmlspecialchars(trim($value)) . "</$key>";
+            }
+        }
+        if ($wrap != null) {
+            $xml .= "\n</xml>\n";
+        }
+
+        return $xml;
+    }
+
+    /**
+     * @param $data
+     * @return string
+     */
+    public static function toJSON($data)
+    {
+        return json_encode($data);
+    }
+
+    /**
+     * @param $data
+     * @return string
+     */
+    public static function toFormData($data)
+    {
+        return http_build_query($data, NULL, '&');
+    }
+    /**
+     * @param string
+     * @return array
+     */
+    public static function jsonToArray($data)
+    {
+        return json_decode($data, TRUE);
     }
 }

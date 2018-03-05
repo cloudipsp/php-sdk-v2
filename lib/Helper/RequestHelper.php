@@ -20,15 +20,12 @@ class RequestHelper
      */
     public static function parseHeadres($headers, $type)
     {
-        if (empty($type)) {
-            $headers = [
-                'Content-Type: application/json'
-            ];
+        if (is_array($headers)) {
+            array_push($headers, 'Content-Type: ' . self::$type[$type]);
         } else {
-            $headers = [
-                'Content-Type: ' . self::$type[$type]
-            ];
+            $headers[] = 'Content-Type: ' . self::$type[$type];
         }
+
         return $headers;
     }
 }

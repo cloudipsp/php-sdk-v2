@@ -3,6 +3,7 @@
 namespace Fondy;
 
 use Fondy\Api\Checkout as Api;
+use Fondy\Response\Response;
 
 /**
  * Class Checkout
@@ -16,10 +17,11 @@ class Checkout
      * @param array $headers
      * @return mixed
      */
-    public static function url($data, $headers = [''])
+    public static function url($data, $headers = [])
     {
         $api = new Api\Url;
-        return $api->get($data, $headers);
+        $result = $api->get($data, $headers);
+        return new Response($result);
     }
 
     /**
@@ -31,5 +33,13 @@ class Checkout
     {
         $api = new Api\Form;
         return $api->get($data);
+    }
+
+    /**
+     *
+     */
+    public function toCheckout()
+    {
+        print_r(1);
     }
 }
