@@ -53,20 +53,7 @@ class Api
     public function Request($method, $url, $headers, $data)
     {
         $url = $this->createUrl($url);
-        if (!$this->version)
-            throw new ApiExeption('Unknown api version');
-
-        if ($this->version == '1.0') {
-            $data = $this->converDataV1($data);
-        } else {
-            if ($this->requestType != 'json') {
-                Configuration::setRequestType('json');
-                $this->requestType = 'json';
-                trigger_error('Api protocol v2 can accept only json.', E_USER_NOTICE);
-            }
-
-            $data = $this->converDataV2($data);
-        }
+        $data = $this->getDataByVersion($data);
         $headers = Helper\RequestHelper::parseHeadres($headers, $this->requestType);
         $response = $this->client->request($method, $url, $headers, $data);
 
@@ -83,6 +70,9 @@ class Api
      */
     private function converDataV1($data)
     {
+        if (!isset($data['signature']) && $this->version == '1.0') {
+            $data['signature'] = Helper\ApiHelper::generateSignature($data, $this->secretKey, $this->version);
+        }
         switch ($this->requestType) {
             case 'xml':
                 $data = Helper\ApiHelper::toXML(['request' => $data]);
@@ -103,9 +93,6 @@ class Api
      */
     private function converDataV2($data)
     {
-        if (isset($data['signature']))
-            unset($data['signature']);
-
         $prepared_data = [
             "version" => "2.0",
             "data" => base64_encode(Helper\ApiHelper::toJSON(['order' => $data]))
@@ -133,11 +120,34 @@ class Api
         if (!isset($prepared_params['order_desc'])) {
             $prepared_params['order_desc'] = Helper\ApiHelper::generateOrderDesc($prepared_params['order_id']);
         }
-        if (!isset($prepared_params['signature']) && $this->version == '1.0') {
-            $prepared_params['signature'] = Helper\ApiHelper::generateSignature($prepared_params, $this->secretKey, $this->version);
-        }
 
         return $prepared_params;
+    }
+
+    /**
+     * @param $data
+     * @return string
+     * @throws ApiExeption
+     */
+    public function getDataByVersion($data)
+    {
+        if (!$this->version)
+            throw new ApiExeption('Unknown api version');
+
+        switch ($this->version) {
+            case '1.0':
+                $data = $this->converDataV1($data);
+                break;
+            case '2.0':
+                if ($this->requestType != 'json') {
+                    Configuration::setRequestType('json');
+                    $this->requestType = 'json';
+                    trigger_error('Api protocol v2 can accept only json.', E_USER_NOTICE);
+                }
+                $data = $this->converDataV2($data);
+                break;
+        }
+        return $data;
     }
 
     /**

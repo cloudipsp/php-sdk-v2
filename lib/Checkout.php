@@ -26,8 +26,7 @@ class Checkout
 
     /**
      * @param $data
-     * @param array $headers
-     * @return mixed
+     * @return string
      */
     public static function form($data)
     {
@@ -36,10 +35,13 @@ class Checkout
     }
 
     /**
-     *
+     * @param $data
+     * @return string
      */
-    public function toCheckout()
+    public static function button($data)
     {
-        print_r(1);
+        $api = new Api\Button;
+        return $api->get($data);
     }
+
 }

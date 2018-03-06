@@ -106,6 +106,9 @@ class Configuration
      */
     public static function setApiVersion($ApiVersion)
     {
+        $versions = ['1.0', '2.0'];
+        if (!in_array($ApiVersion, $versions))
+            throw new Exeption\ApiExeption ('Undefined version! Available versions: \'1.0\', \'2.0\'');
         self::$ApiVersion = $ApiVersion;
     }
 
@@ -155,7 +158,7 @@ class Configuration
     public static function setRequestType($RequestType)
     {
         $types = ['json', 'xml', 'form'];
-        if(!in_array($RequestType, $types))
+        if (!in_array($RequestType, $types))
             throw new Exeption\ApiExeption ('Undefined request type! Available types: json, xml, form');
         self::$RequestType = $RequestType;
     }

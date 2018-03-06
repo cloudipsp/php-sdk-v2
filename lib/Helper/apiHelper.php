@@ -82,6 +82,16 @@ class ApiHelper
 
     /**
      * @param $data
+     * @param $url
+     * @return string
+     */
+    public static function generateButtonUrl($data, $url)
+    {
+        return $url . '?button=' . urlencode(json_encode($data));
+    }
+
+    /**
+     * @param $data
      * @param string $wrap
      * @return string
      */

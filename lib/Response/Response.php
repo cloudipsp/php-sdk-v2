@@ -21,15 +21,12 @@ class Response
      */
     private $apiVersion;
 
-    /**
-     * Response constructor.
-     * @param $data
-     */
+
     public function __construct($data)
     {
         $this->requestType = Configuration::getRequestType();
         $this->apiVersion = Configuration::getApiVersion();
-        
+
         switch ($this->requestType) {
             case 'xml':
                 $data = ResponseHelper::xmlToArray($data);
@@ -41,10 +38,24 @@ class Response
                 $data = ResponseHelper::jsonToArray($data);
                 break;
         }
-        if (isset($data['response']['response_status']) and $data['response']['response_status'] == 'failure')
-            throw new ApiExeption('Request is incorrect.', 200, $data);
+        $this->checkResponse($data);
+
         $this->data = $data;
 
+    }
+
+    /**
+     * @param $response
+     * @return mixed
+     * @throws ApiExeption
+     */
+    private function checkResponse($response)
+    {
+        if (isset($response['response']['response_status']) and $response['response']['response_status'] == 'failure')
+            throw new ApiExeption('Request is incorrect.', 200, $response);
+        if (isset($response['response']['error_code']))
+            throw new ApiExeption('Request is incorrect.', 200, $response);
+        return $response;
     }
 
     /**
