@@ -51,7 +51,7 @@ class Response
      */
     private function checkResponse($response)
     {
-        if (isset($response['response']['response_status']) and $response['response']['response_status'] == 'failure')
+        if (isset($response['response']['response_status']) && $response['response']['response_status'] == 'failure')
             throw new ApiExeption('Request is incorrect.', 200, $response);
         if (isset($response['response']['error_code']))
             throw new ApiExeption('Request is incorrect.', 200, $response);

@@ -107,9 +107,11 @@ class Configuration
     public static function setApiVersion($ApiVersion)
     {
         $versions = ['1.0', '2.0'];
-        if (!in_array($ApiVersion, $versions))
-            throw new Exeption\ApiExeption ('Undefined version! Available versions: \'1.0\', \'2.0\'');
-        self::$ApiVersion = $ApiVersion;
+        if (!in_array($ApiVersion, $versions)) {
+            trigger_error('Undefined version! Available versions: \'1.0\', \'2.0\'', E_USER_NOTICE);
+            return self::$ApiVersion = '1.0';
+        }
+        return self::$ApiVersion = $ApiVersion;
     }
 
     /**
@@ -144,9 +146,10 @@ class Configuration
     {
         $HttpClient = 'Fondy\\HttpClient\\' . $client;
         if (class_exists($HttpClient)) {
-            self::$HttpClient = $client;
+            return self::$HttpClient = $client;
         } else {
-            throw new Exeption\ApiExeption("Client Class not found or name set up incorrectly. Available clients: HttpCurl, HttpGuzzle");
+            trigger_error('Client Class not found or name set up incorrectly. Available clients: HttpCurl, HttpGuzzle', E_USER_NOTICE);
+            return self::$HttpClient = 'Fondy\\HttpClient\\HttpCurl';
         }
     }
 
@@ -156,9 +159,11 @@ class Configuration
     public static function setRequestType($RequestType)
     {
         $types = ['json', 'xml', 'form'];
-        if (!in_array($RequestType, $types))
-            throw new Exeption\ApiExeption ('Undefined request type! Available types: json, xml, form');
-        self::$RequestType = $RequestType;
+        if (!in_array($RequestType, $types)) {
+            trigger_error('Undefined request type! Available types: json, xml, form', E_USER_NOTICE);
+            return self::$RequestType = 'json';
+        }
+        return self::$RequestType = $RequestType;
     }
 
     /**

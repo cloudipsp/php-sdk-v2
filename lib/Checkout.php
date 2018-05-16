@@ -15,7 +15,8 @@ class Checkout
     /**
      * @param $data
      * @param array $headers
-     * @return mixed
+     * @return Response
+     * @throws Exeption\ApiExeption
      */
     public static function url($data, $headers = [])
     {
@@ -27,6 +28,7 @@ class Checkout
     /**
      * @param $data
      * @return string
+     * @throws Exeption\ApiExeption
      */
     public static function form($data)
     {
@@ -37,6 +39,7 @@ class Checkout
     /**
      * @param $data
      * @return string
+     * @throws Exeption\ApiExeption
      */
     public static function button($data)
     {

@@ -70,7 +70,7 @@ class Api
      */
     private function converDataV1($data)
     {
-        if (!isset($data['signature']) && $this->version == '1.0') {
+        if (!isset($data['signature'])) {
             $data['signature'] = Helper\ApiHelper::generateSignature($data, $this->secretKey, $this->version);
         }
         switch ($this->requestType) {
@@ -84,6 +84,7 @@ class Api
                 $data = Helper\ApiHelper::toJSON(['request' => $data]);
                 break;
         }
+
         return $data;
     }
 
@@ -120,7 +121,9 @@ class Api
         if (!isset($prepared_params['order_desc'])) {
             $prepared_params['order_desc'] = Helper\ApiHelper::generateOrderDesc($prepared_params['order_id']);
         }
-
+        if (isset($prepared_params['merchant_data']) && is_array($prepared_params['merchant_data'])) {
+            $prepared_params['merchant_data'] = Helper\ApiHelper::toJSON($prepared_params['merchant_data']);
+        }
         return $prepared_params;
     }
 
@@ -141,7 +144,6 @@ class Api
             case '2.0':
                 if ($this->requestType != 'json') {
                     Configuration::setRequestType('json');
-                    $this->requestType = 'json';
                     trigger_error('Api protocol v2 can accept only json.', E_USER_NOTICE);
                 }
                 $data = $this->converDataV2($data);
