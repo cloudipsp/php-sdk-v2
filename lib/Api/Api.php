@@ -4,7 +4,7 @@ namespace Fondy\Api;
 
 use Fondy\Configuration;
 use Fondy\Exeption\ApiExeption;
-use Fondy\Helper;
+use Fondy\Helper as Helper;
 
 class Api
 {

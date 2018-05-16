@@ -111,8 +111,6 @@ class ApiHelper
             if (is_array($value)) {
                 $child = self::toXML($value, null);
                 $xml .= $child;
-                if (!is_array($value))
-                    $xml .= htmlspecialchars(trim($value)) . "</$key>";
             } else {
                 if (!is_array($value))
                     $xml .= htmlspecialchars(trim($value)) . "</$key>";

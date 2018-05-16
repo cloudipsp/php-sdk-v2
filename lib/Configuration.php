@@ -146,9 +146,7 @@ class Configuration
         if (class_exists($HttpClient)) {
             self::$HttpClient = $client;
         } else {
-            throw new Exeption\ApiExeption(
-                "Client Class not found or name set up incorrectly. Available clients: HttpCurl, HttpGuzzle"
-            );
+            throw new Exeption\ApiExeption("Client Class not found or name set up incorrectly. Available clients: HttpCurl, HttpGuzzle");
         }
     }
 
