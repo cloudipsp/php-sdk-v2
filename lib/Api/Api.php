@@ -125,6 +125,8 @@ class Api
         if (isset($prepared_params['merchant_data']) && is_array($prepared_params['merchant_data'])) {
             $prepared_params['merchant_data'] = Helper\ApiHelper::toJSON($prepared_params['merchant_data']);
         }
+        if (isset($prepared_params['recurring_data']) && $this->version === '1.0')
+            throw new \InvalidArgumentException('Reccuring_data allowed only for api version \'2.0\'');
         return $prepared_params;
     }
 
@@ -144,8 +146,7 @@ class Api
                 break;
             case '2.0':
                 if ($this->requestType != 'json') {
-                    Configuration::setRequestType('json');
-                    trigger_error('Api protocol v2 can accept only json.', E_USER_NOTICE);
+                    throw new ApiExeption('Invalid request type. In protocol \'2.0\' only \'json\' allowed.');
                 }
                 $convertedData = $this->converDataV2($data);
                 break;

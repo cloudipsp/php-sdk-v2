@@ -71,6 +71,7 @@ class Response
      */
     public function getData()
     {
+
         if ($this->apiVersion == '2.0') {
             return ResponseHelper::getBase64Data($this->response);
         } else {

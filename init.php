@@ -8,9 +8,9 @@ $time_start = microtime(true);
 require 'vendor/autoload.php';
 \Fondy\Configuration::setMerchantId(1396424);
 \Fondy\Configuration::setSecretKey('test');
-\Fondy\Configuration::setApiVersion('1.0');
+\Fondy\Configuration::setApiVersion('2.0');
 \Fondy\Configuration::setRequestType('json');
-//\Fondy\Configuration::setHttpClient('HttpCurl');
+\Fondy\Configuration::setHttpClient('HttpCurl');
 \Fondy\Configuration::setApiUrl('api.fondy.eu');
 
 $data = [
@@ -22,7 +22,7 @@ $data = [
     'server_callback_url' => 'http://site.com/callbackurl',
     'payment_systems' => 'qiwi,yandex,webmoney,card,p24',
     'preauth' => 'N',
-    'sender_email' => 'noest@fondy.eu',
+    'sender_email' => 'test@fondy.eu',
     'delayed' => 'Y',
     'lang' => 'ru',
     'product_id' => 'some_product_id',
@@ -46,7 +46,7 @@ $data['recurring_data'] =
         'state' => 'y',
         'readonly' => 'y'
     );
-print_r(Fondy\Subscription::get($data)->getData());
+print_r(Fondy\Subscription::subscriptionUrl($data)->getData());
 //end
 
 $time_end = microtime(true);

@@ -22,10 +22,35 @@ class Subscription extends Checkout
         'subscription' => 'Y'
     ];
 
-    public static function get($data, $headers = [])
+    /**
+     * return checkout url with calendar
+     * @param $data
+     * @param array $headers
+     * @return Response\Response
+     */
+    public static function subscriptionUrl($data, $headers = [])
     {
-        if (\Fondy\Configuration::getApiVersion() !== '2.0')
+        if (\Fondy\Configuration::getApiVersion() !== '2.0') {
+            trigger_error('Reccuring_data allowed only for api version \'2.0\'', E_USER_NOTICE);
             \Fondy\Configuration::setApiVersion('2.0');
+        }
+        $data = array_merge($data, self::$defaultParams);
+        $result = parent::url($data, $headers, self::$requiredParams);
+        return $result;
+    }
+
+    /**
+     * return checkout token with calendar
+     * @param $data
+     * @param array $headers
+     * @return Response\Response
+     */
+    public static function subscriptionToken($data, $headers = [])
+    {
+        if (\Fondy\Configuration::getApiVersion() !== '2.0') {
+            trigger_error('Reccuring_data allowed only for api version \'2.0\'', E_USER_NOTICE);
+            \Fondy\Configuration::setApiVersion('2.0');
+        }
         $data = array_merge($data, self::$defaultParams);
         $result = parent::token($data, $headers, self::$requiredParams);
         return $result;
