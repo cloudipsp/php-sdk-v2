@@ -68,11 +68,8 @@ class Api
      * @param $data
      * @return string or array
      */
-    private function converDataV1($data)
+    protected function converDataV1($data)
     {
-        if (!isset($data['signature'])) {
-            $data['signature'] = Helper\ApiHelper::generateSignature($data, $this->secretKey, $this->version);
-        }
         switch ($this->requestType) {
             case 'xml':
                 $data = Helper\ApiHelper::toXML(['request' => $data]);
@@ -92,7 +89,7 @@ class Api
      * @param $data
      * @return string
      */
-    private function converDataV2($data)
+    protected function converDataV2($data)
     {
         $prepared_data = [
             "version" => "2.0",
@@ -108,7 +105,7 @@ class Api
      * @param $params
      * @return mixed
      */
-    public function prepareParams($params)
+    protected function prepareParams($params)
     {
         $prepared_params = $params;
 
@@ -124,6 +121,9 @@ class Api
         if (isset($prepared_params['merchant_data']) && is_array($prepared_params['merchant_data'])) {
             $prepared_params['merchant_data'] = Helper\ApiHelper::toJSON($prepared_params['merchant_data']);
         }
+        if (!isset($prepared_params['signature'])) {
+            $prepared_params['signature'] = Helper\ApiHelper::generateSignature($prepared_params, $this->secretKey, $this->version);
+        }
         return $prepared_params;
     }
 
@@ -132,7 +132,7 @@ class Api
      * @return string
      * @throws ApiExeption
      */
-    public function getDataByVersion($data)
+    protected function getDataByVersion($data)
     {
         if (!$this->version)
             throw new ApiExeption('Unknown api version');
@@ -152,11 +152,16 @@ class Api
         return $data;
     }
 
+    protected function validate($params, $required)
+    {
+        Helper\ValidationHelper::validateRequiredParams($params, $required);
+    }
+
     /**
      * @param $url
      * @return string
      */
-    public function createUrl($url)
+    protected function createUrl($url)
     {
         return Configuration::getApiUrl() . $url;
     }

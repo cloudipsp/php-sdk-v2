@@ -3,11 +3,10 @@
 namespace Fondy\Api\Checkout;
 
 use Fondy\Api\Api;
-use Fondy\Helper\ApiHelper;
 
-class Form extends Api
+class Token extends Api
 {
-    private $url = '/checkout/redirect/';
+    private $url = '/checkout/token/';
     /**
      * Minimal required params to get checkout
      * @var array
@@ -22,12 +21,14 @@ class Form extends Api
 
     /**
      * @param $data
-     * @return string
+     * @param array $headers
+     * @return mixed
+     * @throws \Fondy\Exeption\ApiExeption
      */
-    public function get($data)
+    public function get($data, $headers = [])
     {
         $requestData = $this->prepareParams($data);
-        $url = $this->createUrl($this->url);
-        return ApiHelper::generatePaymentForm($requestData, $url);
+        return parent::Request($method = 'POST', $this->url, $headers, $requestData);
     }
+
 }

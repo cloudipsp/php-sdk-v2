@@ -13,6 +13,7 @@ class ResponseHelper
     {
         return json_decode(base64_decode($data['response']['data']), TRUE)['order'];
     }
+
     /**
      * @param string
      * @return array
@@ -23,6 +24,7 @@ class ResponseHelper
     }
 
     /**
+     * convert xml to array
      * @param $contents
      * @param bool $getAttributes
      * @param bool $tagPriority
@@ -154,6 +156,8 @@ class ResponseHelper
      */
     public static function formToArray($data)
     {
-        return parse_str($data);
+        $respnonse = [];
+        parse_str($data, $respnonse);
+        return $respnonse;
     }
 }

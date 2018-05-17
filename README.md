@@ -1,7 +1,7 @@
 # sdk-v2
 sdk-v2
 
-
+```
 import requests
 import hashlib
 url = 'https://api.fondy.eu/api/reports/request/'
@@ -12,3 +12,4 @@ data.extend([unicode(params[key]) for key in sorted(params.iterkeys())
 params['signature'] = hashlib.sha1('test|' + '|'.join(data).encode('utf-8')).hexdigest()    
 res = requests.post(url, json={'request':params})    
 print res.text
+```

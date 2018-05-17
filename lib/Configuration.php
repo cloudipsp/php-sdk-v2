@@ -2,8 +2,6 @@
 
 namespace Fondy;
 
-use Fondy\Exeption;
-
 class Configuration
 {
     /**

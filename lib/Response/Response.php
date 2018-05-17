@@ -15,7 +15,7 @@ class Response
     /**
      * @var array
      */
-    private $data;
+    private $response;
     /**
      * @var string
      */
@@ -29,18 +29,18 @@ class Response
 
         switch ($this->requestType) {
             case 'xml':
-                $data = ResponseHelper::xmlToArray($data);
+                $response = ResponseHelper::xmlToArray($data);
                 break;
             case 'form':
-                $data = ResponseHelper::formToArray($data);
+                $response['response'] = ResponseHelper::formToArray($data);
                 break;
             case 'json':
-                $data = ResponseHelper::jsonToArray($data);
+                $response = ResponseHelper::jsonToArray($data);
                 break;
         }
-        $this->checkResponse($data);
+        $this->checkResponse($response);
 
-        $this->data = $data;
+        $this->response = $response;
 
     }
 
@@ -73,9 +73,9 @@ class Response
     public function getData()
     {
         if ($this->apiVersion == '2.0') {
-            return ResponseHelper::getBase64Data($this->data);
+            return ResponseHelper::getBase64Data($this->response);
         } else {
-            return $this->data['response'];
+            return $this->response['response'];
         }
     }
 }
