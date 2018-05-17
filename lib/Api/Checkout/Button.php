@@ -14,7 +14,6 @@ class Button extends Api
      */
     private $requiredParams = [
         'merchant_id' => 'integer',
-        'signature' => 'string',
         'order_desc' => 'string',
         'amount' => 'integer',
         'currency' => 'string'
@@ -27,8 +26,34 @@ class Button extends Api
      */
     public function get($data)
     {
-        $requestData = $this->prepareParams($data);
+        $requestData = $this->prepareButtonParams($data);
         $url = $this->createUrl($this->url);
+        parent::validate($requestData, $this->requiredParams);
         return ApiHelper::generateButtonUrl($requestData, $url);
+    }
+
+    /**
+     * @param $params
+     * @return mixed
+     */
+    protected function prepareButtonParams($params)
+    {
+        $prepared_params = $params;
+
+        if (!isset($prepared_params['merchant_id'])) {
+            $prepared_params['merchant_id'] = $this->mid;
+        }
+        if (!isset($prepared_params['order_id'])) {
+            $prepared_params['order_id'] = ApiHelper::generateOrderID($this->mid);
+        }
+        if (!isset($prepared_params['order_desc'])) {
+            $prepared_params['order_desc'] = ApiHelper::generateOrderDesc($prepared_params['order_id']);
+        }
+        if (isset($prepared_params['merchant_data']['fields'])) {
+            $prepared_params['fields'] = $prepared_params['merchant_data']['fields'];
+
+        }
+        unset($prepared_params['merchant_data']);
+        return $prepared_params;
     }
 }

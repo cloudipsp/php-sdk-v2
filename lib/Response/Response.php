@@ -26,7 +26,6 @@ class Response
     {
         $this->requestType = Configuration::getRequestType();
         $this->apiVersion = Configuration::getApiVersion();
-
         switch ($this->requestType) {
             case 'xml':
                 $response = ResponseHelper::xmlToArray($data);

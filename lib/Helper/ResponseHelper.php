@@ -11,6 +11,8 @@ class ResponseHelper
      */
     public static function getBase64Data($data)
     {
+        if(isset($data['response']['token']))
+            return $data['response']['token'];
         return json_decode(base64_decode($data['response']['data']), TRUE)['order'];
     }
 

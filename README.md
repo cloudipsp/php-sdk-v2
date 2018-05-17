@@ -12,4 +12,5 @@ data.extend([unicode(params[key]) for key in sorted(params.iterkeys())
 params['signature'] = hashlib.sha1('test|' + '|'.join(data).encode('utf-8')).hexdigest()    
 res = requests.post(url, json={'request':params})    
 print res.text
+
 ```

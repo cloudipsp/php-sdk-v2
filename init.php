@@ -14,10 +14,39 @@ require 'vendor/autoload.php';
 \Fondy\Configuration::setApiUrl('api.fondy.eu');
 
 $data = [
+    'order_desc' => 'test SDK',
     'currency' => 'USD',
-    'amount' => 11111
+    'amount' => 1111,
+    'default_payment_system' => 'card',
+    'response_url' => 'http://site.com/responseurl',
+    'server_callback_url' => 'http://site.com/callbackurl',
+    'payment_systems' => 'qiwi,yandex,webmoney,card,p24',
+    'preauth' => 'N',
+    'sender_email' => 'noest@fondy.eu',
+    'delayed' => 'Y',
+    'lang' => 'ru',
+    'product_id' => 'some_product_id',
+    'required_rectoken' => 'N',
+    'lifetime' => 36000,
+    'verification' => 'N',
+    'merchant_data' => array(
+        'fields' => [
+            'name'=> 'noest',
+            'label'=>'dasdasdas',
+            'valid'=> 'requird'
+        ]
+    )
 ];
-print_r(Fondy\Checkout::url($data)->getData());
+$data['recurring_data'] =
+    array(
+        'start_time' => date('Y-m-d', time()),
+        'amount' => 1111,
+        'every' => 30,
+        'period' => 'day',
+        'state' => 'y',
+        'readonly' => 'y'
+    );
+print_r(Fondy\Subscription::get($data)->getData());
 //end
 
 $time_end = microtime(true);

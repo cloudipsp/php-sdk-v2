@@ -14,7 +14,6 @@ class Form extends Api
      */
     private $requiredParams = [
         'merchant_id' => 'integer',
-        'signature' => 'string',
         'order_desc' => 'string',
         'amount' => 'integer',
         'currency' => 'string'
@@ -28,6 +27,7 @@ class Form extends Api
     {
         $requestData = $this->prepareParams($data);
         $url = $this->createUrl($this->url);
+        parent::validate($requestData, $this->requiredParams);
         return ApiHelper::generatePaymentForm($requestData, $url);
     }
 }

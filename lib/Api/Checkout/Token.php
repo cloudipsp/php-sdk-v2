@@ -13,7 +13,6 @@ class Token extends Api
      */
     private $requiredParams = [
         'merchant_id' => 'integer',
-        'signature' => 'string',
         'order_desc' => 'string',
         'amount' => 'integer',
         'currency' => 'string'
@@ -25,9 +24,12 @@ class Token extends Api
      * @return mixed
      * @throws \Fondy\Exeption\ApiExeption
      */
-    public function get($data, $headers = [])
+    public function get($data, $headers = [], $requiredParams = [])
     {
+        if ($requiredParams)
+            $this->requiredParams = array_merge($requiredParams, $this->requiredParams);
         $requestData = $this->prepareParams($data);
+        parent::validate($requestData, $this->requiredParams);
         return parent::Request($method = 'POST', $this->url, $headers, $requestData);
     }
 

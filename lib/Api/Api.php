@@ -70,19 +70,21 @@ class Api
      */
     protected function converDataV1($data)
     {
+        if (!isset($data['signature']))
+            $data['signature'] = Helper\ApiHelper::generateSignature($data, $this->secretKey, $this->version);
         switch ($this->requestType) {
             case 'xml':
-                $data = Helper\ApiHelper::toXML(['request' => $data]);
+                $convertedData = Helper\ApiHelper::toXML(['request' => $data]);
                 break;
             case 'form':
-                $data = Helper\ApiHelper::toFormData($data);
+                $convertedData = Helper\ApiHelper::toFormData($data);
                 break;
             case 'json':
-                $data = Helper\ApiHelper::toJSON(['request' => $data]);
+                $convertedData = Helper\ApiHelper::toJSON(['request' => $data]);
                 break;
         }
 
-        return $data;
+        return $convertedData;
     }
 
     /**
@@ -91,14 +93,16 @@ class Api
      */
     protected function converDataV2($data)
     {
-        $prepared_data = [
+        if (isset($data['signature']))
+            unset($data['signature']);
+        $convertedData = [
             "version" => "2.0",
             "data" => base64_encode(Helper\ApiHelper::toJSON(['order' => $data]))
         ];
 
-        $prepared_data["signature"] = Helper\ApiHelper::generateSignature($prepared_data["data"], $this->secretKey, $this->version);
+        $convertedData["signature"] = Helper\ApiHelper::generateSignature($convertedData["data"], $this->secretKey, $this->version);
 
-        return Helper\ApiHelper::toJSON(['request' => $prepared_data]);
+        return Helper\ApiHelper::toJSON(['request' => $convertedData]);
     }
 
     /**
@@ -121,9 +125,6 @@ class Api
         if (isset($prepared_params['merchant_data']) && is_array($prepared_params['merchant_data'])) {
             $prepared_params['merchant_data'] = Helper\ApiHelper::toJSON($prepared_params['merchant_data']);
         }
-        if (!isset($prepared_params['signature'])) {
-            $prepared_params['signature'] = Helper\ApiHelper::generateSignature($prepared_params, $this->secretKey, $this->version);
-        }
         return $prepared_params;
     }
 
@@ -139,17 +140,17 @@ class Api
 
         switch ($this->version) {
             case '1.0':
-                $data = $this->converDataV1($data);
+                $convertedData = $this->converDataV1($data);
                 break;
             case '2.0':
                 if ($this->requestType != 'json') {
                     Configuration::setRequestType('json');
                     trigger_error('Api protocol v2 can accept only json.', E_USER_NOTICE);
                 }
-                $data = $this->converDataV2($data);
+                $convertedData = $this->converDataV2($data);
                 break;
         }
-        return $data;
+        return $convertedData;
     }
 
     protected function validate($params, $required)

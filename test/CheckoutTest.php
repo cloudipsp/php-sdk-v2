@@ -12,6 +12,7 @@ class CheckoutTest extends TestCase
         'currency' => 'USD',
         'amount' => 1000,
     ];
+
     private $customTestData = [
         'currency' => 'USD',
         'amount' => 21321312,
@@ -52,11 +53,14 @@ class CheckoutTest extends TestCase
     {
         \Fondy\Configuration::setMerchantId($this->mid);
         \Fondy\Configuration::setSecretKey($this->secret_key);
+
         $resultJson = \Fondy\Checkout::url($this->fullTestData)->getData();
         $this->validateCheckoutUrlResult($resultJson);
+
         \Fondy\Configuration::setRequestType('xml');
         $resultXml = \Fondy\Checkout::url($this->fullTestData)->getData();
         $this->validateCheckoutUrlResult($resultXml);
+
         \Fondy\Configuration::setRequestType('form');
         $resultForm = \Fondy\Checkout::url($this->fullTestData)->getData();
         $this->validateCheckoutUrlResult($resultForm);

@@ -8,12 +8,14 @@ class ValidationHelper
      * Validation required params not empty
      * @param $params
      * @param $required
+     * @return bool
      */
     public static function validateRequiredParams($params, $required)
     {
 
-
         foreach ($required as $key => $param) {
+            if (is_array($param))
+                self::validateRequiredParams($params[$key], $param);
             if (!array_key_exists($key, $params)) {
                 throw new \InvalidArgumentException('Some required param\s is missing');
             }
@@ -26,6 +28,9 @@ class ValidationHelper
                     break;
                 case 'string':
                     self::validateString($params[$key], $key);
+                    break;
+                case 'date':
+                    self::validateDate($params[$key], $key);
                     break;
             }
 
@@ -43,17 +48,43 @@ class ValidationHelper
     public static function validateURL($url, $urlName = null)
     {
         if (filter_var($url, FILTER_VALIDATE_URL) === false) {
-            throw new \InvalidArgumentException("$urlName is not a fully qualified URL");
+            throw new \InvalidArgumentException(sprintf("%s is not a fully qualified URL", $urlName));
         }
     }
 
+    /**
+     * Helper method for validating URLs
+     * @param      $url
+     * @param string|null $urlName
+     * @throws \InvalidArgumentException
+     */
+    public static function validateDate($date, $format = null)
+    {
+        $check = explode("-", $date);
+        if (!checkdate($check[1], $check[2], $check[0])) {
+            throw new \InvalidArgumentException('Date is incorrect');
+        }
+    }
+
+    /**
+     * Helper method for validating Integer
+     * @param      $url
+     * @param string|null $urlName
+     * @throws \InvalidArgumentException
+     */
     public static function validateInteger($param, $key = '')
     {
         if (trim($param) != null && !is_numeric($param)) {
-            throw new \InvalidArgumentException('%s is not a valid numeric', $key);
+            throw new \InvalidArgumentException(sprintf('%s is not a valid numeric', $key));
         }
     }
 
+    /**
+     * Helper method for validating String
+     * @param      $url
+     * @param string|null $urlName
+     * @throws \InvalidArgumentException
+     */
     public static function validateString($param, $key = '')
     {
         if ($param != null && !is_string($param)) {

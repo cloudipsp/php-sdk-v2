@@ -10,7 +10,6 @@ class HttpCurl implements ClientInterface
      * @var array
      */
     private $options = [
-
         CURLOPT_FOLLOWLOCATION => false,
         CURLOPT_HEADER => false,
         CURLOPT_RETURNTRANSFER => true,
@@ -49,7 +48,7 @@ class HttpCurl implements ClientInterface
         $response = curl_exec($ch);
         $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         if ($httpStatus != 200)
-            throw new Exeption\HttpClientExeption(sprintf('Curl send error header, status is: %s', $httpStatus));
+            throw new Exeption\HttpClientExeption(sprintf('Status is: %s', $httpStatus));
         curl_close($ch);
         return trim($response);
     }

@@ -17,7 +17,7 @@ class ApiHelper
      * @param bool $encoded
      * @return string
      */
-    public static function generateSignature($params = [], $secret_key, $version = '1.0', $encoded = true)
+    public static function generateSignature($params, $secret_key, $version = '1.0', $encoded = true)
     {
 
         if ($version == '2.0') {
