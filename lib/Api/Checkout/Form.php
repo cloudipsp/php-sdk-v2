@@ -27,7 +27,7 @@ class Form extends Api
     {
         $requestData = $this->prepareParams($data);
         $url = $this->createUrl($this->url);
-        parent::validate($requestData, $this->requiredParams);
+        $this->validate($requestData, $this->requiredParams);
         return ApiHelper::generatePaymentForm($requestData, $url);
     }
 }

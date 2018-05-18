@@ -29,8 +29,8 @@ class Url extends Api
         if ($requiredParams)
             $this->requiredParams = array_merge($requiredParams, $this->requiredParams);
         $requestData = $this->prepareParams($data);
-        parent::validate($requestData, $this->requiredParams);
-        return parent::Request($method = 'POST', $this->url, $headers, $requestData);
+        $this->validate($requestData, $this->requiredParams);
+        return $this->Request($method = 'POST', $this->url, $headers, $requestData);
     }
 
 }

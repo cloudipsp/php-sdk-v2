@@ -10,7 +10,7 @@ namespace Fondy;
 
 use PHPUnit\Framework\TestCase;
 
-class PCIDSSTest extends TestCase
+class PcidssTest extends TestCase
 {
     private $mid = 1396424;
     private $secret_key = 'test';
@@ -44,7 +44,7 @@ class PCIDSSTest extends TestCase
         foreach ($this->request_types as $type) {
             \Fondy\Configuration::setRequestType($type);
             $data = array_merge($this->TestPcidssData, $this->TestCardnon3ds);
-            $result = \Fondy\PCIDSS::start($data)->getData();
+            $result = \Fondy\Pcidss::start($data)->getData();
             $this->validateNon3dResult($result);
         }
     }
@@ -57,7 +57,7 @@ class PCIDSSTest extends TestCase
             'md' => 'pareq',
             'TermUrl' => 'http://some-url.com'
         ];
-        $form = \Fondy\PCIDSS::getFrom($data);
+        $form = \Fondy\Pcidss::getFrom($data);
         $this->assertTrue(is_string($form), "Got a " . gettype($form) . " instead of a string");
     }
 
@@ -67,7 +67,7 @@ class PCIDSSTest extends TestCase
         foreach ($this->request_types as $type) {
             \Fondy\Configuration::setRequestType($type);
             $data = array_merge($this->TestPcidssData, $this->TestCard3ds);
-            $result = \Fondy\PCIDSS::start($data)->getData();
+            $result = \Fondy\Pcidss::start($data)->getData();
             $this->validate3dResult($result);
         }
     }

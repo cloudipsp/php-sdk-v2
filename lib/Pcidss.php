@@ -7,7 +7,7 @@ use Fondy\Response\Response;
 use Fondy\Helper;
 use Fondy\Exeption\ApiExeption;
 
-class PCIDSS
+class Pcidss
 {
     /**
      * generate payment
@@ -38,7 +38,7 @@ class PCIDSS
     }
 
     /**
-     * generate post for 3ds step 2
+     * get form page for 3ds step 2
      * @param $data
      * @param array $headers
      * @return Response

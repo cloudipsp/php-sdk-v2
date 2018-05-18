@@ -36,8 +36,12 @@ class Api
     public function __construct()
     {
         $this->version = Configuration::getApiVersion();
-        $this->secretKey = Configuration::getSecretKey();
         $this->mid = Configuration::getMerchantId();
+        $this->setKeyByOperationType();
+        if (empty($this->mid) or !is_numeric($this->mid))
+            throw new ApiExeption('Merchant ID is empty or invalid.');
+        if (empty($this->secretKey))
+            throw new ApiExeption('Secret Key is empty or invalid.');
         $this->client = Configuration::getHttpClient();
         $this->requestType = Configuration::getRequestType();
     }
@@ -166,5 +170,19 @@ class Api
     protected function createUrl($url)
     {
         return Configuration::getApiUrl() . $url;
+    }
+
+    /**
+     * setting secret key by operation type
+     * @param $type
+     * @return string
+     */
+    protected function setKeyByOperationType($type = '')
+    {
+        if ($type === 'credit') {
+            $this->secretKey = Configuration::getCreditKey();
+        } else {
+            $this->secretKey = Configuration::getSecretKey();
+        }
     }
 }

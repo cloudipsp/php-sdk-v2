@@ -32,8 +32,8 @@ class StepOne extends Api
     public function get($data, $headers = [])
     {
         $requestData = $this->prepareParams($data);
-        parent::validate($requestData, $this->requiredParams);
-        return parent::Request($method = 'POST', $this->url, $headers, $requestData);
+        $this->validate($requestData, $this->requiredParams);
+        return $this->Request($method = 'POST', $this->url, $headers, $requestData);
     }
 
 }

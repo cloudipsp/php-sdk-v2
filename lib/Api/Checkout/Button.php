@@ -28,7 +28,7 @@ class Button extends Api
     {
         $requestData = $this->prepareButtonParams($data);
         $url = $this->createUrl($this->url);
-        parent::validate($requestData, $this->requiredParams);
+        $this->validate($requestData, $this->requiredParams);
         return ApiHelper::generateButtonUrl($requestData, $url);
     }
 

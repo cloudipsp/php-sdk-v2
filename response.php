@@ -1,7 +1,7 @@
 <?php
 error_reporting(-1);
 ini_set('display_errors', 'On');
-
+print_r($_POST);
 require 'vendor/autoload.php';
 \Fondy\Configuration::setMerchantId(1396424);
 \Fondy\Configuration::setSecretKey('test');
@@ -16,5 +16,5 @@ $data = [
     'md' => $_POST['MD']
 ];
 print_r($data);
-print_r($data = Fondy\PCIDSS::submit($data)->getData());
+print_r($data = Fondy\Pcidss::submit($data)->getData());
 die;

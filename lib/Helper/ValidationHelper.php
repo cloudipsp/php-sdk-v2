@@ -17,7 +17,7 @@ class ValidationHelper
             if (is_array($param))
                 self::validateRequiredParams($params[$key], $param);
             if (!array_key_exists($key, $params)) {
-                throw new \InvalidArgumentException('Some required param\s is missing');
+                throw new \InvalidArgumentException('Some required params are missing');
             }
             if (array_key_exists($key, $required) && empty($param)) {
                 throw new \InvalidArgumentException(sprintf('Required param "%s" is empty', $key));
