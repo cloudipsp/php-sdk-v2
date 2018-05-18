@@ -15,6 +15,11 @@ class ConfigurationTest extends TestCase
             'https://api.saas.com/api',
             \Fondy\Configuration::getApiUrl()
         );
+        \Fondy\Configuration::setApiUrl('api.fondy.eu');
+        $this->assertEquals(
+            'https://api.fondy.eu/api',
+            \Fondy\Configuration::getApiUrl()
+        );
     }
 
     public function testSetApiVersion()
@@ -35,13 +40,13 @@ class ConfigurationTest extends TestCase
         $this->assertInstanceOf('\\Fondy\\HttpClient\\HttpCurl', \Fondy\Configuration::getHttpClient());
         \Fondy\Configuration::setHttpClient('HttpGuzzle');
         $this->assertInstanceOf('\\Fondy\\HttpClient\\HttpGuzzle', \Fondy\Configuration::getHttpClient());
+        \Fondy\Configuration::setHttpClient('HttpCurl');
     }
 
 
     public function testSetSecretKey()
     {
         \Fondy\Configuration::setSecretKey('something-secret');
-
         $this->assertEquals('something-secret', \Fondy\Configuration::getSecretKey());
     }
 
@@ -49,14 +54,12 @@ class ConfigurationTest extends TestCase
     public function testSetMerchantId()
     {
         \Fondy\Configuration::setMerchantId(123);
-
         $this->assertEquals(123, \Fondy\Configuration::getMerchantId());
     }
 
     public function testSetCreditKey()
     {
         \Fondy\Configuration::setCreditKey(345);
-
         $this->assertEquals(345, \Fondy\Configuration::getCreditKey());
     }
 }

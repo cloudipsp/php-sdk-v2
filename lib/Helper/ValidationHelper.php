@@ -32,6 +32,12 @@ class ValidationHelper
                 case 'date':
                     self::validateDate($params[$key], $key);
                     break;
+                case 'ccnumber':
+                    self::validateCCard($params[$key]);
+                    break;
+                case 'ip':
+                    self::validateIP($params[$key]);
+                    break;
             }
 
         }
@@ -45,10 +51,10 @@ class ValidationHelper
      * @param string|null $urlName
      * @throws \InvalidArgumentException
      */
-    public static function validateURL($url, $urlName = null)
+    public static function validateURL($url)
     {
         if (filter_var($url, FILTER_VALIDATE_URL) === false) {
-            throw new \InvalidArgumentException(sprintf("%s is not a fully qualified URL", $urlName));
+            throw new \InvalidArgumentException(sprintf("%s is not a fully qualified URL", $url));
         }
     }
 
@@ -89,6 +95,42 @@ class ValidationHelper
     {
         if ($param != null && !is_string($param)) {
             throw new \InvalidArgumentException(sprintf('%s is not a valid string', $key));
+        }
+    }
+
+    /**
+     * Luhn algorithm
+     * @param $number
+     * @return bool
+     */
+    protected static function validateCCard($number)
+    {
+        $checksum = 0;
+        for ($i = (2 - (strlen($number) % 2)); $i <= strlen($number); $i += 2) {
+            $checksum += (int)($number{$i - 1});
+        }
+        // Analyze odd digits in even length strings or even digits in odd length strings.
+        for ($i = (strlen($number) % 2) + 1; $i < strlen($number); $i += 2) {
+            $digit = (int)($number{$i - 1}) * 2;
+            if ($digit < 10) {
+                $checksum += $digit;
+            } else {
+                $checksum += ($digit - 9);
+            }
+        }
+        if (($checksum % 10) == 0) {
+            return true;
+        } else {
+            throw new \InvalidArgumentException(sprintf('\'%s\' is not a valid credit card number', $number));
+        }
+    }
+
+    protected static function validateIP($ip)
+    {
+        if (filter_var($ip, FILTER_VALIDATE_IP)) {
+            return true;
+        } else {
+            throw new \InvalidArgumentException(sprintf('\'%s\' is not a valid ip', $ip));
         }
     }
 }

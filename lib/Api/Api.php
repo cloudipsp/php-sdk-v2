@@ -56,7 +56,6 @@ class Api
         $data = $this->getDataByVersion($data);
         $headers = Helper\RequestHelper::parseHeadres($headers, $this->requestType);
         $response = $this->client->request($method, $url, $headers, $data);
-
         if (!$response)
             throw new ApiExeption('Unknown error.');
 
@@ -127,6 +126,7 @@ class Api
         }
         if (isset($prepared_params['recurring_data']) && $this->version === '1.0')
             throw new \InvalidArgumentException('Reccuring_data allowed only for api version \'2.0\'');
+
         return $prepared_params;
     }
 

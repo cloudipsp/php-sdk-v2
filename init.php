@@ -8,8 +8,8 @@ $time_start = microtime(true);
 require 'vendor/autoload.php';
 \Fondy\Configuration::setMerchantId(1396424);
 \Fondy\Configuration::setSecretKey('test');
-\Fondy\Configuration::setApiVersion('2.0');
-\Fondy\Configuration::setRequestType('json');
+\Fondy\Configuration::setApiVersion('1.0');
+\Fondy\Configuration::setRequestType('xml');
 \Fondy\Configuration::setHttpClient('HttpCurl');
 \Fondy\Configuration::setApiUrl('api.fondy.eu');
 
@@ -17,36 +17,17 @@ $data = [
     'order_desc' => 'test SDK',
     'currency' => 'USD',
     'amount' => 1111,
-    'default_payment_system' => 'card',
-    'response_url' => 'http://site.com/responseurl',
-    'server_callback_url' => 'http://site.com/callbackurl',
-    'payment_systems' => 'qiwi,yandex,webmoney,card,p24',
-    'preauth' => 'N',
-    'sender_email' => 'test@fondy.eu',
-    'delayed' => 'Y',
-    'lang' => 'ru',
-    'product_id' => 'some_product_id',
-    'required_rectoken' => 'N',
-    'lifetime' => 36000,
-    'verification' => 'N',
-    'merchant_data' => array(
-        'fields' => [
-            'name'=> 'noest',
-            'label'=>'dasdasdas',
-            'valid'=> 'requird'
-        ]
-    )
+    'card_number' => '4444111155556666',
+    'cvv2' => '444',
+    'expiry_date' => '1221',
+    'client_ip' => '127.2.2.1'
 ];
-$data['recurring_data'] =
-    array(
-        'start_time' => date('Y-m-d', time()),
-        'amount' => 1111,
-        'every' => 30,
-        'period' => 'day',
-        'state' => 'y',
-        'readonly' => 'y'
-    );
-print_r(Fondy\Subscription::subscriptionUrl($data)->getData());
+$data = Fondy\PCIDSS::start($data)->getData();
+if (isset($data['acs_url'])) {
+    print_r(Fondy\PCIDSS::getFrom($data, 'http://localhost:63342/sdk-v2/response.php?_ijt=k8ou6fplt8mh79h9qtjbflkq2j'));
+}else{
+    print_r($data);
+}
 //end
 
 $time_end = microtime(true);
