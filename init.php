@@ -34,10 +34,10 @@ $data = [
     'order_id' => '1396424_71bcb2a56f8c6fe9144a673ff0970506'
 ];*/
 
-$data = Fondy\Checkout::url($data)->getUrl();
+//$data = Fondy\Checkout::url($data)->getUrl();
 //$data = Fondy\P2pcredit::start($data)->getData();
-//$data = Fondy\Order::capture($data)->getData();
-print_r($data);
+$data = Fondy\Payment::recurring($data)->isValid();
+var_dump($data);
 //end
 
 $time_end = microtime(true);

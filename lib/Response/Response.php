@@ -11,15 +11,15 @@ class Response
     /**
      * @var string
      */
-    private $requsetType;
+    protected $requsetType;
     /**
      * @var array
      */
-    private $response;
+    protected $response;
     /**
      * @var string
      */
-    private $apiVersion;
+    protected $apiVersion;
 
 
     public function __construct($data)
