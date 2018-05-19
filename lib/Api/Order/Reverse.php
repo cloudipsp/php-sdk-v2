@@ -1,20 +1,19 @@
 <?php
 
-namespace Fondy\Api\P2pcredit;
+namespace Fondy\Api\Order;
 
 use Fondy\Api\Api;
-use Fondy\Helper;
 
-class Credit extends Api
+class Reverse extends Api
 {
-    private $url = '/p2pcredit/';
+    private $url = '/reverse/order_id/';
     /**
-     * Minimal required params to get checkout
+     * Minimal required params
      * @var array
      */
     private $requiredParams = [
         'merchant_id' => 'integer',
-        'order_desc' => 'string',
+        'order_id' => 'string',
         'amount' => 'integer',
         'currency' => 'string'
     ];
@@ -45,16 +44,6 @@ class Credit extends Api
         if (!isset($prepared_params['merchant_id'])) {
             $prepared_params['merchant_id'] = $this->mid;
         }
-        if (!isset($prepared_params['order_id'])) {
-            $prepared_params['order_id'] = Helper\ApiHelper::generateOrderID($this->mid);
-        }
-        if (!isset($prepared_params['order_desc'])) {
-            $prepared_params['order_desc'] = Helper\ApiHelper::generateOrderDesc($prepared_params['order_id']);
-        }
-        if (empty($prepared_params['receiver_card_number']) && empty($prepared_params['receiver_rectoken'])) {
-            throw new \InvalidArgumentException('Request must contain additional parameter receiver_card_number or receiver_rectoken');
-        }
         return $prepared_params;
     }
-
 }

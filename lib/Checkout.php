@@ -19,10 +19,10 @@ class Checkout
      * @return Response
      * @throws Exeption\ApiExeption
      */
-    public static function url($data, $headers = [], $requiredParams = [])
+    public static function url($data, $headers = [])
     {
-        $api = new Api\Url;
-        $result = $api->get($data, $headers, $requiredParams);
+        $api = new Api\Url();
+        $result = $api->get($data, $headers);
         return new Response($result);
     }
 
@@ -34,7 +34,7 @@ class Checkout
      */
     public static function form($data)
     {
-        $api = new Api\Form;
+        $api = new Api\Form();
         return $api->get($data);
     }
 
@@ -46,7 +46,7 @@ class Checkout
      */
     public static function button($data)
     {
-        $api = new Api\Button;
+        $api = new Api\Button();
         return $api->get($data);
     }
 
@@ -56,7 +56,7 @@ class Checkout
      * @return string
      * @throws Exeption\ApiExeption
      */
-    public static function token($data, $headers = [], $requiredParams = [])
+    public static function token($data, $headers = [])
     {
         $api = new Api\Token;
         $result = $api->get($data, $headers);

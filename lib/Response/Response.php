@@ -44,6 +44,7 @@ class Response
     }
 
     /**
+     * Check response on errors
      * @param $response
      * @return mixed
      * @throws ApiExeption
@@ -62,8 +63,46 @@ class Response
      */
     public function toCheckout()
     {
-        header(sprintf('location: %s', $this->getData()['checkout_url']));
-        exit;
+        if ($this->response['checkout_url']) {
+            header(sprintf('location: %s', $this->response['checkout_url']));
+            exit;
+        }
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function getUrl()
+    {
+        if (isset($this->response['response']['checkout_url'])) {
+            return $this->response['response']['checkout_url'];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isReversed()
+    {
+        if (isset($this->response['response']['reverse_status']) && $this->response['response']['reverse_status'] === 'approved') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCaptured()
+    {
+        if (isset($this->response['response']['capture_status']) && $this->response['response']['capture_status'] === 'captured') {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -71,8 +110,7 @@ class Response
      */
     public function getData()
     {
-
-        if ($this->apiVersion == '2.0') {
+        if ($this->apiVersion === '2.0') {
             return ResponseHelper::getBase64Data($this->response);
         } else {
             return $this->response['response'];

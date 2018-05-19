@@ -33,7 +33,7 @@ class Pcidss
     public static function submit($data, $headers = [])
     {
         $api = new Api\Pcidss\StepTwo();
-        $result = $api->get($data);
+        $result = $api->get($data, $headers);
         return new Response($result);
     }
 

@@ -59,7 +59,7 @@ class ConfigurationTest extends TestCase
 
     public function testSetCreditKey()
     {
-        \Fondy\Configuration::setCreditKey(345);
-        $this->assertEquals(345, \Fondy\Configuration::getCreditKey());
+        \Fondy\Configuration::setCreditKey('something-secret');
+        $this->assertEquals('something-secret', \Fondy\Configuration::getCreditKey());
     }
 }

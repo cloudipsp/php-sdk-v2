@@ -18,7 +18,7 @@ class P2pcredit
      */
     public static function start($data, $headers = [])
     {
-        $api = new Api\P2pcredit\Credit;
+        $api = new Api\P2pcredit\Credit('credit');
         $result = $api->get($data, $headers);
         return new Response($result);
     }

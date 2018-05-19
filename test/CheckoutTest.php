@@ -38,17 +38,44 @@ class CheckoutTest extends TestCase
         )
     ];
 
-
-    public function testUrl()
+    private function setTestConfig()
     {
         \Fondy\Configuration::setMerchantId($this->mid);
         \Fondy\Configuration::setSecretKey($this->secret_key);
+        \Fondy\Configuration::setApiVersion('1.0');
+    }
 
+    public function testUrl()
+    {
+        $this->setTestConfig();
         foreach ($this->request_types as $type) {
             \Fondy\Configuration::setRequestType($type);
             $result = \Fondy\Checkout::url($this->fullTestData)->getData();
             $this->validateCheckoutUrlResult($result);
         }
+    }
+
+    public function testToken()
+    {
+        $this->setTestConfig();
+        //foreach ($this->request_types as $type) {
+            \Fondy\Configuration::setRequestType('json');
+            $result = \Fondy\Checkout::token($this->fullTestData)->getData();
+            $this->validateTokenResult($result);
+       // }
+    }
+
+    public function testForm()
+    {
+        $this->setTestConfig();
+        $result = \Fondy\Checkout::form($this->fullTestData);
+        $this->assertInternalType('string', $result, "Got a " . gettype($result) . " instead of a string");
+    }
+
+    private function validateTokenResult($result)
+    {
+        $this->assertNotEmpty($result['token'], 'payment_id is empty');
+        $this->assertInternalType('string', $result['token'], "Got a " . gettype($result['token']) . " instead of a string");
     }
 
     private function validateCheckoutUrlResult($result)

@@ -14,20 +14,29 @@ require 'vendor/autoload.php';
 \Fondy\Configuration::setHttpClient('HttpCurl');
 \Fondy\Configuration::setApiUrl('api.fondy.eu');
 
-/*$data = [
+/*
+$data = [
     'currency' => 'USD',
     'amount' => 111,
     'required_rectoken' => 'Y',
     'response_url' => 'http://localhost:8091/response.php'
-];*/
+];
+*/
+$data = [
+    'currency' => 'USD',
+    'amount' => 10000,
+    'rectoken' => 'd0110d00568b74b79eff1af5a1e4aedfd0c9df4e'
+];
+/*
 $data = [
     'currency' => 'USD',
     'amount' => 111,
-    'receiver_rectoken' => 'd0110d00568b74b79eff1af5a1e4aedfd0c9df4e'
-];
+    'order_id' => '1396424_71bcb2a56f8c6fe9144a673ff0970506'
+];*/
 
-//$data = Fondy\Checkout::url($data)->getData();
-$data = Fondy\P2pcredit::start($data)->getData();
+$data = Fondy\Checkout::url($data)->getUrl();
+//$data = Fondy\P2pcredit::start($data)->getData();
+//$data = Fondy\Order::capture($data)->getData();
 print_r($data);
 //end
 

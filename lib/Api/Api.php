@@ -33,11 +33,11 @@ class Api
      * @param $data
      * @throws ApiExeption
      */
-    public function __construct()
+    public function __construct($type = '')
     {
         $this->version = Configuration::getApiVersion();
         $this->mid = Configuration::getMerchantId();
-        $this->setKeyByOperationType();
+        $this->setKeyByOperationType($type);
         if (empty($this->mid) or !is_numeric($this->mid))
             throw new ApiExeption('Merchant ID is empty or invalid.');
         if (empty($this->secretKey))

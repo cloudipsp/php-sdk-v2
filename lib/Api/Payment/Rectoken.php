@@ -1,22 +1,23 @@
 <?php
 
-namespace Fondy\Api\Checkout;
+namespace Fondy\Api\Payment;
 
 use Fondy\Api\Api;
-use Fondy\Exeption\ApiExeption;
 
-class Token extends Api
+class Rectoken extends Api
 {
-    private $url = '/checkout/token/';
+    private $url = '/recurring/';
     /**
      * Minimal required params to get checkout
      * @var array
      */
     private $requiredParams = [
         'merchant_id' => 'integer',
+        'order_id' => 'string',
         'order_desc' => 'string',
+        'currency' => 'string',
         'amount' => 'integer',
-        'currency' => 'string'
+        'rectoken' => 'string'
     ];
 
     /**
@@ -25,15 +26,10 @@ class Token extends Api
      * @return mixed
      * @throws \Fondy\Exeption\ApiExeption
      */
-    public function get($data, $headers = [], $requiredParams = [])
+    public function get($data, $headers = [])
     {
-        if ($this->requestType != 'json')
-            throw new ApiExeption('Invalid request type. In this method only \'json\' allowed.');
-        if ($requiredParams)
-            $this->requiredParams = array_merge($requiredParams, $this->requiredParams);
         $requestData = $this->prepareParams($data);
         $this->validate($requestData, $this->requiredParams);
         return $this->Request($method = 'POST', $this->url, $headers, $requestData);
     }
-
 }
