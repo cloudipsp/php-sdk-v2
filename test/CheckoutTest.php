@@ -9,10 +9,6 @@ class CheckoutTest extends TestCase
     private $mid = 1396424;
     private $secret_key = 'test';
     private $request_types = ['json', 'xml', 'form'];
-    private $minTestData = [
-        'currency' => 'USD',
-        'amount' => 1000,
-    ];
     private $fullTestData = [
         'order_desc' => 'test SDK',
         'currency' => 'USD',

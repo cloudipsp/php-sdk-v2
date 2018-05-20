@@ -17,7 +17,7 @@ class ValidationHelper
             if (is_array($param))
                 self::validateRequiredParams($params[$key], $param);
             if (!array_key_exists($key, $params)) {
-                throw new \InvalidArgumentException('Some required params are missing');
+                throw new \InvalidArgumentException(sprintf('Required param "%s" is missing', $key));
             }
             if (array_key_exists($key, $required) && empty($param)) {
                 throw new \InvalidArgumentException(sprintf('Required param "%s" is empty', $key));
@@ -93,7 +93,10 @@ class ValidationHelper
      */
     public static function validateString($param, $key = '')
     {
-        if ($param != null && !is_string($param)) {
+        if ($key !== 'order_id' && $param != null && !is_string($param)) {
+            throw new \InvalidArgumentException(sprintf('%s is not a valid string', $key));
+        }
+        if ($key === 'order_id' && $param == null) {
             throw new \InvalidArgumentException(sprintf('%s is not a valid string', $key));
         }
     }

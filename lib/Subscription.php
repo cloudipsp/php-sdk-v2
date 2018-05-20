@@ -3,7 +3,10 @@
 
 namespace Fondy;
 
-class Subscription extends Checkout
+use Fondy\Api\Checkout as Api;
+use Fondy\Response\Response;
+
+class Subscription
 {
     private static $requiredApiVersion = '2.0';
     /**
@@ -26,34 +29,36 @@ class Subscription extends Checkout
      * return checkout url with calendar
      * @param $data
      * @param array $headers
-     * @return Response\Response
+     * @return Response
      */
-    public static function subscriptionUrl($data, $headers = [])
+    public static function url($data, $headers = [])
     {
-        if (\Fondy\Configuration::getApiVersion() !== '2.0') {
+        if (\Fondy\Configuration::getApiVersion() !== self::$requiredApiVersion) {
             trigger_error('Reccuring_data allowed only for api version \'2.0\'', E_USER_NOTICE);
-            \Fondy\Configuration::setApiVersion('2.0');
+            \Fondy\Configuration::setApiVersion(self::$requiredApiVersion);
         }
         $data = array_merge($data, self::$defaultParams);
-        $result = parent::url($data, $headers, self::$requiredParams);
-        return $result;
+        $api = new Api\Url();
+        $result = $api->get($data, $headers, self::$requiredParams);
+        return new Response($result);
     }
 
     /**
      * return checkout token with calendar
      * @param $data
      * @param array $headers
-     * @return Response\Response
+     * @return string
      */
-    public static function subscriptionToken($data, $headers = [])
+    public static function token($data, $headers = [])
     {
-        if (\Fondy\Configuration::getApiVersion() !== '2.0') {
+        if (\Fondy\Configuration::getApiVersion() !== self::$requiredApiVersion) {
             trigger_error('Reccuring_data allowed only for api version \'2.0\'', E_USER_NOTICE);
-            \Fondy\Configuration::setApiVersion('2.0');
+            \Fondy\Configuration::setApiVersion(self::$requiredApiVersion);
         }
         $data = array_merge($data, self::$defaultParams);
-        $result = parent::token($data, $headers, self::$requiredParams);
-        return $result;
+        $api = new Api\Token;
+        $result = $api->get($data, $headers, self::$requiredParams);
+        return new Response($result);
     }
 
 

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dm
- * Date: 18.05.18
- * Time: 12:27
- */
 
 namespace Fondy;
 
@@ -38,14 +32,14 @@ class SubscriptionTest extends TestCase
     public function testSubscriptionToken()
     {
         $this->setTestConfig();
-        $result = \Fondy\Subscription::subscriptionToken($this->TestSubscriptionData)->getData();
+        $result = \Fondy\Subscription::token($this->TestSubscriptionData)->getData();
         $this->assertNotEmpty($result['token'], 'payment_id is empty');
     }
 
     public function testSubscriptionUrl()
     {
         $this->setTestConfig();
-        $result = \Fondy\Subscription::subscriptionUrl($this->TestSubscriptionData)->getData();
+        $result = \Fondy\Subscription::url($this->TestSubscriptionData)->getData();
         $this->validate($result);
 
     }

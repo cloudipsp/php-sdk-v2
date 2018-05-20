@@ -4,18 +4,16 @@ namespace Fondy\Api\Order;
 
 use Fondy\Api\Api;
 
-class Capture extends Api
+class Status extends Api
 {
-    private $url = '/capture/order_id/';
+    private $url = '/status/order_id/';
     /**
      * Minimal required params
      * @var array
      */
     private $requiredParams = [
         'merchant_id' => 'integer',
-        'order_id' => 'string',
-        'amount' => 'integer',
-        'currency' => 'string'
+        'order_id' => 'string'
     ];
 
     /**

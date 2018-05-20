@@ -122,7 +122,7 @@ class Api
         if (!isset($prepared_params['order_id'])) {
             $prepared_params['order_id'] = Helper\ApiHelper::generateOrderID($this->mid);
         }
-        if (!isset($prepared_params['order_desc'])) {
+        if (!isset($prepared_params['$formorder_desc'])) {
             $prepared_params['order_desc'] = Helper\ApiHelper::generateOrderDesc($prepared_params['order_id']);
         }
         if (isset($prepared_params['merchant_data']) && is_array($prepared_params['merchant_data'])) {

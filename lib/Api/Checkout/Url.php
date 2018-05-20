@@ -3,6 +3,7 @@
 namespace Fondy\Api\Checkout;
 
 use Fondy\Api\Api;
+use phpDocumentor\Reflection\Types\Array_;
 
 class Url extends Api
 {
@@ -26,7 +27,7 @@ class Url extends Api
      */
     public function get($data, $headers = [], $requiredParams = [])
     {
-        if ($requiredParams)
+        if (!empty($requiredParams))
             $this->requiredParams = array_merge($requiredParams, $this->requiredParams);
         $requestData = $this->prepareParams($data);
         $this->validate($requestData, $this->requiredParams);

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dm
- * Date: 19.05.18
- * Time: 16:44
- */
 
 namespace Fondy;
 

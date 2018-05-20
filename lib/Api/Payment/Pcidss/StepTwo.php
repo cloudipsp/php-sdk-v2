@@ -1,21 +1,21 @@
 <?php
 
-namespace Fondy\Api\Order;
+namespace Fondy\Api\Payment\Pcidss;
 
 use Fondy\Api\Api;
 
-class Capture extends Api
+class StepTwo extends Api
 {
-    private $url = '/capture/order_id/';
+    private $url = '/3dsecure_step2/';
     /**
-     * Minimal required params
+     * Minimal required params to get checkout
      * @var array
      */
     private $requiredParams = [
         'merchant_id' => 'integer',
         'order_id' => 'string',
-        'amount' => 'integer',
-        'currency' => 'string'
+        'pares' => 'string',
+        'md' => 'string'
     ];
 
     /**
@@ -42,6 +42,10 @@ class Capture extends Api
         if (!isset($prepared_params['merchant_id'])) {
             $prepared_params['merchant_id'] = $this->mid;
         }
+        foreach ($prepared_params as $key => $value) {
+            $prepared_params[$key] = trim($value);
+        }
         return $prepared_params;
     }
+
 }

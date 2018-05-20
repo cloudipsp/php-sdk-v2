@@ -1,12 +1,12 @@
 <?php
 
-namespace Fondy\Api\Pcidss;
+namespace Fondy\Api\Payment\Pcidss;
 
 use Fondy\Api\Api;
 
-class StepTwo extends Api
+class StepOne extends Api
 {
-    private $url = '/3dsecure_step2/';
+    private $url = '/3dsecure_step1/';
     /**
      * Minimal required params to get checkout
      * @var array
@@ -14,8 +14,13 @@ class StepTwo extends Api
     private $requiredParams = [
         'merchant_id' => 'integer',
         'order_id' => 'string',
-        'pares' => 'string',
-        'md' => 'string'
+        'order_desc' => 'string',
+        'currency' => 'string',
+        'amount' => 'integer',
+        'card_number' => 'ccnumber',
+        'cvv2' => 'integer',
+        'expiry_date' => 'integer',
+        'client_ip' => 'ip'
     ];
 
     /**
@@ -29,23 +34,6 @@ class StepTwo extends Api
         $requestData = $this->prepareParams($data);
         $this->validate($requestData, $this->requiredParams);
         return $this->Request($method = 'POST', $this->url, $headers, $requestData);
-    }
-
-    /**
-     * @param $params
-     * @return mixed
-     */
-    protected function prepareParams($params)
-    {
-        $prepared_params = $params;
-
-        if (!isset($prepared_params['merchant_id'])) {
-            $prepared_params['merchant_id'] = $this->mid;
-        }
-        foreach ($prepared_params as $key => $value) {
-            $prepared_params[$key] = trim($value);
-        }
-        return $prepared_params;
     }
 
 }

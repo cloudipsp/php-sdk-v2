@@ -14,19 +14,29 @@ require 'vendor/autoload.php';
 \Fondy\Configuration::setHttpClient('HttpCurl');
 \Fondy\Configuration::setApiUrl('api.fondy.eu');
 
-/*
-$data = [
+
+$dataT = [
     'currency' => 'USD',
     'amount' => 111,
-    'required_rectoken' => 'Y',
-    'response_url' => 'http://localhost:8091/response.php'
+    'response_url' => 'http://localhost:8091/response.php',
+    'required_rectoken' => 'Y'
 ];
-*/
+
 $data = [
+    'order_id' => '1396424_db3e3e9db2986260927b20293ea828f5'
+];
+$TestCard3ds = [
+    'order_id' => time(),
+    'response_url' => 'http://localhost:8091/response3ds.php',
     'currency' => 'USD',
     'amount' => 10000,
-    'rectoken' => 'd0110d00568b74b79eff1af5a1e4aedfd0c9df4e'
+    'card_number' => '4444555566661111',
+    'cvv2' => '444',
+    'expiry_date' => '1221',
+    'client_ip' => '127.2.2.1'
 ];
+session_start();
+$_SESSION['order_id'] = $TestCard3ds['order_id'];
 /*
 $data = [
     'currency' => 'USD',
@@ -34,10 +44,11 @@ $data = [
     'order_id' => '1396424_71bcb2a56f8c6fe9144a673ff0970506'
 ];*/
 
-//$data = Fondy\Checkout::url($data)->getUrl();
-//$data = Fondy\P2pcredit::start($data)->getData();
-$data = Fondy\Payment::recurring($data)->isValid();
-var_dump($data);
+$data = Fondy\Order::transList($data);
+//$data = Fondy\Pcidss::start($TestCard3ds);
+//$data = Fondy\Payment::recurring($data);
+//$data = Fondy\Payment::recurring($dataT);
+print_r($data->getData());
 //end
 
 $time_end = microtime(true);

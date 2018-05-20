@@ -5,6 +5,7 @@ namespace Fondy\Response;
 use Fondy\Configuration;
 use Fondy\Exeption\ApiExeption;
 use Fondy\Helper\ResponseHelper;
+use Fondy\Helper\ResultHelper;
 
 class Response
 {
@@ -82,30 +83,6 @@ class Response
     }
 
     /**
-     * @return bool
-     */
-    public function isReversed()
-    {
-        if (isset($this->response['response']['reverse_status']) && $this->response['response']['reverse_status'] === 'approved') {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * @return bool
-     */
-    public function isCaptured()
-    {
-        if (isset($this->response['response']['capture_status']) && $this->response['response']['capture_status'] === 'captured') {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
      * @return mixed
      */
     public function getData()
@@ -115,5 +92,23 @@ class Response
         } else {
             return $this->response['response'];
         }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isApproved()
+    {
+        $data = $this->getData();
+        return ResultHelper::isPaymentApproved($data);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isValid()
+    {
+        $data = $this->getData();
+        return ResultHelper::isPaymentValid($data);
     }
 }

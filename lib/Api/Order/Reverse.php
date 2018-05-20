@@ -24,10 +24,8 @@ class Reverse extends Api
      * @return mixed
      * @throws \Fondy\Exeption\ApiExeption
      */
-    public function get($data, $headers = [], $requiredParams = [])
+    public function get($data, $headers = [])
     {
-        if ($requiredParams)
-            $this->requiredParams = array_merge($requiredParams, $this->requiredParams);
         $requestData = $this->prepareParams($data);
         $this->validate($requestData, $this->requiredParams);
         return $this->Request($method = 'POST', $this->url, $headers, $requestData);

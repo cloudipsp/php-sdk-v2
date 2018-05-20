@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dm
- * Date: 18.05.18
- * Time: 14:20
- */
 
 namespace Fondy;
 
@@ -41,9 +35,9 @@ class PcidssTest extends TestCase
     public function testStartNon3ds()
     {
         $this->setTestConfig();
+        $data = array_merge($this->TestPcidssData, $this->TestCardnon3ds);
         foreach ($this->request_types as $type) {
             \Fondy\Configuration::setRequestType($type);
-            $data = array_merge($this->TestPcidssData, $this->TestCardnon3ds);
             $result = \Fondy\Pcidss::start($data)->getData();
             $this->validateNon3dResult($result);
         }
@@ -57,16 +51,16 @@ class PcidssTest extends TestCase
             'md' => 'pareq',
             'TermUrl' => 'http://some-url.com'
         ];
-        $form = \Fondy\Pcidss::getFrom($data);
+        $form = \Fondy\Pcidss::get3dsFrom($data, 'some_url');
         $this->assertTrue(is_string($form), "Got a " . gettype($form) . " instead of a string");
     }
 
     public function testStart3ds()
     {
         $this->setTestConfig();
+        $data = array_merge($this->TestPcidssData, $this->TestCard3ds);
         foreach ($this->request_types as $type) {
             \Fondy\Configuration::setRequestType($type);
-            $data = array_merge($this->TestPcidssData, $this->TestCard3ds);
             $result = \Fondy\Pcidss::start($data)->getData();
             $this->validate3dResult($result);
         }

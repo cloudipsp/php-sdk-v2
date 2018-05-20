@@ -29,7 +29,7 @@ class Token extends Api
     {
         if ($this->requestType != 'json')
             throw new ApiExeption('Invalid request type. In this method only \'json\' allowed.');
-        if ($requiredParams)
+        if (!empty($requiredParams))
             $this->requiredParams = array_merge($requiredParams, $this->requiredParams);
         $requestData = $this->prepareParams($data);
         $this->validate($requestData, $this->requiredParams);
