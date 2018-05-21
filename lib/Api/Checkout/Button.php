@@ -56,7 +56,9 @@ class Button extends Api
         }
         if (isset($prepared_params['merchant_data']['fields'])) {
             $prepared_params['fields'] = $prepared_params['merchant_data']['fields'];
-
+        }
+        if (isset($prepared_params['amount'])) {
+            $prepared_params['amount'] = $prepared_params['amount'] / 100;
         }
         unset($prepared_params['merchant_data']);
         return $prepared_params;

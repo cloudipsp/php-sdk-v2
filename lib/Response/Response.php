@@ -77,6 +77,9 @@ class Response
     {
         if (isset($this->response['response']['checkout_url'])) {
             return $this->response['response']['checkout_url'];
+        }
+        if (isset($this->getData()['checkout_url'])) {
+            return $this->getData()['checkout_url'];
         } else {
             return false;
         }

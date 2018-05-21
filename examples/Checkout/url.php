@@ -1,6 +1,4 @@
 <?php
-error_reporting(-1);
-ini_set('display_errors', 'On');
 require_once '../configuration.php';
 require_once SDK_ROOTPATH . '../../vendor/autoload.php';
 
@@ -30,10 +28,10 @@ try {
         'verification' => 'N',
         'subscription' => 'N',
         'merchant_data' => array(
-            'custom_field1' => 'Some string',
-            'custom_field2' => '2222',
-            'custom_field3' => '3!@#$%^&(()_+?"}',
-            'custom_field4' => ['custom_field4_test', 'custom_field4_test2', 'custom_field4_test3' => ['custom_field4_test3_33' => 'custom_field4_test3_33']]
+            'custom_data1' => 'Some string',
+            'custom_data2' => '2222',
+            'custom_data3' => '3!@#$%^&(()_+?"}',
+            'custom_data4' => ['custom_data4_test', 'custom_data4_test2', 'custom_data4_test3' => ['custom_data4_test3_33' => 'custom_data4_test3_33_string']]
         )
     ];
     //Call method to generate url
@@ -45,7 +43,7 @@ try {
     <html lang="en-US">
     <head>
         <meta charset="UTF-8">
-        <title>Getting Url</title>
+        <title>Generate Payment Url</title>
         <style>
             table tr td, table tr th {
                 padding: 10px;
@@ -65,8 +63,14 @@ try {
         </thead>
         <tbody>
         <tr>
-            <td>Respose status</td>
+            <td>Response status</td>
             <td><?= $url->getData()['response_status'] ?></td>
+        </tr>
+        <tr>
+            <td>Normal Response</td>
+            <td>
+                <pre><?php print_r($url->getData()) ?></pre>
+            </td>
         </tr>
         <tr>
             <td>Respose url</td>
@@ -86,11 +90,17 @@ try {
         </thead>
         <tbody>
         <tr>
-            <td>Respose status</td>
-            <td><?= $url->getData()['response_status'] ?></td>
+            <td>Response status</td>
+            <td><?= $urlBig->getData()['response_status'] ?></td>
         </tr>
         <tr>
-            <td>Respose url</td>
+            <td>Normal Response</td>
+            <td>
+                <pre><?php print_r($urlBig->getData()) ?></pre>
+            </td>
+        </tr>
+        <tr>
+            <td>Response url</td>
             <td><a href="<?= $urlBig->getUrl() ?>"><?= $urlBig->getUrl() ?></a></td>
         </tr>
         </tbody>
