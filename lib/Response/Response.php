@@ -94,13 +94,25 @@ class Response
         }
     }
 
+    protected function buildVerifyData()
+    {
+        if ($this->apiVersion === '2.0') {
+            $data = ResponseHelper::getBase64Data($this->response);
+            $data['encodedData'] = $this->response['response']['data'];
+            $data['signature'] = $this->response['response']['signature'];
+        } else {
+            $data = $this->getData();
+        }
+        return $data;
+    }
+
     /**
      * @return bool
      */
     public function isApproved()
     {
-        $data = $this->getData();
-        return ResultHelper::isPaymentApproved($data);
+        $data = $this->buildVerifyData();
+        return ResultHelper::isPaymentApproved($data, '', $this->apiVersion);
     }
 
     /**
@@ -108,7 +120,7 @@ class Response
      */
     public function isValid()
     {
-        $data = $this->getData();
-        return ResultHelper::isPaymentValid($data);
+        $data = $this->buildVerifyData();
+        return ResultHelper::isPaymentValid($data, '', $this->apiVersion);
     }
 }

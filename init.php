@@ -9,7 +9,7 @@ require 'vendor/autoload.php';
 \Fondy\Configuration::setMerchantId(1396424);
 \Fondy\Configuration::setSecretKey('test');
 \Fondy\Configuration::setCreditKey('test');
-\Fondy\Configuration::setApiVersion('1.0');
+\Fondy\Configuration::setApiVersion('2.0');
 \Fondy\Configuration::setRequestType('json');
 \Fondy\Configuration::setHttpClient('HttpCurl');
 \Fondy\Configuration::setApiUrl('api.fondy.eu');
@@ -19,27 +19,7 @@ $dataT = [
     'currency' => 'USD',
     'amount' => 111,
     'response_url' => 'http://localhost:8091/response.php',
-    'delayed' => 'N',
-   //'decline_url' => 'http://localhost:8091/decline.php',
-    'order_desc' => 'Мое русское описанние !"№;"№%;№:%№??*()',
-    'reservation_data' => [
-        "products" => [
-            [
-                "id" => 1,
-                "name" => "Миндаль жар.",
-                "price" => 700.00,
-                "total_amount" => 140.00,
-                "quantity" => 0.2
-            ],
-            [
-                "id" => 2,
-                "name" => "Кешью очищ.",
-                "price" => 850.00,
-                "total_amount" => 127.5,
-                "quantity" => 0.15
-            ]
-        ]
-    ]
+    'server_callback_url' => 'http://test.com:8091/result.php'
 ];
 
 $data = [

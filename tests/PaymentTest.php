@@ -43,19 +43,32 @@ class PaymentTest extends TestCase
     {
         \Fondy\Configuration::setMerchantId($this->mid);
         \Fondy\Configuration::setSecretKey($this->Secret);
-        \Fondy\Configuration::setApiVersion('1.0');
+
     }
 
     public function testRecurring()
     {
         $this->setTestConfig();
+        \Fondy\Configuration::setApiVersion('1.0');
         foreach ($this->request_types as $type) {
             \Fondy\Configuration::setRequestType($type);
             $result = \Fondy\Payment::recurring($this->TestData);
-            $this->assertNotEmpty($result->isApproved(), true);
-            $this->assertNotEmpty($result->isValid(), true);
+            $this->assertEquals($result->isApproved(), true);
+            $this->assertEquals($result->isValid(), true);
             $this->assertEquals($result->getData()['response_status'], 'success');
         }
+    }
+
+    public function testRecurringv2()
+    {
+        $this->setTestConfig();
+        \Fondy\Configuration::setApiVersion('2.0');
+        \Fondy\Configuration::setRequestType('json');
+        $result = \Fondy\Payment::recurring($this->TestData);
+        $this->assertEquals($result->isApproved(), true);
+        $this->assertEquals($result->isValid(), true);
+        $this->assertEquals($result->getData()['response_status'], 'success');
+
     }
 
     private function getToken($data)

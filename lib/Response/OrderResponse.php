@@ -3,15 +3,32 @@
 namespace Fondy\Response;
 
 use Fondy\Exeption\ApiExeption;
+use Fondy\Helper\ResponseHelper;
 
 class OrderResponse extends Response
 {
+    /**
+     * @return array|mixed
+     */
+    public function getData()
+    {
+        if ($this->apiVersion === '2.0') {
+            if (isset($this->response['response']['data'])) {
+                return ResponseHelper::getBase64Data($this->response);
+            } else {
+                return $this->response['response'];
+            }
+        } else {
+            return $this->response['response'];
+        }
+    }
+
     /**
      * @return bool
      */
     public function isReversed()
     {
-        $data = $this->getData();
+        $data = $this->buildVerifyData();
         if (!isset($data['reverse_status']))
             return 'Nothing to check';
         $valid = $this->isValid();
@@ -27,7 +44,7 @@ class OrderResponse extends Response
      */
     public function isCaptured()
     {
-        $data = $this->getData();
+        $data = $this->buildVerifyData();
         if (!isset($data['capture_status']))
             return 'Nothing to check';
         $valid = $this->isValid();

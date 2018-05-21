@@ -33,13 +33,14 @@ class ResponseHelper
      * @param string $encoding
      * @return array
      */
-    public static function xmlToArray($contents, $getAttributes = true, $tagPriority = true, $encoding = 'utf-8')
+    public static function xmlToArray($contents, $getAttributes = true, $tagPriority = true, $encoding = 'UTF-8')
     {
         $contents = trim($contents);
+        $contents = str_replace('\n', '', $contents);
         if (empty($contents)) {
             return [];
         }
-        $parser = xml_parser_create('');
+        $parser = xml_parser_create($encoding);
         xml_parser_set_option($parser, XML_OPTION_TARGET_ENCODING, $encoding);
         xml_parser_set_option($parser, XML_OPTION_CASE_FOLDING, 0);
         xml_parser_set_option($parser, XML_OPTION_SKIP_WHITE, 1);

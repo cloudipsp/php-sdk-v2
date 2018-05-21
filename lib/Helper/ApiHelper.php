@@ -22,7 +22,12 @@ class ApiHelper
 
         if ($version == '2.0') {
             if ($encoded) {
-                $signature = sha1($secret_key . self::signatureSeparator . $params);
+                if (is_array($params)) {
+                    $params = base64_encode(ApiHelper::toJSON(['order' => $params]));
+                    $signature = sha1($secret_key . self::signatureSeparator . $params);
+                } else {
+                    $signature = sha1($secret_key . self::signatureSeparator . $params);
+                }
             } else {
                 $signature = $secret_key . self::signatureSeparator . $params;
             }

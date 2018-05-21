@@ -12,15 +12,23 @@ class ResultHelper
      * @param array $response
      * @return bool
      */
-    public static function isPaymentValid($result, $secretKey = '')
+    public static function isPaymentValid($result, $secretKey = '', $ver = '')
     {
         if ($secretKey == '') {
             $secretKey = Configuration::getSecretKey();
         }
+        if ($ver == '') {
+            $ver = Configuration::getApiVersion();
+        }
         if (!array_key_exists('signature', $result)) return 'Nothing to validate';
         $signature = $result['signature'];
-        $response = self::clearResult($result);
-        return $signature === Signature::generateSignature($response, $secretKey);
+        if ($ver === '2.0') {
+            $encoded = $result['encodedData'];
+            return $signature === Signature::generateSignature($encoded, $secretKey, $ver);
+        } else {
+            $response = self::clearResult($result);
+        }
+        return $signature === Signature::generateSignature($response, $secretKey, $ver);
     }
 
     /**
@@ -32,6 +40,8 @@ class ResultHelper
     {
         if (array_key_exists('response_signature_string', $result))
             unset($result['response_signature_string']);
+        if (array_key_exists('encodedData', $result))
+            unset($result['encodedData']);
         unset($result['signature']);
 
         return $result;
@@ -52,11 +62,11 @@ class ResultHelper
     /**
      * @return bool
      */
-    public static function isPaymentApproved($data)
+    public static function isPaymentApproved($data, $secretKey = '', $ver = '')
     {
         if (!isset($data['order_status']))
             return 'Nothing to check';
-        $valid = self::isPaymentValid($data);
+        $valid = self::isPaymentValid($data, $secretKey, $ver);
         if ($valid && $data['order_status'] === 'approved')
             return true;
 
