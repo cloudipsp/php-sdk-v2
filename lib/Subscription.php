@@ -47,7 +47,7 @@ class Subscription
      * return checkout token with calendar
      * @param $data
      * @param array $headers
-     * @return string
+     * @return Response
      */
     public static function token($data, $headers = [])
     {

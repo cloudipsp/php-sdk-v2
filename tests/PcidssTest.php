@@ -12,7 +12,7 @@ class PcidssTest extends TestCase
     private $TestCard3ds = [
         'card_number' => '4444555566661111',
         'cvv2' => '444',
-        'expiry_date' => '1221',
+        'expiry_date' => '1221'
     ];
     private $TestCardnon3ds = [
         'card_number' => '4444555511116666',
@@ -39,6 +39,7 @@ class PcidssTest extends TestCase
         foreach ($this->request_types as $type) {
             \Fondy\Configuration::setRequestType($type);
             $result = \Fondy\Pcidss::start($data)->getData();
+
             $this->validateNon3dResult($result);
         }
     }

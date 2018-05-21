@@ -4,7 +4,7 @@ namespace Fondy\Api\Checkout;
 
 use Fondy\Api\Api;
 
-class Url extends Api
+class Verification extends Api
 {
     private $url = '/checkout/url/';
     /**
@@ -24,10 +24,8 @@ class Url extends Api
      * @return mixed
      * @throws \Fondy\Exeption\ApiExeption
      */
-    public function get($data, $headers = [], $requiredParams = [])
+    public function get($data, $headers = [])
     {
-        if (!empty($requiredParams))
-            $this->requiredParams = array_merge($requiredParams, $this->requiredParams);
         $requestData = $this->prepareParams($data);
         $this->validate($requestData, $this->requiredParams);
         return $this->Request($method = 'POST', $this->url, $headers, $requestData);

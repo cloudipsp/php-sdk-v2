@@ -3,7 +3,10 @@
 
 namespace Fondy;
 
-class Verification extends Checkout
+use Fondy\Api\Checkout as Api;
+use Fondy\Response\Response;
+
+class Verification
 {
     /**
      * Minimal required params to get checkout
@@ -18,17 +21,26 @@ class Verification extends Checkout
      * return checkout url with card verify
      * @param $data
      * @param array $headers
-     * @return Response\Response
+     * @return Response
      */
     public static function url($data, $headers = [])
     {
         $data = array_merge($data, self::$defaultParams);
-        $result = parent::url($data, $headers);
-        return $result;
+        $api = new Api\Verification();
+        $result = $api->get($data, $headers);
+        return new Response($result);
     }
 
-    public static function button($data = [])
+    /**
+     * return checkout form with card verify
+     * @param $data
+     * @param array $headers
+     * @return string
+     */
+    public static function form($data)
     {
-        return false;
+        $api = new Api\Form();
+        return $api->get($data);
     }
+
 }

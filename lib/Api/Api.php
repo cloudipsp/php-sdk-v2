@@ -119,17 +119,25 @@ class Api
         if (!isset($prepared_params['merchant_id'])) {
             $prepared_params['merchant_id'] = $this->mid;
         }
+
         if (!isset($prepared_params['order_id'])) {
             $prepared_params['order_id'] = Helper\ApiHelper::generateOrderID($this->mid);
         }
-        if (!isset($prepared_params['$formorder_desc'])) {
+
+        if (!isset($prepared_params['order_desc'])) {
             $prepared_params['order_desc'] = Helper\ApiHelper::generateOrderDesc($prepared_params['order_id']);
         }
+
         if (isset($prepared_params['merchant_data']) && is_array($prepared_params['merchant_data'])) {
             $prepared_params['merchant_data'] = Helper\ApiHelper::toJSON($prepared_params['merchant_data']);
         }
+
         if (isset($prepared_params['recurring_data']) && $this->version === '1.0')
             throw new \InvalidArgumentException('Reccuring_data allowed only for api version \'2.0\'');
+
+        if (isset($prepared_params['reservation_data']['products'])) {
+            $prepared_params['reservation_data'] = base64_encode(Helper\ApiHelper::toJSON($prepared_params['reservation_data']));
+        }
 
         return $prepared_params;
     }
@@ -175,7 +183,6 @@ class Api
     /**
      * setting secret key by operation type
      * @param $type
-     * @return string
      */
     protected function setKeyByOperationType($type = '')
     {

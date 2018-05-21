@@ -2,8 +2,9 @@
 
 namespace Fondy;
 
+use PHPUnit\Framework\TestCase;
 
-class VerificationTest extends \PHPUnit_Framework_TestCase
+class VerificationTest extends TestCase
 {
     private $minTestData = [
         'currency' => 'USD',
@@ -18,11 +19,6 @@ class VerificationTest extends \PHPUnit_Framework_TestCase
         \Fondy\Configuration::setMerchantId($this->mid);
         \Fondy\Configuration::setSecretKey($this->secret_key);
         \Fondy\Configuration::setApiVersion('1.0');
-    }
-
-    public function testButton()
-    {
-        $this->assertEquals(\Fondy\Verification::button(), false);
     }
 
     public function testVerificationUrl()

@@ -2,6 +2,8 @@
 
 namespace Fondy\Response;
 
+use Fondy\Exeption\ApiExeption;
+
 class OrderResponse extends Response
 {
     /**
@@ -20,7 +22,8 @@ class OrderResponse extends Response
     }
 
     /**
-     * @return bool
+     * @return bool|string
+     * @throws \Exception
      */
     public function isCaptured()
     {
@@ -32,7 +35,32 @@ class OrderResponse extends Response
             return true;
 
         return false;
+    }
 
+    /**
+     * Cheking if Captured transaction
+     * @return bool
+     * @throws \Exception
+     */
+    public function isCapturedByList()
+    {
+        $data = $this->getCapturedTransAction();
 
+        if (!array_key_exists('capture_status', $data)) throw new \Exception('invalid response');
+        return $data['capture_status'] != 'captured' ? false : true;
+    }
+
+    private function getCapturedTransAction()
+    {
+        foreach ($this->getData() as $data) {
+            if (($data['tran_type'] == 'purchase' || $data['tran_type'] == 'verification')
+                && $data['preauth'] == 'Y'
+                && $data['transaction_status'] == 'approved'
+            ) {
+                return $data;
+            } else {
+                throw new ApiExeption('Nothing to capture');
+            }
+        }
     }
 }

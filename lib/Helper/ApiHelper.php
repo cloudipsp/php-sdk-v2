@@ -71,13 +71,15 @@ class ApiHelper
      */
     public static function generatePaymentForm($data, $url)
     {
-        $form = '<form method="POST" action="' . $url . '">' . "\n";
+        $form = sprintf("<form method=\"POST\" action=\"%s\">" . "\n", $url);
         foreach ($data as $name => $value) {
             if (!empty($value)) {
-                $form .= '<input type="hidden" name="' . htmlentities($name, ENT_QUOTES, 'UTF-8') . '" value="' . htmlentities($value, ENT_QUOTES, 'UTF-8') . '" />' . "\n";
+                $value = htmlentities($value, ENT_QUOTES, 'UTF-8');
+                $name = htmlentities($name, ENT_QUOTES, 'UTF-8');
+                $form .= sprintf("<input type=\"hidden\" name=\"%s\" value=\"%s\" />" . "\n", $name, $value);
             }
         }
-        $form .= '<input type="submit" class="f_button"></form>';
+        $form .= "<input type=\"submit\" class=\"f_button\"></form>";
         return $form;
     }
 

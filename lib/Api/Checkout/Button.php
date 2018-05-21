@@ -7,6 +7,7 @@ use Fondy\Helper\ApiHelper;
 
 class Button extends Api
 {
+    private $requiredApiVersion = '1.0';
     private $url = '/checkout';
     /**
      * Minimal required params to get checkout
@@ -26,6 +27,10 @@ class Button extends Api
      */
     public function get($data)
     {
+        if (\Fondy\Configuration::getApiVersion() !== $this->requiredApiVersion) {
+            trigger_error('Button method allowed only for api version \'1.0\'', E_USER_NOTICE);
+            \Fondy\Configuration::setApiVersion($this->requiredApiVersion);
+        }
         $requestData = $this->prepareButtonParams($data);
         $url = $this->createUrl($this->url);
         $this->validate($requestData, $this->requiredParams);

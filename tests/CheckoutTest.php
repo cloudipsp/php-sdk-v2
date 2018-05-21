@@ -10,7 +10,7 @@ class CheckoutTest extends TestCase
     private $secret_key = 'test';
     private $request_types = ['json', 'xml', 'form'];
     private $fullTestData = [
-        'order_desc' => 'test SDK',
+        'order_desc' => 'tests SDK',
         'currency' => 'USD',
         'amount' => 21321312,
         'default_payment_system' => 'card',
@@ -18,7 +18,7 @@ class CheckoutTest extends TestCase
         'server_callback_url' => 'http://site.com/callbackurl',
         'payment_systems' => 'qiwi,yandex,webmoney,card,p24',
         'preauth' => 'N',
-        'sender_email' => 'test@fondy.eu',
+        'sender_email' => 'tests@fondy.eu',
         'delayed' => 'Y',
         'lang' => 'ru',
         'product_id' => 'some_product_id',

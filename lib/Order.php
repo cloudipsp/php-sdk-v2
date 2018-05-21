@@ -48,6 +48,7 @@ class Order
         $result = $api->get($data, $headers);
         return new OrderResponse($result);
     }
+
     /**
      * Generate request to get transaction list of order
      * @param $data
@@ -55,9 +56,23 @@ class Order
      * @return OrderResponse
      * @throws Exeption\ApiExeption
      */
-    public static function transList($data, $headers = [])
+    public static function transactionList($data, $headers = [])
     {
         $api = new Api\TransactionList();
+        $result = $api->get($data, $headers);
+        return new OrderResponse($result);
+    }
+
+    /**
+     * Generate request to get transaction list of order
+     * @param $data
+     * @param array $headers
+     * @return OrderResponse
+     * @throws Exeption\ApiExeption
+     */
+    public static function atolLogs($data, $headers = [])
+    {
+        $api = new Api\Atol();
         $result = $api->get($data, $headers);
         return new OrderResponse($result);
     }
