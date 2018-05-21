@@ -8,4 +8,3 @@ require 'vendor/autoload.php';
 
 $result = new \Fondy\Result\Result([], '', '', true);
 var_dump($result->getData());
-var_dump($result->isApproved());
