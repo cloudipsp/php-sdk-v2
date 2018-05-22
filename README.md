@@ -28,7 +28,7 @@ $data = \Cloudipsp\Checkout::url($data);
 $url = $data->getUrl();
 //$data->toCheckout() - redirect to checkout
 ```
-#Api
+# Api
 
 See [php-docs](https://dimoncheg12.github.io/php-docs/)
 ## Examples
