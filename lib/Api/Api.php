@@ -56,14 +56,17 @@ class Api
      */
     public function Request($method, $url, $headers, $data)
     {
+        $result = [];
         $url = $this->createUrl($url);
+        if (isset($data['order_id']))
+            $result['order_id'] = $data['order_id'];
         $data = $this->getDataByVersion($data);
         $headers = Helper\RequestHelper::parseHeadres($headers, $this->requestType);
         $response = $this->client->request($method, $url, $headers, $data);
         if (!$response)
             throw new ApiException('Unknown error.');
-
-        return $response;
+        $result['response'] = $response;
+        return $result;
 
     }
 

@@ -21,7 +21,7 @@ try {
         $dataToGetStatus = [
             'order_id' => $TestOrderData['order_id']
         ];
-        $refund_order = Cloudipsp\Order::status($dataToGetStatus);
+        $s_order = Cloudipsp\Order::status($dataToGetStatus);
     }
     //getting returned data
     ?>
@@ -50,17 +50,17 @@ try {
         <tbody>
         <tr>
             <td>Response status:</td>
-            <td><?= $refund_order->getData()['response_status'] ?></td>
+            <td><?= $s_order->getData()['response_status'] ?></td>
         </tr>
         <tr>
             <td>Normal response:</td>
             <td>
-                <pre><?php print_r($refund_order->getData()); ?></pre>
+                <pre><?php print_r($s_order->getData()); ?></pre>
             </td>
         </tr>
         <tr>
             <td>Check if order is valid:</td>
-            <td><?php var_dump($refund_order->isValid()); ?></td>
+            <td><?php var_dump($s_order->isValid()); ?></td>
         </tr>
         </tbody>
     </table>

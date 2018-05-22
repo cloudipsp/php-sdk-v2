@@ -12,7 +12,11 @@ class Response
     /**
      * @var string
      */
-    protected $requsetType;
+    protected $orderID;
+    /**
+     * @var string
+     */
+    protected $requestType;
     /**
      * @var array
      */
@@ -29,6 +33,9 @@ class Response
      */
     public function __construct($data)
     {
+        if (isset($data['order_id']))
+            $this->orderID = $data['order_id'];
+        $data = $data['response'];
         $this->requestType = Configuration::getRequestType();
         $this->apiVersion = Configuration::getApiVersion();
         switch ($this->requestType) {
@@ -42,6 +49,7 @@ class Response
                 $response = ResponseHelper::jsonToArray($data);
                 break;
         }
+
         $this->checkResponse($response);
 
         $this->response = $response;
@@ -111,6 +119,14 @@ class Response
             $data = $this->getData();
         }
         return $data;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrderID()
+    {
+        return $this->orderID ? $this->orderID : false;
     }
 
     /**
