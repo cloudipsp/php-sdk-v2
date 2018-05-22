@@ -54,6 +54,13 @@ try {
                 <pre><?php print_r($listData->getData()); ?></pre>
             </td>
         </tr>
+        <tr>
+            <td>Is have captured transaction: </td>
+            <td>
+                <pre><?php print_r($listData->isCapturedByList()); ?></pre>
+            </td>
+        </tr>
+
         </tbody>
     </table>
     </body>
