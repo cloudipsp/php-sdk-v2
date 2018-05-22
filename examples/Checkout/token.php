@@ -20,7 +20,7 @@ try {
     <html lang="en-US">
     <head>
         <meta charset="UTF-8">
-        <title>Generate Token</title>
+        <title>Generate payment token</title>
         <style>
             table tr td, table tr th {
                 padding: 10px;

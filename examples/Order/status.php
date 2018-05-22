@@ -40,7 +40,7 @@ try {
     <table style="margin: auto" border="1">
         <thead>
         <tr>
-            <th style="text-align: center" colspan="2">Request Status Data</th>
+            <th style="text-align: center" colspan="2">Request data</th>
         </tr>
         <tr>
             <th style="text-align: left"
@@ -59,7 +59,7 @@ try {
             </td>
         </tr>
         <tr>
-            <td>Check if order is valid:</td>
+            <td>Check order is valid:</td>
             <td><?php var_dump($s_order->isValid()); ?></td>
         </tr>
         </tbody>

@@ -20,7 +20,7 @@ try {
 
     ];
     //Call method to generate token
-    \Cloudipsp\Configuration::setApiVersion('2.0'); //allow only json api protocol 2.0
+    \Cloudipsp\Configuration::setApiVersion('2.0'); //allow only json, api protocol 2.0
     $url = Cloudipsp\Subscription::token($data);
     //getting returned data
     ?>
@@ -39,7 +39,7 @@ try {
     <table style="margin: auto;" border="1">
         <thead>
         <tr>
-            <th style="text-align: center" colspan="2">Request Data</th>
+            <th style="text-align: center" colspan="2">Request Data:</th>
         </tr>
         <tr>
             <th style="text-align: left"
@@ -48,13 +48,13 @@ try {
         </thead>
         <tbody>
         <tr>
-            <td>Normal Response</td>
+            <td>Normal Response:</td>
             <td>
                 <pre><?php print_r($url->getData()) ?></pre>
             </td>
         </tr>
         <tr>
-            <td>Respose subscription token</td>
+            <td>Response subscription token:</td>
             <td><?php print_r($url->getData()['token']) ?></td>
         </tr>
         </tbody>

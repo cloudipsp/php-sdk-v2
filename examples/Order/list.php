@@ -29,7 +29,7 @@ try {
     <html lang="en-US">
     <head>
         <meta charset="UTF-8">
-        <title>Order Transaction List</title>
+        <title>Order transactions list</title>
         <style>
             table tr td, table tr th {
                 padding: 10px;
@@ -40,7 +40,7 @@ try {
     <table style="margin: auto" border="1">
         <thead>
         <tr>
-            <th style="text-align: center" colspan="2">Request Transaction List Data</th>
+            <th style="text-align: center" colspan="2">Request transaction list data</th>
         </tr>
         <tr>
             <th style="text-align: left"
@@ -55,7 +55,7 @@ try {
             </td>
         </tr>
         <tr>
-            <td>Is have captured transaction: </td>
+            <td>Is captured transaction: </td>
             <td>
                 <pre><?php print_r($listData->isCapturedByList()); ?></pre>
             </td>

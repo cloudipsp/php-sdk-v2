@@ -12,7 +12,6 @@ try {
         'cvv2' => '333',
         'expiry_date' => '1232',
         'currency' => 'USD',
-        'preauth' => 'Y',
         'amount' => 1000,
         'client_ip' => '127.2.2.1'
     ];

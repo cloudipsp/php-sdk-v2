@@ -20,7 +20,7 @@ try {
     <html lang="en-US">
     <head>
         <meta charset="UTF-8">
-        <title>Generate Form String</title>
+        <title>Generate form string</title>
         <style>
             table tr td, table tr th {
                 padding: 10px;
@@ -48,7 +48,7 @@ try {
             <td><?= $form_string ?></td>
         </tr>
         <tr>
-            <td>Rendered form fileds:</td>
+            <td>Rendered form fields:</td>
             <td><?php var_dump($form_string) ?></td>
         </tr>
         </tbody>

@@ -10,8 +10,8 @@ require_once 'configuration.php';
 require_once SDK_ROOTPATH . '/../vendor/autoload.php';
 /**
  * Getting payment result (server_callback_url)
- * Signature validation example server_callback_url  POST
- * you can get params by yourself
+ * Signature validation example server_callback_url
+ * you can get params by yourself, or sdk can got it
  */
 try {
     $callbackData = json_decode(file_get_contents('php://input'), TRUE); //if request in json
@@ -25,7 +25,7 @@ try {
     <head>
         <meta charset="UTF-8">
         <title>
-            Checking payment Result
+            Checking payment result
         </title>
         <style>
             table tr td, table tr th {
@@ -37,7 +37,7 @@ try {
     <table style="max-width:1000px;margin: auto;" border="1">
         <thead>
         <tr>
-            <th style="text-align: center" colspan="2">Result Data</th>
+            <th style="text-align: center" colspan="2">Result data:</th>
         </tr>
         <tr>
             <th style="text-align: left"
@@ -46,25 +46,25 @@ try {
         </thead>
         <tbody>
         <tr>
-            <td>Result status</td>
+            <td>Result status:</td>
             <td><?= $result->getData()['response_status'] ?></td>
         </tr>
         <tr>
-            <td>Normal Response</td>
+            <td>Normal result:</td>
             <td>
                 <pre><?php print_r($result->getData()) ?></pre>
             </td>
         </tr>
         <tr>
-            <td>Result is valid</td>
+            <td>Result is valid:</td>
             <td><?php var_dump($result->isValid()); ?></td>
         </tr>
         <tr>
-            <td>Payment is approved</td>
+            <td>Payment is approved:</td>
             <td><?php var_dump($result->isApproved()); ?></td>
         </tr>
         <tr>
-            <td>Payment is expired</td>
+            <td>Payment is expired:</td>
             <td><?php var_dump($result->isExpired()); ?></td>
         </tr>
         </tbody>

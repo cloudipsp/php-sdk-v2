@@ -10,6 +10,7 @@ try {
         'currency' => 'USD',
         'amount' => 1000 // convert to 10.00$
     ];
+    //some other params
     $dataBig = [
         'order_desc' => 'tests SDK',
         'currency' => 'USD',
@@ -43,7 +44,7 @@ try {
     <html lang="en-US">
     <head>
         <meta charset="UTF-8">
-        <title>Generate Payment Url</title>
+        <title>Generate payment url</title>
         <style>
             table tr td, table tr th {
                 padding: 10px;
@@ -63,17 +64,17 @@ try {
         </thead>
         <tbody>
         <tr>
-            <td>Response status</td>
+            <td>Response status:</td>
             <td><?= $url->getData()['response_status'] ?></td>
         </tr>
         <tr>
-            <td>Normal Response</td>
+            <td>Normal Response:</td>
             <td>
                 <pre><?php print_r($url->getData()) ?></pre>
             </td>
         </tr>
         <tr>
-            <td>Respose url</td>
+            <td>Response url:</td>
             <td><a href="<?= $url->getUrl() ?>"><?= $url->getUrl() ?></a></td>
         </tr>
         </tbody>
@@ -81,7 +82,7 @@ try {
     <table style="margin: auto;" border="1">
         <thead>
         <tr>
-            <th style="text-align: center" colspan="2">Request Data</th>
+            <th style="text-align: center" colspan="2">Request Data:</th>
         </tr>
         <tr>
             <th style="text-align: left"
@@ -90,17 +91,17 @@ try {
         </thead>
         <tbody>
         <tr>
-            <td>Response status</td>
+            <td>Response status:</td>
             <td><?= $urlBig->getData()['response_status'] ?></td>
         </tr>
         <tr>
-            <td>Normal Response</td>
+            <td>Normal Response:</td>
             <td>
                 <pre><?php print_r($urlBig->getData()) ?></pre>
             </td>
         </tr>
         <tr>
-            <td>Response url</td>
+            <td>Response url:</td>
             <td><a href="<?= $urlBig->getUrl() ?>"><?= $urlBig->getUrl() ?></a></td>
         </tr>
         </tbody>

@@ -45,7 +45,7 @@ try {
     <table style="margin: auto" border="1">
         <thead>
         <tr>
-            <th style="text-align: center" colspan="2">Request Caprure Data</th>
+            <th style="text-align: center" colspan="2">Request to capture order</th>
         </tr>
         <tr>
             <th style="text-align: left"
@@ -64,7 +64,7 @@ try {
             </td>
         </tr>
         <tr>
-            <td>Check if order is captured:</td>
+            <td>Check order is captured:</td>
             <td><?php var_dump($capture_order->isCaptured()); ?></td>
         </tr>
         </tbody>

@@ -64,7 +64,7 @@ try {
             </td>
         </tr>
         <tr>
-            <td>Check if order is approved:</td>
+            <td>Check order is approved:</td>
             <td><?php var_dump($recurring_order->isApproved()); ?></td>
         </tr>
         </tbody>

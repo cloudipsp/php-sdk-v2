@@ -20,7 +20,7 @@ try {
 
     ];
     //Call method to generate url
-    \Cloudipsp\Configuration::setApiVersion('2.0'); //allow only json api protocol 2.0
+    \Cloudipsp\Configuration::setApiVersion('2.0'); //allow only json, api protocol 2.0
     $url = Cloudipsp\Subscription::url($data);
     //getting returned data
     ?>
@@ -48,17 +48,17 @@ try {
         </thead>
         <tbody>
         <tr>
-            <td>Payment id</td>
+            <td>Payment id:</td>
             <td><?= $url->getData()['payment_id'] ?></td>
         </tr>
         <tr>
-            <td>Normal Response</td>
+            <td>Normal response:</td>
             <td>
                 <pre><?php print_r($url->getData()) ?></pre>
             </td>
         </tr>
         <tr>
-            <td>Respose subscription url</td>
+            <td>Response subscription url:</td>
             <td><a href="<?php print_r($url->getUrl()) ?>"><?php print_r($url->getUrl()) ?></a></td>
         </tr>
         </tbody>

@@ -50,7 +50,7 @@ try {
             </td>
         </tr>
         <tr>
-            <td>Check if valid:</td>
+            <td>Check order data is valid:</td>
             <td><?php var_dump($orderData->isValid()); ?></td>
         </tr>
         </tbody>

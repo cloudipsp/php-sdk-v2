@@ -3,7 +3,7 @@ require_once '../configuration.php';
 require_once SDK_ROOTPATH . '/../vendor/autoload.php';
 
 
-//Payment form scheme A(form)
+//Payment scheme A(form)
 try {
     //Minimal data set, all other required params will generated automatically
     $data = [
@@ -12,14 +12,14 @@ try {
         'amount' => 100 // convert to 1.00$
     ];
     //Call method to generate form
-    $form_string = Cloudipsp\Verification::form($data);
+    $form_string = \Cloudipsp\Verification::form($data);
     //getting returned data
     ?>
     <!doctype html>
     <html lang="en-US">
     <head>
         <meta charset="UTF-8">
-        <title>Generate Form String</title>
+        <title>Generate verification form string</title>
         <style>
             table tr td, table tr th {
                 padding: 10px;
@@ -30,7 +30,7 @@ try {
     <table style="margin: auto" border="1">
         <thead>
         <tr>
-            <th style="text-align: center" colspan="2">Request Data</th>
+            <th style="text-align: center" colspan="2">Request data:</th>
         </tr>
         <tr>
             <th style="text-align: left"
@@ -47,7 +47,7 @@ try {
             <td><?= $form_string ?></td>
         </tr>
         <tr>
-            <td>Rendered form fileds:</td>
+            <td>Rendered form string:</td>
             <td><?php var_dump($form_string) ?></td>
         </tr>
         </tbody>

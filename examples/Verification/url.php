@@ -12,14 +12,14 @@ try {
         'amount' => 100 // convert to 1.00$
     ];
     //Call method to generate url
-    $url = Cloudipsp\Verification::url($data);
+    $url = \Cloudipsp\Verification::url($data);
     //getting returned data
     ?>
     <!doctype html>
     <html lang="en-US">
     <head>
         <meta charset="UTF-8">
-        <title>Generate Payment Url</title>
+        <title>Generate verification url</title>
         <style>
             table tr td, table tr th {
                 padding: 10px;
@@ -30,7 +30,7 @@ try {
     <table style="margin: auto;" border="1">
         <thead>
         <tr>
-            <th style="text-align: center" colspan="2">Request Data</th>
+            <th style="text-align: center" colspan="2">Request data:</th>
         </tr>
         <tr>
             <th style="text-align: left"
@@ -39,17 +39,17 @@ try {
         </thead>
         <tbody>
         <tr>
-            <td>Response status</td>
+            <td>Response status:</td>
             <td><?= $url->getData()['response_status'] ?></td>
         </tr>
         <tr>
-            <td>Normal Response</td>
+            <td>Normal Response:</td>
             <td>
                 <pre><?php print_r($url->getData()) ?></pre>
             </td>
         </tr>
         <tr>
-            <td>Respose url</td>
+            <td>Response url:</td>
             <td><a href="<?= $url->getUrl() ?>"><?= $url->getUrl() ?></a></td>
         </tr>
         </tbody>

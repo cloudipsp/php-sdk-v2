@@ -36,7 +36,7 @@ try {
                     'readonly' => false,
                     'required' => false,
                     'valid' => [
-                        'pattern' => '[a-z]+'  //регулярное выражение
+                        'pattern' => '[a-z]+'
                     ]
                 ]
             ]
@@ -62,7 +62,7 @@ try {
     <table style="margin: auto;" border="1">
         <thead>
         <tr>
-            <th style="text-align: center" colspan="2">Request Data</th>
+            <th style="text-align: center" colspan="2">Request data</th>
         </tr>
         <tr>
             <th style="text-align: left"
@@ -75,7 +75,7 @@ try {
             <td>There is no response_status</td>
         </tr>
         <tr>
-            <td>Respose button url</td>
+            <td>Response button url</td>
             <td><a href="<?= $url ?>"><?= $url ?></a></td>
         </tr>
         </tbody>

@@ -5,14 +5,13 @@ require_once SDK_ROOTPATH . '/../vendor/autoload.php';
 
 //Psidss step one
 try {
-    //Generating pcidss order with non 3ds card see more https://docs.fondy.eu/docs/page/4/
+    //Generating pcidss order with 3ds card see more https://docs.fondy.eu/docs/page/4/
     $TestOrderData = [
         'order_id' => time(),
         'card_number' => '4444555566661111', //test card with 3ds
         'cvv2' => '333',
         'expiry_date' => '1232',
         'currency' => 'USD',
-        'preauth' => 'Y',
         'amount' => 1000,
         'client_ip' => '127.2.2.1'
     ];
@@ -70,7 +69,7 @@ try {
             <td><?php print(Cloudipsp\Pcidss::get3dsFrom($orderData->getData(), $response_url . '/examples/Pcidss/3dsresult.php')); ?></td>
         </tr>
         <tr>
-            <td>Geting data from acs_url:</td>
+            <td>Getting data from acs_url:</td>
             <td><?php print_r($orderData->get3dsFormContent('/examples/Pcidss/3dsresult.php')); ?></td>
         </tr>
         </tbody>
