@@ -1,4 +1,7 @@
 <?php
+/**
+ * Author: DM
+ */
 error_reporting(-1);
 ini_set('display_errors', 'On');
 
@@ -10,11 +13,12 @@ require 'vendor/autoload.php';
 \Cloudipsp\Configuration::setApiUrl('api.fondy.eu'); //api base url
 
 //start simple test
-$dataT = [
+$dataC = [
     'currency' => 'USD',
     'amount' => 111,
     'response_url' => 'http://localhost/result.php'// response page
 ];
-$data = \Cloudipsp\Checkout::url($dataT);
-print_r($data->getData());
+
+$data = \Cloudipsp\Checkout::url($dataC);
+var_dump($data->getData());
 //end
