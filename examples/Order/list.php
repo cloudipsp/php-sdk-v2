@@ -21,7 +21,7 @@ try {
         $dataToGetList = [
             'order_id' => $TestOrderData['order_id']
         ];
-        $refund_order = Cloudipsp\Order::transactionList($dataToGetList);
+        $listData = Cloudipsp\Order::transactionList($dataToGetList);
     }
     //getting returned data
     ?>
@@ -51,7 +51,7 @@ try {
         <tr>
             <td>Normal response:</td>
             <td>
-                <pre><?php print_r($refund_order->getData()); ?></pre>
+                <pre><?php print_r($listData->getData()); ?></pre>
             </td>
         </tr>
         </tbody>
