@@ -1,6 +1,6 @@
 <?php
 require_once '../configuration.php';
-require_once SDK_ROOTPATH . '../../vendor/autoload.php';
+require_once SDK_ROOTPATH . '/../vendor/autoload.php';
 
 
 //Psidss result 3ds
@@ -9,7 +9,7 @@ try {
         session_start();
         $dataTo3dsSubmit = $_POST;
         $dataTo3dsSubmit['order_id'] = isset($_SESSION['order_id']) ? $_SESSION['order_id'] : null; // adding order id from prev step
-        $orderData = Fondy\Pcidss::submit($dataTo3dsSubmit);
+        $orderData = Cloudipsp\Pcidss::submit($dataTo3dsSubmit);
         session_destroy();
     }
     //getting returned data

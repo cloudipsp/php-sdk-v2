@@ -1,9 +1,9 @@
 <?php
 
-namespace Fondy\Response;
+namespace Cloudipsp\Response;
 
-use Fondy\Exception\ApiException;
-use Fondy\Helper\ResponseHelper;
+use Cloudipsp\Exception\ApiException;
+use Cloudipsp\Helper\ResponseHelper;
 
 class OrderResponse extends Response
 {

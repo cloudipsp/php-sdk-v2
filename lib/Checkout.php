@@ -1,14 +1,14 @@
 <?php
 
-namespace Fondy;
+namespace Cloudipsp;
 
-use Fondy\Api\Checkout as Api;
-use Fondy\Response\Response;
+use Cloudipsp\Api\Checkout as Api;
+use Cloudipsp\Response\Response;
 
 /**
  * Class Checkout
  *
- * @package Fondy
+ * @package Cloudipsp
  */
 class Checkout
 {

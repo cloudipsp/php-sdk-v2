@@ -1,8 +1,8 @@
 <?php
 
-namespace Fondy\Api\Payment;
+namespace Cloudipsp\Api\Payment;
 
-use Fondy\Api\Api;
+use Cloudipsp\Api\Api;
 
 class Reports extends Api
 {
@@ -21,7 +21,7 @@ class Reports extends Api
      * @param $data
      * @param array $headers
      * @return mixed
-     * @throws \Fondy\Exception\ApiException
+     * @throws \Cloudipsp\Exception\ApiException
      */
     public function get($data, $headers = [])
     {

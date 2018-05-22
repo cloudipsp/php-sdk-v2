@@ -1,10 +1,10 @@
 <?php
 
-namespace Fondy\Api;
+namespace Cloudipsp\Api;
 
-use Fondy\Configuration;
-use Fondy\Exception\ApiException;
-use Fondy\Helper as Helper;
+use Cloudipsp\Configuration;
+use Cloudipsp\Exception\ApiException;
+use Cloudipsp\Helper as Helper;
 
 class Api
 {

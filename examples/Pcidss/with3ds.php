@@ -1,6 +1,6 @@
 <?php
 require_once '../configuration.php';
-require_once SDK_ROOTPATH . '../../vendor/autoload.php';
+require_once SDK_ROOTPATH . '/../vendor/autoload.php';
 
 
 //Psidss step one
@@ -17,7 +17,7 @@ try {
         'client_ip' => '127.2.2.1'
     ];
     //Call method to generate order
-    $orderData = Fondy\Pcidss::start($TestOrderData);
+    $orderData = Cloudipsp\Pcidss::start($TestOrderData);
     //getting returned data
 
     //getting response url
@@ -67,11 +67,11 @@ try {
         </tr>
         <tr>
             <td>Build an HTML form and using it submit customer to acs_url:</td>
-            <td><?php print(Fondy\Pcidss::get3dsFrom($orderData->getData(), $response_url . '/examples/Pcidss/3dsresult.php')); ?></td>
+            <td><?php print(Cloudipsp\Pcidss::get3dsFrom($orderData->getData(), $response_url . '/examples/Pcidss/3dsresult.php')); ?></td>
         </tr>
         <tr>
             <td>Geting data from acs_url:</td>
-            <td><?php print($orderData->get3dsFormContent('/examples/Pcidss/3dsresult.php')); ?></td>
+            <td><?php print_r($orderData->get3dsFormContent('/examples/Pcidss/3dsresult.php')); ?></td>
         </tr>
         </tbody>
     </table>

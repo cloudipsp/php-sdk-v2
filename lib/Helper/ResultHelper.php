@@ -1,9 +1,9 @@
 <?php
 
-namespace Fondy\Helper;
+namespace Cloudipsp\Helper;
 
-use Fondy\Configuration;
-use Fondy\Helper\ApiHelper as Signature;
+use Cloudipsp\Configuration;
+use Cloudipsp\Helper\ApiHelper as Signature;
 
 class ResultHelper
 {

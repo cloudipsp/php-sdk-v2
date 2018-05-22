@@ -1,6 +1,6 @@
 <?php
 
-namespace Fondy;
+namespace Cloudipsp;
 
 use PHPUnit\Framework\TestCase;
 
@@ -36,35 +36,44 @@ class CheckoutTest extends TestCase
 
     private function setTestConfig()
     {
-        \Fondy\Configuration::setMerchantId($this->mid);
-        \Fondy\Configuration::setSecretKey($this->secret_key);
-        \Fondy\Configuration::setApiVersion('1.0');
+        \Cloudipsp\Configuration::setMerchantId($this->mid);
+        \Cloudipsp\Configuration::setSecretKey($this->secret_key);
+        \Cloudipsp\Configuration::setApiVersion('1.0');
     }
 
+    /**
+     * @throws Exception\ApiException
+     */
     public function testUrl()
     {
         $this->setTestConfig();
         foreach ($this->request_types as $type) {
-            \Fondy\Configuration::setRequestType($type);
-            $result = \Fondy\Checkout::url($this->fullTestData)->getData();
+            \Cloudipsp\Configuration::setRequestType($type);
+            $result = \Cloudipsp\Checkout::url($this->fullTestData)->getData();
             $this->validateCheckoutUrlResult($result);
         }
     }
 
+    /**
+     * @throws Exception\ApiException
+     */
     public function testToken()
     {
         $this->setTestConfig();
         //foreach ($this->request_types as $type) {
-            \Fondy\Configuration::setRequestType('json');
-            $result = \Fondy\Checkout::token($this->fullTestData)->getData();
+            \Cloudipsp\Configuration::setRequestType('json');
+            $result = \Cloudipsp\Checkout::token($this->fullTestData)->getData();
             $this->validateTokenResult($result);
        // }
     }
 
+    /**
+     * @throws Exception\ApiException
+     */
     public function testForm()
     {
         $this->setTestConfig();
-        $result = \Fondy\Checkout::form($this->fullTestData);
+        $result = \Cloudipsp\Checkout::form($this->fullTestData);
         $this->assertInternalType('string', $result, "Got a " . gettype($result) . " instead of a string");
     }
 

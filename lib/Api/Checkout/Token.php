@@ -1,9 +1,9 @@
 <?php
 
-namespace Fondy\Api\Checkout;
+namespace Cloudipsp\Api\Checkout;
 
-use Fondy\Api\Api;
-use Fondy\Exception\ApiException;
+use Cloudipsp\Api\Api;
+use Cloudipsp\Exception\ApiException;
 
 class Token extends Api
 {
@@ -23,7 +23,7 @@ class Token extends Api
      * @param $data
      * @param array $headers
      * @return mixed
-     * @throws \Fondy\Exception\ApiException
+     * @throws \Cloudipsp\Exception\ApiException
      */
     public function get($data, $headers = [], $requiredParams = [])
     {

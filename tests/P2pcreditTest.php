@@ -1,6 +1,6 @@
 <?php
 
-namespace Fondy;
+namespace Cloudipsp;
 
 use PHPUnit\Framework\TestCase;
 
@@ -17,18 +17,21 @@ class P2pcreditTest extends TestCase
 
     private function setTestConfig()
     {
-        \Fondy\Configuration::setMerchantId($this->mid);
-        \Fondy\Configuration::setSecretKey('');
-        \Fondy\Configuration::setCreditKey($this->CreditKey);
-        \Fondy\Configuration::setApiVersion('1.0');
+        \Cloudipsp\Configuration::setMerchantId($this->mid);
+        \Cloudipsp\Configuration::setSecretKey('');
+        \Cloudipsp\Configuration::setCreditKey($this->CreditKey);
+        \Cloudipsp\Configuration::setApiVersion('1.0');
     }
 
+    /**
+     * @throws Exception\ApiException
+     */
     public function testCredit()
     {
         $this->setTestConfig();
         foreach ($this->request_types as $type) {
-            \Fondy\Configuration::setRequestType($type);
-            $result = \Fondy\P2pcredit::start($this->TestData)->getData();
+            \Cloudipsp\Configuration::setRequestType($type);
+            $result = \Cloudipsp\P2pcredit::start($this->TestData)->getData();
             $this->validateResult($result);
         }
     }

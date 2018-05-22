@@ -1,6 +1,6 @@
 <?php
 require_once '../configuration.php';
-require_once SDK_ROOTPATH . '../../vendor/autoload.php';
+require_once SDK_ROOTPATH . '/../vendor/autoload.php';
 
 
 //Payment button
@@ -43,8 +43,8 @@ try {
         )
     ];
     //Call method to generate button
-    $url = Fondy\Checkout::button($data);
-    $urlBig = Fondy\Checkout::button($dataBig);
+    $url = Cloudipsp\Checkout::button($data);
+    $urlBig = Cloudipsp\Checkout::button($dataBig);
     //getting returned data
     ?>
     <!doctype html>

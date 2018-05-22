@@ -5,15 +5,15 @@ require_once SDK_ROOTPATH . '/../vendor/autoload.php';
 
 //P2P card credit https://docs.fondy.eu/docs/page/24/
 try {
-    \Fondy\Configuration::setMerchantId(1000);
-    \Fondy\Configuration::setCreditKey('test'); // to generate in you need use credit key
+    \Cloudipsp\Configuration::setMerchantId(1000);
+    \Cloudipsp\Configuration::setCreditKey('test'); // to generate in you need use credit key
     $TestOrderData = [
         'currency' => 'USD',
         'amount' => 111,
         'receiver_card_number' => '4444555511116666'
     ];
     //Call method to generate order
-    $orderData = Fondy\P2pcredit::start($TestOrderData);
+    $orderData = Cloudipsp\P2pcredit::start($TestOrderData);
     //getting returned data
     ?>
     <!doctype html>

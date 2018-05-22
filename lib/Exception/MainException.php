@@ -1,5 +1,5 @@
 <?php
-namespace Fondy\Exception;
+namespace Cloudipsp\Exception;
 
 use Exception;
 

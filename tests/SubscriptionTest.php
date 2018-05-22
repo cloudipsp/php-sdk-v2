@@ -1,6 +1,6 @@
 <?php
 
-namespace Fondy;
+namespace Cloudipsp;
 
 use PHPUnit\Framework\TestCase;
 
@@ -23,23 +23,29 @@ class SubscriptionTest extends TestCase
 
     private function setTestConfig()
     {
-        \Fondy\Configuration::setMerchantId($this->mid);
-        \Fondy\Configuration::setSecretKey($this->secret_key);
-        \Fondy\Configuration::setRequestType('json');
-        \Fondy\Configuration::setApiVersion('2.0');
+        \Cloudipsp\Configuration::setMerchantId($this->mid);
+        \Cloudipsp\Configuration::setSecretKey($this->secret_key);
+        \Cloudipsp\Configuration::setRequestType('json');
+        \Cloudipsp\Configuration::setApiVersion('2.0');
     }
 
+    /**
+     * @throws Exception\ApiException
+     */
     public function testSubscriptionToken()
     {
         $this->setTestConfig();
-        $result = \Fondy\Subscription::token($this->TestSubscriptionData)->getData();
+        $result = \Cloudipsp\Subscription::token($this->TestSubscriptionData)->getData();
         $this->assertNotEmpty($result['token'], 'payment_id is empty');
     }
 
+    /**
+     * @throws Exception\ApiException
+     */
     public function testSubscriptionUrl()
     {
         $this->setTestConfig();
-        $result = \Fondy\Subscription::url($this->TestSubscriptionData)->getData();
+        $result = \Cloudipsp\Subscription::url($this->TestSubscriptionData)->getData();
         $this->validate($result);
 
     }

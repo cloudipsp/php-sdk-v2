@@ -1,5 +1,5 @@
 <?php
-namespace Fondy\HttpClient;
+namespace Cloudipsp\HttpClient;
 
 interface ClientInterface
 {

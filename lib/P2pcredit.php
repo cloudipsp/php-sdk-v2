@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Fondy;
+namespace Cloudipsp;
 
-use Fondy\Api;
-use Fondy\Response\Response;
+use Cloudipsp\Api;
+use Cloudipsp\Response\Response;
 
 class P2pcredit
 {

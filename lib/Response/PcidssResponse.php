@@ -1,10 +1,10 @@
 <?php
 
-namespace Fondy\Response;
+namespace Cloudipsp\Response;
 
-use Fondy\Helper;
-use Fondy\Exception\ApiException;
-use Fondy\Configuration;
+use Cloudipsp\Helper;
+use Cloudipsp\Exception\ApiException;
+use Cloudipsp\Configuration;
 
 class PcidssResponse extends Response
 {

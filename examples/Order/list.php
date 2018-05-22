@@ -1,6 +1,6 @@
 <?php
 require_once '../configuration.php';
-require_once SDK_ROOTPATH . '../../vendor/autoload.php';
+require_once SDK_ROOTPATH . '/../vendor/autoload.php';
 
 
 //Transaction List
@@ -16,12 +16,12 @@ try {
         'client_ip' => '127.2.2.1'
     ];
     //Call method to generate order
-    $status_order_data = Fondy\Pcidss::start($TestOrderData);
+    $status_order_data = Cloudipsp\Pcidss::start($TestOrderData);
     if ($status_order_data->isApproved()) {// Checking if prev payment valid(signature)
         $dataToGetList = [
             'order_id' => $TestOrderData['order_id']
         ];
-        $refund_order = Fondy\Order::transactionList($dataToGetList);
+        $refund_order = Cloudipsp\Order::transactionList($dataToGetList);
     }
     //getting returned data
     ?>

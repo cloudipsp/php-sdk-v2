@@ -1,6 +1,6 @@
 <?php
 require_once '../configuration.php';
-require_once SDK_ROOTPATH . '../../vendor/autoload.php';
+require_once SDK_ROOTPATH . '/../vendor/autoload.php';
 
 
 //Psidss step one
@@ -17,7 +17,7 @@ try {
         'client_ip' => '127.2.2.1'
     ];
     //Call method to generate order
-    $orderData = Fondy\Pcidss::start($TestOrderData);
+    $orderData = Cloudipsp\Pcidss::start($TestOrderData);
     //getting returned data
     ?>
     <!doctype html>

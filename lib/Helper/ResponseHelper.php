@@ -1,6 +1,6 @@
 <?php
 
-namespace Fondy\Helper;
+namespace Cloudipsp\Helper;
 
 
 class ResponseHelper

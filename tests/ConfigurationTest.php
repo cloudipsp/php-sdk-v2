@@ -1,6 +1,6 @@
 <?php
 
-namespace Fondy;
+namespace Cloudipsp;
 
 use PHPUnit\Framework\TestCase;
 
@@ -9,16 +9,16 @@ class ConfigurationTest extends TestCase
 
     public function testGetApiUrl()
     {
-        $this->assertEquals('https://api.fondy.eu/api', \Fondy\Configuration::getApiUrl());
-        \Fondy\Configuration::setApiUrl('api.saas.com');
+        $this->assertEquals('https://api.fondy.eu/api', \Cloudipsp\Configuration::getApiUrl());
+        \Cloudipsp\Configuration::setApiUrl('api.saas.com');
         $this->assertEquals(
             'https://api.saas.com/api',
-            \Fondy\Configuration::getApiUrl()
+            \Cloudipsp\Configuration::getApiUrl()
         );
-        \Fondy\Configuration::setApiUrl('api.fondy.eu');
+        \Cloudipsp\Configuration::setApiUrl('api.fondy.eu');
         $this->assertEquals(
             'https://api.fondy.eu/api',
-            \Fondy\Configuration::getApiUrl()
+            \Cloudipsp\Configuration::getApiUrl()
         );
     }
 
@@ -26,41 +26,41 @@ class ConfigurationTest extends TestCase
     {
         $this->assertEquals(
             '1.0',
-            \Fondy\Configuration::getApiVersion()
+            \Cloudipsp\Configuration::getApiVersion()
         );
-        \Fondy\Configuration::setApiVersion('2.0');
+        \Cloudipsp\Configuration::setApiVersion('2.0');
         $this->assertEquals(
             '2.0',
-            \Fondy\Configuration::getApiVersion()
+            \Cloudipsp\Configuration::getApiVersion()
         );
     }
 
     public function testSetHttpClient()
     {
-        \Fondy\Configuration::setHttpClient('HttpCurl');
-        $this->assertInstanceOf('\\Fondy\\HttpClient\\HttpCurl', \Fondy\Configuration::getHttpClient());
-        \Fondy\Configuration::setHttpClient('HttpGuzzle');
-        $this->assertInstanceOf('\\Fondy\\HttpClient\\HttpGuzzle', \Fondy\Configuration::getHttpClient());
-        \Fondy\Configuration::setHttpClient('HttpCurl');
+        \Cloudipsp\Configuration::setHttpClient('HttpCurl');
+        $this->assertInstanceOf('\\Cloudipsp\\HttpClient\\HttpCurl', \Cloudipsp\Configuration::getHttpClient());
+        \Cloudipsp\Configuration::setHttpClient('HttpGuzzle');
+        $this->assertInstanceOf('\\Cloudipsp\\HttpClient\\HttpGuzzle', \Cloudipsp\Configuration::getHttpClient());
+        \Cloudipsp\Configuration::setHttpClient('HttpCurl');
     }
 
 
     public function testSetSecretKey()
     {
-        \Fondy\Configuration::setSecretKey('something-secret');
-        $this->assertEquals('something-secret', \Fondy\Configuration::getSecretKey());
+        \Cloudipsp\Configuration::setSecretKey('something-secret');
+        $this->assertEquals('something-secret', \Cloudipsp\Configuration::getSecretKey());
     }
 
 
     public function testSetMerchantId()
     {
-        \Fondy\Configuration::setMerchantId(123);
-        $this->assertEquals(123, \Fondy\Configuration::getMerchantId());
+        \Cloudipsp\Configuration::setMerchantId(123);
+        $this->assertEquals(123, \Cloudipsp\Configuration::getMerchantId());
     }
 
     public function testSetCreditKey()
     {
-        \Fondy\Configuration::setCreditKey('something-secret');
-        $this->assertEquals('something-secret', \Fondy\Configuration::getCreditKey());
+        \Cloudipsp\Configuration::setCreditKey('something-secret');
+        $this->assertEquals('something-secret', \Cloudipsp\Configuration::getCreditKey());
     }
 }

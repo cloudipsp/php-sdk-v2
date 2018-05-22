@@ -12,7 +12,7 @@ try {
         'amount' => 100 // convert to 1.00$
     ];
     //Call method to generate url
-    $url = Fondy\Verification::url($data);
+    $url = Cloudipsp\Verification::url($data);
     //getting returned data
     ?>
     <!doctype html>

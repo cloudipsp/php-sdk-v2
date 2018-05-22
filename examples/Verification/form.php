@@ -12,7 +12,7 @@ try {
         'amount' => 100 // convert to 1.00$
     ];
     //Call method to generate form
-    $form_string = Fondy\Verification::form($data);
+    $form_string = Cloudipsp\Verification::form($data);
     //getting returned data
     ?>
     <!doctype html>

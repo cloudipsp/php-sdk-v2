@@ -1,6 +1,6 @@
 <?php
 
-namespace Fondy\HttpClient;
+namespace Cloudipsp\HttpClient;
 
 
 class HttpGuzzle implements ClientInterface
@@ -22,7 +22,7 @@ class HttpGuzzle implements ClientInterface
      * @param array $headers
      * @param array $params
      * @return $this
-     * @throws \Fondy\Exception\HttpClientException
+     * @throws \Cloudipsp\Exception\HttpClientException
      */
     public function request($method = 'post', $url = '', $headers = [], $params = [])
     {
@@ -48,11 +48,11 @@ class HttpGuzzle implements ClientInterface
     }
 
     /**
-     * @throws \Fondy\Exception\HttpClientException
+     * @throws \Cloudipsp\Exception\HttpClientException
      */
     private function isGuzzleHere()
     {
         if (!class_exists('\GuzzleHttp\Client'))
-            throw new \Fondy\Exception\HttpClientException('Guzzle not found.');
+            throw new \Cloudipsp\Exception\HttpClientException('Guzzle not found.');
     }
 }

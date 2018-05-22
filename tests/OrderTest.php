@@ -6,7 +6,7 @@
  * Time: 12:03
  */
 
-namespace Fondy;
+namespace Cloudipsp;
 
 use PHPUnit\Framework\TestCase;
 
@@ -37,15 +37,18 @@ class OrderTest extends TestCase
 
     private function setTestConfig()
     {
-        \Fondy\Configuration::setMerchantId($this->mid);
-        \Fondy\Configuration::setSecretKey($this->secret_key);
-        \Fondy\Configuration::setApiVersion('1.0');
+        \Cloudipsp\Configuration::setMerchantId($this->mid);
+        \Cloudipsp\Configuration::setSecretKey($this->secret_key);
+        \Cloudipsp\Configuration::setApiVersion('1.0');
     }
 
+    /**
+     * @throws Exception\ApiException
+     */
     public function testStatus()
     {
         $this->setTestConfig();
-        $data = \Fondy\Order::status($this->orderID);
+        $data = \Cloudipsp\Order::status($this->orderID);
         $result = $data->getData();
         $this->assertNotEmpty($result['order_id'], 'order_id is empty');
         $this->assertNotEmpty($result['order_status'], 'order_status is empty');
@@ -53,6 +56,9 @@ class OrderTest extends TestCase
 
     }
 
+    /**
+     * @throws Exception\ApiException
+     */
     public function testCapture()
     {
         $this->setTestConfig();
@@ -61,12 +67,15 @@ class OrderTest extends TestCase
             'amount' => 1000,
             'order_id' => $this->orderID['order_id']
         ];
-        $data = \Fondy\Order::capture($captureData);
+        $data = \Cloudipsp\Order::capture($captureData);
         $result = $data->getData();
         $this->assertInternalType('array', $result);
         $this->assertEquals($result['capture_status'], 'captured');
     }
 
+    /**
+     * @throws Exception\ApiException
+     */
     public function testReverse()
     {
         $this->setTestConfig();
@@ -75,35 +84,45 @@ class OrderTest extends TestCase
             'amount' => 10,
             'order_id' => $this->orderID['order_id']
         ];
-        $data = \Fondy\Order::reverse($reverseData);
+        $data = \Cloudipsp\Order::reverse($reverseData);
         $result = $data->getData();
         $this->assertNotEmpty($result['order_id'], 'order_id is empty');
         $this->assertEquals($result['response_status'], 'success');
         $this->assertEquals($result['reverse_status'], 'approved');
     }
 
+    /**
+     * @throws Exception\ApiException
+     */
     public function testTransactionList()
     {
         $this->setTestConfig();
-        $data = \Fondy\Order::transactionList($this->orderID);
+        $data = \Cloudipsp\Order::transactionList($this->orderID);
         $result = $data->getData();
         $this->assertInternalType('array', $result);
         $this->assertContains('payment_id', $result[0]);
 
     }
 
+    /**
+     * @throws Exception\ApiException
+     */
     public function testAtolLogs()
     {
         $this->setTestConfig();
-        $data = \Fondy\Order::atolLogs($this->orderID);
+        $data = \Cloudipsp\Order::atolLogs($this->orderID);
         $result = $data->getData();
         $this->assertInternalType('array', $result);
     }
 
-
+    /**
+     * @param $data
+     * @return mixed
+     * @throws Exception\ApiException
+     */
     private function createOrder($data)
     {
-        $data = \Fondy\Pcidss::start($data);
+        $data = \Cloudipsp\Pcidss::start($data);
         return $data->getData()['order_id'];
     }
 }

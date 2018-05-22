@@ -1,9 +1,9 @@
 <?php
 
-namespace Fondy;
+namespace Cloudipsp;
 
-use Fondy\Api\Payment as Api;
-use Fondy\Response\Response;
+use Cloudipsp\Api\Payment as Api;
+use Cloudipsp\Response\Response;
 
 class Payment
 {

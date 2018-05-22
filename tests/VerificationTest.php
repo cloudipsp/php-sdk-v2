@@ -1,6 +1,6 @@
 <?php
 
-namespace Fondy;
+namespace Cloudipsp;
 
 use PHPUnit\Framework\TestCase;
 
@@ -16,17 +16,20 @@ class VerificationTest extends TestCase
 
     private function setTestConfig()
     {
-        \Fondy\Configuration::setMerchantId($this->mid);
-        \Fondy\Configuration::setSecretKey($this->secret_key);
-        \Fondy\Configuration::setApiVersion('1.0');
+        \Cloudipsp\Configuration::setMerchantId($this->mid);
+        \Cloudipsp\Configuration::setSecretKey($this->secret_key);
+        \Cloudipsp\Configuration::setApiVersion('1.0');
     }
 
+    /**
+     * @throws Exception\ApiException
+     */
     public function testVerificationUrl()
     {
         $this->setTestConfig();
         foreach ($this->request_types as $type) {
-            \Fondy\Configuration::setRequestType($type);
-            $result = \Fondy\Verification::url($this->minTestData)->getData();
+            \Cloudipsp\Configuration::setRequestType($type);
+            $result = \Cloudipsp\Verification::url($this->minTestData)->getData();
             $this->validateUrlResult($result);
         }
     }

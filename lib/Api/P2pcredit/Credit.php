@@ -1,9 +1,9 @@
 <?php
 
-namespace Fondy\Api\P2pcredit;
+namespace Cloudipsp\Api\P2pcredit;
 
-use Fondy\Api\Api;
-use Fondy\Helper;
+use Cloudipsp\Api\Api;
+use Cloudipsp\Helper;
 
 class Credit extends Api
 {
@@ -23,7 +23,7 @@ class Credit extends Api
      * @param $data
      * @param array $headers
      * @return mixed
-     * @throws \Fondy\Exception\ApiException
+     * @throws \Cloudipsp\Exception\ApiException
      */
     public function get($data, $headers = [], $requiredParams = [])
     {

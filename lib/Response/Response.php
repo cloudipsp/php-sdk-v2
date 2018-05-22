@@ -1,11 +1,11 @@
 <?php
 
-namespace Fondy\Response;
+namespace Cloudipsp\Response;
 
-use Fondy\Configuration;
-use Fondy\Exception\ApiException;
-use Fondy\Helper\ResponseHelper;
-use Fondy\Helper\ResultHelper;
+use Cloudipsp\Configuration;
+use Cloudipsp\Exception\ApiException;
+use Cloudipsp\Helper\ResponseHelper;
+use Cloudipsp\Helper\ResultHelper;
 
 class Response
 {

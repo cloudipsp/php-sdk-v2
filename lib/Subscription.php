@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Fondy;
+namespace Cloudipsp;
 
-use Fondy\Api\Checkout as Api;
-use Fondy\Response\Response;
+use Cloudipsp\Api\Checkout as Api;
+use Cloudipsp\Response\Response;
 
 class Subscription
 {
@@ -34,9 +34,9 @@ class Subscription
      */
     public static function url($data, $headers = [])
     {
-        if (\Fondy\Configuration::getApiVersion() !== self::$requiredApiVersion) {
+        if (\Cloudipsp\Configuration::getApiVersion() !== self::$requiredApiVersion) {
             trigger_error('Reccuring_data allowed only for api version \'2.0\'', E_USER_NOTICE);
-            \Fondy\Configuration::setApiVersion(self::$requiredApiVersion);
+            \Cloudipsp\Configuration::setApiVersion(self::$requiredApiVersion);
         }
         $data = array_merge($data, self::$defaultParams);
         $api = new Api\Url();
@@ -53,9 +53,9 @@ class Subscription
      */
     public static function token($data, $headers = [])
     {
-        if (\Fondy\Configuration::getApiVersion() !== self::$requiredApiVersion) {
+        if (\Cloudipsp\Configuration::getApiVersion() !== self::$requiredApiVersion) {
             trigger_error('Reccuring_data allowed only for api version \'2.0\'', E_USER_NOTICE);
-            \Fondy\Configuration::setApiVersion(self::$requiredApiVersion);
+            \Cloudipsp\Configuration::setApiVersion(self::$requiredApiVersion);
         }
         $data = array_merge($data, self::$defaultParams);
         $api = new Api\Token;

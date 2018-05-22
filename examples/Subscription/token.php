@@ -1,6 +1,6 @@
 <?php
 require_once '../configuration.php';
-require_once SDK_ROOTPATH . '../../vendor/autoload.php';
+require_once SDK_ROOTPATH . '/../vendor/autoload.php';
 
 
 //Payment subscription token scheme B(host-to-host)
@@ -20,8 +20,8 @@ try {
 
     ];
     //Call method to generate token
-    \Fondy\Configuration::setApiVersion('2.0'); //allow only json api protocol 2.0
-    $url = Fondy\Subscription::token($data);
+    \Cloudipsp\Configuration::setApiVersion('2.0'); //allow only json api protocol 2.0
+    $url = Cloudipsp\Subscription::token($data);
     //getting returned data
     ?>
     <!doctype html>

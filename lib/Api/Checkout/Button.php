@@ -1,9 +1,9 @@
 <?php
 
-namespace Fondy\Api\Checkout;
+namespace Cloudipsp\Api\Checkout;
 
-use Fondy\Api\Api;
-use Fondy\Helper\ApiHelper;
+use Cloudipsp\Api\Api;
+use Cloudipsp\Helper\ApiHelper;
 
 class Button extends Api
 {
@@ -27,9 +27,9 @@ class Button extends Api
      */
     public function get($data)
     {
-        if (\Fondy\Configuration::getApiVersion() !== $this->requiredApiVersion) {
+        if (\Cloudipsp\Configuration::getApiVersion() !== $this->requiredApiVersion) {
             trigger_error('Button method allowed only for api version \'1.0\'', E_USER_NOTICE);
-            \Fondy\Configuration::setApiVersion($this->requiredApiVersion);
+            \Cloudipsp\Configuration::setApiVersion($this->requiredApiVersion);
         }
         $requestData = $this->prepareButtonParams($data);
         $url = $this->createUrl($this->url);

@@ -1,8 +1,8 @@
 <?php
 
-namespace Fondy\Api\Checkout;
+namespace Cloudipsp\Api\Checkout;
 
-use Fondy\Api\Api;
+use Cloudipsp\Api\Api;
 
 class Url extends Api
 {
@@ -22,7 +22,7 @@ class Url extends Api
      * @param $data
      * @param array $headers
      * @return mixed
-     * @throws \Fondy\Exception\ApiException
+     * @throws \Cloudipsp\Exception\ApiException
      */
     public function get($data, $headers = [], $requiredParams = [])
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Fondy;
+namespace Cloudipsp;
 
 class Configuration
 {
@@ -133,7 +133,7 @@ class Configuration
      */
     public static function getHttpClient()
     {
-        $client = 'Fondy\\HttpClient\\' . self::$HttpClient;
+        $client = 'Cloudipsp\\HttpClient\\' . self::$HttpClient;
         return new $client();
     }
 
@@ -142,12 +142,12 @@ class Configuration
      */
     public static function setHttpClient($client)
     {
-        $HttpClient = 'Fondy\\HttpClient\\' . $client;
+        $HttpClient = 'Cloudipsp\\HttpClient\\' . $client;
         if (class_exists($HttpClient)) {
             return self::$HttpClient = $client;
         } else {
             trigger_error('Client Class not found or name set up incorrectly. Available clients: HttpCurl, HttpGuzzle', E_USER_NOTICE);
-            return self::$HttpClient = 'Fondy\\HttpClient\\HttpCurl';
+            return self::$HttpClient = 'Cloudipsp\\HttpClient\\HttpCurl';
         }
     }
 

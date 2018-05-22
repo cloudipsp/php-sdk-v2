@@ -1,8 +1,8 @@
 <?php
 
-namespace Fondy\Api\Order;
+namespace Cloudipsp\Api\Order;
 
-use Fondy\Api\Api;
+use Cloudipsp\Api\Api;
 
 class Status extends Api
 {
@@ -20,7 +20,7 @@ class Status extends Api
      * @param $data
      * @param array $headers
      * @return mixed
-     * @throws \Fondy\Exception\ApiException
+     * @throws \Cloudipsp\Exception\ApiException
      */
     public function get($data, $headers = [])
     {

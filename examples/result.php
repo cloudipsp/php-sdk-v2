@@ -16,7 +16,7 @@ require_once SDK_ROOTPATH . '/../vendor/autoload.php';
 try {
     $callbackData = json_decode(file_get_contents('php://input'), TRUE); //if request in json
     if ($callbackData)
-        $result = new Fondy\Result\Result($callbackData);
+        $result = new Cloudipsp\Result\Result($callbackData);
     else
         die('No data');
     ?>

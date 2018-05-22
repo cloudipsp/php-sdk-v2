@@ -1,6 +1,6 @@
 <?php
 require_once '../configuration.php';
-require_once SDK_ROOTPATH . '../../vendor/autoload.php';
+require_once SDK_ROOTPATH . '/../vendor/autoload.php';
 
 
 //Payment url scheme B(host-to-host)
@@ -35,8 +35,8 @@ try {
         )
     ];
     //Call method to generate url
-    $url = Fondy\Checkout::url($data);
-    $urlBig = Fondy\Checkout::url($dataBig);
+    $url = Cloudipsp\Checkout::url($data);
+    $urlBig = Cloudipsp\Checkout::url($dataBig);
     //getting returned data
     ?>
     <!doctype html>

@@ -1,8 +1,8 @@
 <?php
 
-namespace Fondy\Api\Payment\Pcidss;
+namespace Cloudipsp\Api\Payment\Pcidss;
 
-use Fondy\Api\Api;
+use Cloudipsp\Api\Api;
 
 class StepOne extends Api
 {
@@ -27,7 +27,7 @@ class StepOne extends Api
      * @param $data
      * @param array $headers
      * @return mixed
-     * @throws \Fondy\Exception\ApiException
+     * @throws \Cloudipsp\Exception\ApiException
      */
     public function get($data, $headers = [])
     {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Fondy\HttpClient;
+namespace Cloudipsp\HttpClient;
 
-use Fondy\Exception;
+use Cloudipsp\Exception;
 
 class HttpCurl implements ClientInterface
 {

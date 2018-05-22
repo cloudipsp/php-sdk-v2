@@ -1,9 +1,9 @@
 <?php
 
-namespace Fondy;
+namespace Cloudipsp;
 
-use Fondy\Api\Order as Api;
-use Fondy\Response\OrderResponse;
+use Cloudipsp\Api\Order as Api;
+use Cloudipsp\Response\OrderResponse;
 
 class Order
 {

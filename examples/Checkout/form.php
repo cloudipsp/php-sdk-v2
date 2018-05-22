@@ -1,6 +1,6 @@
 <?php
 require_once '../configuration.php';
-require_once SDK_ROOTPATH . '../../vendor/autoload.php';
+require_once SDK_ROOTPATH . '/../vendor/autoload.php';
 
 
 //Payment form scheme A(form)
@@ -13,7 +13,7 @@ try {
         'order_desc' => 'test description'
     ];
     //Call method to generate form
-    $form_string = Fondy\Checkout::form($data);
+    $form_string = Cloudipsp\Checkout::form($data);
     //getting returned data
     ?>
     <!doctype html>

@@ -1,10 +1,10 @@
 <?php
 
-namespace Fondy\Result;
+namespace Cloudipsp\Result;
 
-use Fondy\Helper\ResponseHelper;
-use Fondy\Helper\ResultHelper;
-use Fondy\Configuration;
+use Cloudipsp\Helper\ResponseHelper;
+use Cloudipsp\Helper\ResultHelper;
+use Cloudipsp\Configuration;
 
 class Result
 {

@@ -1,6 +1,6 @@
 <?php
 require_once '../configuration.php';
-require_once SDK_ROOTPATH . '../../vendor/autoload.php';
+require_once SDK_ROOTPATH . '/../vendor/autoload.php';
 
 
 //Payment token for js scheme B(host-to-host)
@@ -13,7 +13,7 @@ try {
         'order_desc' => 'test description'
     ];
     //Call method to generate token
-    $token = Fondy\Checkout::token($data);
+    $token = Cloudipsp\Checkout::token($data);
     //getting returned data
     ?>
     <!doctype html>

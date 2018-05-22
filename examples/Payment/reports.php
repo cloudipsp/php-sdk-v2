@@ -9,7 +9,7 @@ try {
         "date_from" => date('d.m.Y H:i:s', time() - 3600),
         "date_to" => date('d.m.Y H:i:s'),
     ];
-    $reports = Fondy\Payment::reports($Data);
+    $reports = Cloudipsp\Payment::reports($Data);
     //getting returned data
     ?>
     <!doctype html>

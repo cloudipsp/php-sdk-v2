@@ -1,6 +1,6 @@
 {
-  "name": "fondy/sdk",
-  "description": "sdk v2",
+  "name": "cloudipsp/sdk",
+  "description": "Cloudipsp php sdk v2",
   "type": "library",
   "license": "MIT",
   "authors": [
@@ -20,7 +20,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Fondy\\": "lib/"
+      "Cloudipsp\\": "lib/"
     }
   }
 }
