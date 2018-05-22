@@ -13,7 +13,12 @@ class ResponseHelper
     {
         if (isset($data['response']['token']))
             return $data['response'];
-        return json_decode(base64_decode($data['response']['data']), TRUE)['order'];
+        if (isset($data['response']['data'])) {
+            $orderData = json_decode(base64_decode($data['response']['data']), TRUE)['order'];
+        } else {
+            $orderData = $data['response'];
+        }
+        return $orderData;
     }
 
     /**

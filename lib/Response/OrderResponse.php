@@ -2,7 +2,7 @@
 
 namespace Fondy\Response;
 
-use Fondy\Exeption\ApiExeption;
+use Fondy\Exception\ApiException;
 use Fondy\Helper\ResponseHelper;
 
 class OrderResponse extends Response
@@ -67,6 +67,10 @@ class OrderResponse extends Response
         return $data['capture_status'] != 'captured' ? false : true;
     }
 
+    /**
+     * @return mixed
+     * @throws ApiException
+     */
     private function getCapturedTransAction()
     {
         foreach ($this->getData() as $data) {
@@ -76,8 +80,9 @@ class OrderResponse extends Response
             ) {
                 return $data;
             } else {
-                throw new ApiExeption('Nothing to capture');
+                throw new ApiException('Nothing to capture');
             }
         }
+        return false;
     }
 }

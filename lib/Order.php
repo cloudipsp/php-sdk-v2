@@ -12,7 +12,7 @@ class Order
      * @param $data
      * @param array $headers
      * @return OrderResponse
-     * @throws Exeption\ApiExeption
+     * @throws Exception\ApiException
      */
     public static function capture($data, $headers = [])
     {
@@ -26,7 +26,7 @@ class Order
      * @param $data
      * @param array $headers
      * @return OrderResponse
-     * @throws Exeption\ApiExeption
+     * @throws Exception\ApiException
      */
     public static function reverse($data, $headers = [])
     {
@@ -40,7 +40,7 @@ class Order
      * @param $data
      * @param array $headers
      * @return OrderResponse
-     * @throws Exeption\ApiExeption
+     * @throws Exception\ApiException
      */
     public static function status($data, $headers = [])
     {
@@ -54,7 +54,7 @@ class Order
      * @param $data
      * @param array $headers
      * @return OrderResponse
-     * @throws Exeption\ApiExeption
+     * @throws Exception\ApiException
      */
     public static function transactionList($data, $headers = [])
     {
@@ -68,7 +68,7 @@ class Order
      * @param $data
      * @param array $headers
      * @return OrderResponse
-     * @throws Exeption\ApiExeption
+     * @throws Exception\ApiException
      */
     public static function atolLogs($data, $headers = [])
     {

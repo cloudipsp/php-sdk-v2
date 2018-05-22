@@ -32,6 +32,13 @@ class PaymentTest extends TestCase
         'client_ip' => '127.2.2.1'
     ];
 
+    /**
+     * PaymentTest constructor.
+     * @param null $name
+     * @param array $data
+     * @param string $dataName
+     * @throws Exception\ApiException
+     */
     public function __construct($name = null, array $data = array(), $dataName = '')
     {
         $this->setTestConfig();
@@ -46,6 +53,9 @@ class PaymentTest extends TestCase
 
     }
 
+    /**
+     * @throws Exception\ApiException
+     */
     public function testRecurring()
     {
         $this->setTestConfig();
@@ -59,6 +69,9 @@ class PaymentTest extends TestCase
         }
     }
 
+    /**
+     * @throws Exception\ApiException
+     */
     public function testRecurringv2()
     {
         $this->setTestConfig();
@@ -71,6 +84,26 @@ class PaymentTest extends TestCase
 
     }
 
+    /**
+     * @throws Exception\ApiException
+     */
+    public function testReports()
+    {
+        $this->setTestConfig();
+        $Data = [
+            "date_from" => date('d.m.Y H:i:s', time() - 3600),
+            "date_to" => date('d.m.Y H:i:s'),
+        ];
+        $reports = \Fondy\Payment::reports($Data);
+        $this->assertEquals($reports->getData()[0]['response_status'], 'success');
+
+    }
+
+    /**
+     * @param $data
+     * @return mixed
+     * @throws Exception\ApiException
+     */
     private function getToken($data)
     {
         $data = \Fondy\Pcidss::start($data);

@@ -3,7 +3,7 @@
 namespace Fondy\Response;
 
 use Fondy\Configuration;
-use Fondy\Exeption\ApiExeption;
+use Fondy\Exception\ApiException;
 use Fondy\Helper\ResponseHelper;
 use Fondy\Helper\ResultHelper;
 
@@ -22,7 +22,11 @@ class Response
      */
     protected $apiVersion;
 
-
+    /**
+     * Response constructor.
+     * @param $data
+     * @throws ApiException
+     */
     public function __construct($data)
     {
         $this->requestType = Configuration::getRequestType();
@@ -48,14 +52,14 @@ class Response
      * Check response on errors
      * @param $response
      * @return mixed
-     * @throws ApiExeption
+     * @throws ApiException
      */
     private function checkResponse($response)
     {
         if (isset($response['response']['response_status']) && $response['response']['response_status'] == 'failure')
-            throw new ApiExeption('Request is incorrect.', 200, $response);
+            throw new ApiException('Request is incorrect.', 200, $response);
         if (isset($response['response']['error_code']))
-            throw new ApiExeption('Request is incorrect.', 200, $response);
+            throw new ApiException('Request is incorrect.', 200, $response);
         return $response;
     }
 

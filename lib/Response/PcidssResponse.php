@@ -3,7 +3,7 @@
 namespace Fondy\Response;
 
 use Fondy\Helper;
-use Fondy\Exeption\ApiExeption;
+use Fondy\Exception\ApiException;
 use Fondy\Configuration;
 
 class PcidssResponse extends Response
@@ -25,14 +25,14 @@ class PcidssResponse extends Response
      * @param $data
      * @param array $headers
      * @return Response
-     * @throws ApiExeption
+     * @throws ApiException
      */
     public function get3dsFormContent($response_url = '')
     {
         $data = $this->getData();
 
         if (!isset($data['md'])) {
-            throw new ApiExeption('Required param MD is missing or empty.');
+            throw new ApiException('Required param MD is missing or empty.');
         }
         Helper\ValidationHelper::validateURL($data['acs_url']);
         $formData = [

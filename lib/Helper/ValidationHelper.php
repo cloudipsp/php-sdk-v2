@@ -8,9 +8,10 @@ class ValidationHelper
      * Validation required params not empty
      * @param $params
      * @param $required
+     * @param $dateFormat
      * @return bool
      */
-    public static function validateRequiredParams($params, $required)
+    public static function validateRequiredParams($params, $required, $dateFormat = 'Y-m-d')
     {
 
         foreach ($required as $key => $param) {
@@ -30,7 +31,7 @@ class ValidationHelper
                     self::validateString($params[$key], $key);
                     break;
                 case 'date':
-                    self::validateDate($params[$key], $key);
+                    self::validateDate($params[$key], $key, $dateFormat);
                     break;
                 case 'ccnumber':
                     self::validateCCard($params[$key]);
@@ -48,7 +49,6 @@ class ValidationHelper
     /**
      * Helper method for validating URLs
      * @param      $url
-     * @param string|null $urlName
      * @throws \InvalidArgumentException
      */
     public static function validateURL($url)
@@ -59,24 +59,25 @@ class ValidationHelper
     }
 
     /**
-     * Helper method for validating URLs
-     * @param      $url
-     * @param string|null $urlName
-     * @throws \InvalidArgumentException
+     * Helper method for validating date
+     * @param $date
+     * @param $key
+     * @param $format
+     * @return bool
      */
-    public static function validateDate($date, $format = null)
+    public static function validateDate($date, $key, $format)
     {
-        $check = explode("-", $date);
-        if (!checkdate($check[1], $check[2], $check[0])) {
-            throw new \InvalidArgumentException('Date is incorrect');
+        $d = \DateTime::createFromFormat($format, $date);
+        if ($d && $d->format($format) == $date) {
+            return true;
+        } else {
+            throw new \InvalidArgumentException(sprintf('Date %s is incorrect! Accepted format is: %s', $key, $format));
         }
     }
 
     /**
-     * Helper method for validating Integer
-     * @param      $url
-     * @param string|null $urlName
-     * @throws \InvalidArgumentException
+     * @param $param
+     * @param string $key
      */
     public static function validateInteger($param, $key = '')
     {
@@ -86,10 +87,8 @@ class ValidationHelper
     }
 
     /**
-     * Helper method for validating String
-     * @param      $url
-     * @param string|null $urlName
-     * @throws \InvalidArgumentException
+     * @param $param
+     * @param string $key
      */
     public static function validateString($param, $key = '')
     {
@@ -128,6 +127,10 @@ class ValidationHelper
         }
     }
 
+    /**
+     * @param $ip
+     * @return bool
+     */
     protected static function validateIP($ip)
     {
         if (filter_var($ip, FILTER_VALIDATE_IP)) {

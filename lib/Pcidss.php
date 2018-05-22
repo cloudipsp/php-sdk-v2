@@ -5,7 +5,7 @@ namespace Fondy;
 use Fondy\Api;
 use Fondy\Response\PcidssResponse;
 use Fondy\Helper;
-use Fondy\Exeption\ApiExeption;
+use Fondy\Exception\ApiException;
 
 class Pcidss
 {
@@ -14,7 +14,7 @@ class Pcidss
      * @param $data
      * @param array $headers
      * @return PcidssResponse
-     * @throws Exeption\ApiExeption
+     * @throws Exception\ApiException
      */
     public static function start($data, $headers = [])
     {
@@ -28,7 +28,7 @@ class Pcidss
      * @param $data
      * @param array $headers
      * @return PcidssResponse
-     * @throws Exeption\ApiExeption
+     * @throws Exception\ApiException
      */
     public static function submit($data, $headers = [])
     {
@@ -42,12 +42,12 @@ class Pcidss
      * @param $data
      * @param array $headers
      * @return string
-     * @throws Exeption\ApiExeption
+     * @throws Exception\ApiException
      */
     public static function get3dsFrom($data, $response_url = '')
     {
         if (!$data['acs_url']) {
-            throw new ApiExeption('Required param acs_url is missing or empty.');
+            throw new ApiException('Required param acs_url is missing or empty.');
         }
         Helper\ValidationHelper::validateURL($data['acs_url']);
         foreach ($data as $key => $value) {

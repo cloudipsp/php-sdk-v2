@@ -1,9 +1,9 @@
 <?php
-namespace Fondy\Exeption;
+namespace Fondy\Exception;
 
 use Exception;
 
-abstract class MainExeption extends Exception
+abstract class MainException extends Exception
 {
     private $fondyCode;
     private $httpBody;

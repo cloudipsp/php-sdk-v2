@@ -2,7 +2,7 @@
 
 namespace Fondy\HttpClient;
 
-use Fondy\Exeption;
+use Fondy\Exception;
 
 class HttpCurl implements ClientInterface
 {
@@ -26,15 +26,15 @@ class HttpCurl implements ClientInterface
      * @param array $headers
      * @param array $params
      * @return array
-     * @throws Exeption\HttpClientExeption
+     * @throws Exception\HttpClientException
      */
     public function request($method, $url, $headers = [], $params)
     {
         $method = strtoupper($method);
         if (!$this->curlEnabled())
-            throw new Exeption\HttpClientExeption('Curl not enabled.');
+            throw new Exception\HttpClientException('Curl not enabled.');
         if (empty($url))
-            throw new Exeption\HttpClientExeption('The url is empty.');
+            throw new Exception\HttpClientException('The url is empty.');
 
         $ch = curl_init($url);
         foreach ($this->options as $option => $value) {
@@ -48,7 +48,7 @@ class HttpCurl implements ClientInterface
         $response = curl_exec($ch);
         $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         if ($httpStatus != 200)
-            throw new Exeption\HttpClientExeption(sprintf('Status is: %s', $httpStatus));
+            throw new Exception\HttpClientException(sprintf('Status is: %s', $httpStatus));
         curl_close($ch);
         return trim($response);
     }

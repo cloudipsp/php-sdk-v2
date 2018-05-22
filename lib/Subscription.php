@@ -30,6 +30,7 @@ class Subscription
      * @param $data
      * @param array $headers
      * @return Response
+     * @throws Exception\ApiException
      */
     public static function url($data, $headers = [])
     {
@@ -48,6 +49,7 @@ class Subscription
      * @param $data
      * @param array $headers
      * @return Response
+     * @throws Exception\ApiException
      */
     public static function token($data, $headers = [])
     {

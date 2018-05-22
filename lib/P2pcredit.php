@@ -14,7 +14,7 @@ class P2pcredit
      * @param $data
      * @param array $headers
      * @return Response
-     * @throws Exeption\ApiExeption
+     * @throws Exception\ApiException
      */
     public static function start($data, $headers = [])
     {

@@ -22,6 +22,7 @@ class Verification
      * @param $data
      * @param array $headers
      * @return Response
+     * @throws Exception\ApiException
      */
     public static function url($data, $headers = [])
     {
@@ -36,6 +37,7 @@ class Verification
      * @param $data
      * @param array $headers
      * @return string
+     * @throws Exception\ApiException
      */
     public static function form($data)
     {

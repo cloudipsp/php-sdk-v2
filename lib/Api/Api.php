@@ -3,7 +3,7 @@
 namespace Fondy\Api;
 
 use Fondy\Configuration;
-use Fondy\Exeption\ApiExeption;
+use Fondy\Exception\ApiException;
 use Fondy\Helper as Helper;
 
 class Api
@@ -31,7 +31,7 @@ class Api
 
     /**
      * @param $data
-     * @throws ApiExeption
+     * @throws ApiException
      */
     public function __construct($type = '')
     {
@@ -39,9 +39,9 @@ class Api
         $this->mid = Configuration::getMerchantId();
         $this->setKeyByOperationType($type);
         if (empty($this->mid) or !is_numeric($this->mid))
-            throw new ApiExeption('Merchant ID is empty or invalid.');
+            throw new ApiException('Merchant ID is empty or invalid.');
         if (empty($this->secretKey))
-            throw new ApiExeption('Secret Key is empty or invalid.');
+            throw new ApiException('Secret Key is empty or invalid.');
         $this->client = Configuration::getHttpClient();
         $this->requestType = Configuration::getRequestType();
     }
@@ -52,7 +52,7 @@ class Api
      * @param $headers
      * @param $data
      * @return mixed
-     * @throws ApiExeption
+     * @throws ApiException
      */
     public function Request($method, $url, $headers, $data)
     {
@@ -61,7 +61,7 @@ class Api
         $headers = Helper\RequestHelper::parseHeadres($headers, $this->requestType);
         $response = $this->client->request($method, $url, $headers, $data);
         if (!$response)
-            throw new ApiExeption('Unknown error.');
+            throw new ApiException('Unknown error.');
 
         return $response;
 
@@ -145,12 +145,12 @@ class Api
     /**
      * @param $data
      * @return string
-     * @throws ApiExeption
+     * @throws ApiException
      */
     protected function getDataByVersion($data)
     {
         if (!$this->version)
-            throw new ApiExeption('Unknown api version');
+            throw new ApiException('Unknown api version');
 
         switch ($this->version) {
             case '1.0':
@@ -158,7 +158,7 @@ class Api
                 break;
             case '2.0':
                 if ($this->requestType != 'json') {
-                    throw new ApiExeption('Invalid request type. In protocol \'2.0\' only \'json\' allowed.');
+                    throw new ApiException('Invalid request type. In protocol \'2.0\' only \'json\' allowed.');
                 }
                 $convertedData = $this->converDataV2($data);
                 break;
@@ -166,9 +166,9 @@ class Api
         return $convertedData;
     }
 
-    protected function validate($params, $required)
+    protected function validate($params, $required, $dateFormat = '')
     {
-        Helper\ValidationHelper::validateRequiredParams($params, $required);
+        Helper\ValidationHelper::validateRequiredParams($params, $required, $dateFormat);
     }
 
     /**

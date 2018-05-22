@@ -3,7 +3,7 @@
 namespace Fondy\Api\Checkout;
 
 use Fondy\Api\Api;
-use Fondy\Exeption\ApiExeption;
+use Fondy\Exception\ApiException;
 
 class Token extends Api
 {
@@ -23,12 +23,12 @@ class Token extends Api
      * @param $data
      * @param array $headers
      * @return mixed
-     * @throws \Fondy\Exeption\ApiExeption
+     * @throws \Fondy\Exception\ApiException
      */
     public function get($data, $headers = [], $requiredParams = [])
     {
         if ($this->requestType != 'json')
-            throw new ApiExeption('Invalid request type. In this method only \'json\' allowed.');
+            throw new ApiException('Invalid request type. In this method only \'json\' allowed.');
         if (!empty($requiredParams))
             $this->requiredParams = array_merge($requiredParams, $this->requiredParams);
         $requestData = $this->prepareParams($data);

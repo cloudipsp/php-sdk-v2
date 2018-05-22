@@ -23,7 +23,7 @@ class Credit extends Api
      * @param $data
      * @param array $headers
      * @return mixed
-     * @throws \Fondy\Exeption\ApiExeption
+     * @throws \Fondy\Exception\ApiException
      */
     public function get($data, $headers = [], $requiredParams = [])
     {

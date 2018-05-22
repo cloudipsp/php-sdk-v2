@@ -16,8 +16,8 @@ class Checkout
      * generate payment url
      * @param $data
      * @param array $headers
-     * @param array $rParams
      * @return Response
+     * @throws Exception\ApiException
      */
     public static function url($data, $headers = [])
     {
@@ -30,7 +30,7 @@ class Checkout
      * render payment form
      * @param $data
      * @return string
-     * @throws Exeption\ApiExeption
+     * @throws Exception\ApiException
      */
     public static function form($data)
     {
@@ -42,7 +42,7 @@ class Checkout
      * generate payment button string
      * @param $data
      * @return string
-     * @throws Exeption\ApiExeption
+     * @throws Exception\ApiException
      */
     public static function button($data)
     {
@@ -54,8 +54,8 @@ class Checkout
      * generate payment token
      * @param $data
      * @param array $headers
-     * @param array $rParams
      * @return Response
+     * @throws Exception\ApiException
      */
     public static function token($data, $headers = [])
     {
