@@ -1,11 +1,12 @@
 <?php
 //Emulating payment result api 1.0 format json
+//To check it not use php-buid in server
 $curl = curl_init();
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 $domainName = $_SERVER['HTTP_HOST'];
 $response_url = $protocol . $domainName;
 curl_setopt_array($curl, array(
-    CURLOPT_PORT => "8091",
+    CURLOPT_PORT => $_SERVER['SERVER_PORT'],
     CURLOPT_URL => $response_url . "/examples/result.php",
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",

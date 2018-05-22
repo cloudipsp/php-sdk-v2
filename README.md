@@ -32,5 +32,9 @@ $url = $data->getUrl();
 
 See [php-docs](https://dimoncheg12.github.io/php-docs/)
 ## Examples
-
+To check it you can use build-in php server
+```cmd
+cd ~/php-sdk-v2
+php -S localhost:8000
+```
 [Checkout examples](https://github.com/dimoncheg12/php-sdk-v2/tree/master/examples)
