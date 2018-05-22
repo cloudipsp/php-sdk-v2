@@ -37,6 +37,7 @@ class ConfigurationTest extends TestCase
 
     public function testSetHttpClient()
     {
+        \Fondy\Configuration::setHttpClient('HttpCurl');
         $this->assertInstanceOf('\\Fondy\\HttpClient\\HttpCurl', \Fondy\Configuration::getHttpClient());
         \Fondy\Configuration::setHttpClient('HttpGuzzle');
         $this->assertInstanceOf('\\Fondy\\HttpClient\\HttpGuzzle', \Fondy\Configuration::getHttpClient());
