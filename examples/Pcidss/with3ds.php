@@ -66,7 +66,7 @@ try {
         </tr>
         <tr>
             <td>Build an HTML form and using it submit customer to acs_url:</td>
-            <td><?php print(Cloudipsp\Pcidss::get3dsFrom($orderData->getData(), $response_url . '/examples/Pcidss/3dsresult.php')); ?></td>
+            <td><?php print(\Cloudipsp\Pcidss::get3dsFrom($orderData->getData(), $response_url . '/examples/Pcidss/3dsresult.php')); ?></td>
         </tr>
         <tr>
             <td>Getting data from acs_url:</td>

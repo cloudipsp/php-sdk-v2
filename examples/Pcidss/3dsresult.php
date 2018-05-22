@@ -9,7 +9,7 @@ try {
         session_start();
         $dataTo3dsSubmit = $_POST;
         $dataTo3dsSubmit['order_id'] = isset($_SESSION['order_id']) ? $_SESSION['order_id'] : null; // adding order id from prev step
-        $orderData = Cloudipsp\Pcidss::submit($dataTo3dsSubmit);
+        $orderData = \Cloudipsp\Pcidss::submit($dataTo3dsSubmit);
         session_destroy();
     }
     //getting returned data
