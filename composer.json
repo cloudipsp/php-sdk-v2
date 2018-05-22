@@ -1,5 +1,5 @@
 {
-  "name": "cloudipsp/sdk",
+  "name": "cloudipsp/php-sdk-v2",
   "description": "Cloudipsp php sdk v2",
   "type": "library",
   "license": "MIT",
