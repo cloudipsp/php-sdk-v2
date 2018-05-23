@@ -76,8 +76,9 @@ class Response
      */
     public function toCheckout()
     {
-        if ($this->response['checkout_url']) {
-            header(sprintf('location: %s', $this->response['checkout_url']));
+        $url = $this->getData()['checkout_url'];
+        if (isset($url)) {
+            header(sprintf('location: %s', $url));
             exit;
         }
     }
