@@ -25,6 +25,13 @@ class Result
      */
     protected $apiVersion;
 
+    /**
+     * Result constructor.
+     * @param array $data
+     * @param string $key
+     * @param string $type
+     * @param bool $formatted
+     */
     public function __construct(array $data = [], $key = '', $type = '', $formatted = true)
     {
         $this->apiVersion = Configuration::getApiVersion();
@@ -34,7 +41,7 @@ class Result
             $this->requestType = $type;
         }
         if (!$data) {
-            $this->result = $this->parseResult($formatted);
+            $this->result = $this->parseResult();
         } else {
             $this->result = $data;
         }
@@ -43,18 +50,26 @@ class Result
         } else {
             $this->secretKey = $key;
         }
+        if ($formatted)
+            $this->result = $this->formatResult($this->result);
     }
 
     /**
-     * @param $formatted
-     * @return array
+     * @return string
      */
-    private function parseResult($formatted)
+    private function parseResult()
     {
         $result = $_POST;
+
         if (empty($result))
             $result = file_get_contents('php://input');
-        if ($formatted) {
+        return $result;
+
+    }
+
+    private function formatResult($result)
+    {
+        if ($this->apiVersion === '1.0' && is_string($result)) {
             switch ($this->requestType) {
                 case 'xml':
                     $result = ResponseHelper::xmlToArray($result, true, true, 'UTF-8');
@@ -65,7 +80,6 @@ class Result
             }
         }
         return $result;
-
     }
 
     public function getData()
