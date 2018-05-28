@@ -138,7 +138,7 @@ class Api
         if (isset($prepared_params['recurring_data']) && $this->version === '1.0')
             throw new \InvalidArgumentException('Reccuring_data allowed only for api version \'2.0\'');
 
-        if (isset($prepared_params['reservation_data']['products'])) {
+        if (isset($prepared_params['reservation_data']) && is_array($prepared_params['reservation_data'])) {
             $prepared_params['reservation_data'] = base64_encode(Helper\ApiHelper::toJSON($prepared_params['reservation_data']));
         }
 

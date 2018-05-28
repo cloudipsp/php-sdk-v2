@@ -1,5 +1,9 @@
 # IPSP PHP-SDK-v2
 
+<p align="center">
+  <img width="200" height="200" src="https://avatars0.githubusercontent.com/u/15383021?s=200&v=4">
+</p>
+
 ## Payment service provider
 A payment service provider (PSP) offers shops online services for accepting electronic payments by a variety of payment methods including credit card, bank-based payments such as direct debit, bank transfer, and real-time bank transfer based on online banking. Typically, they use a software as a service model and form a single payment gateway for their clients (merchants) to multiple payment methods. 
 [read more](https://en.wikipedia.org/wiki/Payment_service_provider)
@@ -20,7 +24,11 @@ composer require cloudipsp/php-sdk-v2
 ```cmd
 git clone -b maseter https://github.com/dimoncheg12/php-sdk-v2.git
 ```
-//ToDo Manual Class loader
+
+```php
+<?php
+require '/path-to-sdk/autoload.php';
+```
 ## Simple Start
 ```php
 require 'vendor/autoload.php';
