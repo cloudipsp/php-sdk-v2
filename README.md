@@ -22,7 +22,7 @@ composer require cloudipsp/php-sdk-v2
 ```
 #### Manual installation
 ```cmd
-git clone -b maseter https://github.com/dimoncheg12/php-sdk-v2.git
+git clone -b master https://github.com/dimoncheg12/php-sdk-v2.git
 ```
 
 ```php
