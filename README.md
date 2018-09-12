@@ -14,9 +14,9 @@ This SDK uses composer.
 
 Composer is a tool for dependency management in PHP. It allows you to declare the libraries your project depends on and it will manage (install/update) them for you.
 
-For more information on how to use/install composer, please visit: https://github.com/composer/composer
+For more information on how to use/install composer, please visit https://github.com/composer/composer
 
-#### Composer Install
+#### Composer installation
 ```cmd
 composer require cloudipsp/php-sdk-v2
 ```
