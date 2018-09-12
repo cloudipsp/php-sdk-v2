@@ -53,3 +53,7 @@ cd ~/php-sdk-v2
 php -S localhost:8000
 ```
 [Checkout examples](https://github.com/dimoncheg12/php-sdk-v2/tree/master/examples)
+
+## Author
+
+D.M.
