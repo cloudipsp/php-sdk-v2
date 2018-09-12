@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 class P2pcreditTest extends TestCase
 {
     private $mid = 1000;
-    private $CreditKey = 'test';
+    private $CreditKey = 'testcredit';
     private $request_types = ['json', 'xml', 'form'];
     private $TestData = [
         'currency' => 'USD',
