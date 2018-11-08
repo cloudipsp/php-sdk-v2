@@ -90,11 +90,11 @@ class PaymentTest extends TestCase
     public function testReports()
     {
         $this->setTestConfig();
-        $Data = [
-            "date_from" => date('d.m.Y H:i:s', time() - 3600),
-            "date_to" => date('d.m.Y H:i:s'),
+        $data = [
+            "date_from" => date('d.m.Y H:i:s', time() - 7200),
+            "date_to" => date('d.m.Y H:i:s', time() - 3600),
         ];
-        $reports = \Cloudipsp\Payment::reports($Data);
+        $reports = \Cloudipsp\Payment::reports($data);
         $this->assertEquals($reports->getData()[0]['response_status'], 'success');
 
     }

@@ -5,11 +5,11 @@ require_once SDK_ROOTPATH . '/../vendor/autoload.php';
 
 //Get payment reports https://docs.fondy.eu/docs/page/9/
 try {
-    $Data = [
-        "date_from" => date('d.m.Y H:i:s', time() - 3600),
-        "date_to" => date('d.m.Y H:i:s'),
+    $data = [
+        "date_from" => date('d.m.Y H:i:s', time() - 7200),
+        "date_to" => date('d.m.Y H:i:s', time() - 3600),
     ];
-    $reports = Cloudipsp\Payment::reports($Data);
+    $reports = \Cloudipsp\Payment::reports($data);
     //getting returned data
     ?>
     <!doctype html>
@@ -31,7 +31,7 @@ try {
         </tr>
         <tr>
             <th style="text-align: left"
-                colspan="2"><?php printf("<pre>%s</pre>", json_encode(['request' => $Data], JSON_PRETTY_PRINT)) ?></th>
+                colspan="2"><?php printf("<pre>%s</pre>", json_encode(['request' => $data], JSON_PRETTY_PRINT)) ?></th>
         </tr>
         </thead>
         <tbody>

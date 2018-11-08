@@ -48,6 +48,8 @@ class Response
             case 'json':
                 $response = ResponseHelper::jsonToArray($data);
                 break;
+            default:
+                $response = null;
         }
 
         $this->checkResponse($response);
