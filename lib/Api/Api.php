@@ -61,7 +61,7 @@ class Api
         if (isset($data['order_id']))
             $result['order_id'] = $data['order_id'];
         $data = $this->getDataByVersion($data);
-        $headers = Helper\RequestHelper::parseHeadres($headers, $this->requestType);
+        $headers = Helper\RequestHelper::parseHeaders($headers, $this->requestType);
         $response = $this->client->request($method, $url, $headers, $data);
         if (!$response)
             throw new ApiException('Unknown error.');
@@ -88,6 +88,8 @@ class Api
             case 'json':
                 $convertedData = Helper\ApiHelper::toJSON(['request' => $data]);
                 break;
+            default:
+                $convertedData = null;
         }
 
         return $convertedData;
@@ -165,6 +167,8 @@ class Api
                 }
                 $convertedData = $this->converDataV2($data);
                 break;
+            default:
+                $convertedData = null;
         }
         return $convertedData;
     }

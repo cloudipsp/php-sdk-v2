@@ -4,6 +4,7 @@ namespace Cloudipsp\Api\Checkout;
 
 use Cloudipsp\Api\Api;
 use Cloudipsp\Helper\ApiHelper;
+use Cloudipsp\Configuration;
 
 class Form extends Api
 {
@@ -28,9 +29,9 @@ class Form extends Api
     public function get($data)
     {
 
-        if (\Cloudipsp\Configuration::getApiVersion() !== $this->requiredApiVersion) {
+        if (Configuration::getApiVersion() !== $this->requiredApiVersion) {
             trigger_error('Form method allowed only for api version \'1.0\'', E_USER_NOTICE);
-            \Cloudipsp\Configuration::setApiVersion($this->requiredApiVersion);
+            Configuration::setApiVersion($this->requiredApiVersion);
         }
         $requestData = $this->prepareParams($data);
         if (!isset($requestData['signature']))

@@ -2,14 +2,16 @@
 
 namespace Cloudipsp;
 
+use Cloudipsp\HttpClient\ClientInterface;
+
 class Configuration
 {
     /**
-     * @var int Mercahnt id
+     * @var int Merchant ID
      */
     private static $MerchantID;
     /**
-     * @var string Secret ket
+     * @var string Secret key
      */
     private static $SecretKey;
     /**
@@ -38,7 +40,7 @@ class Configuration
     private static $RequestType = 'json';
 
     /**
-     * Define the Mercahnt id.
+     * Define the Merchant ID.
      *
      * @param int $MerchantID
      */
@@ -58,7 +60,7 @@ class Configuration
     /**
      * Define the $SecretKey.
      *
-     * @set string SecretKey
+     * @param string $SecretKey
      */
     public static function setSecretKey($SecretKey)
     {
@@ -75,8 +77,7 @@ class Configuration
 
     /**
      * Define the $CreditKey.
-     *
-     * @set string CreditKey
+     * @param $CreditKey
      */
     public static function setCreditKey($CreditKey)
     {
@@ -100,6 +101,8 @@ class Configuration
     }
 
     /**
+     * @param $ApiVersion
+     * @return string
      * @set string ApiVersion The API version to use for requests.
      */
     public static function setApiVersion($ApiVersion)
@@ -121,6 +124,7 @@ class Configuration
     }
 
     /**
+     * @param $ApiUrl
      * @set string ApiUrl The API url to use for requests.
      */
     public static function setApiUrl($ApiUrl)
@@ -129,29 +133,35 @@ class Configuration
     }
 
     /**
-     * @return mixed used Http Client
+     * @return ClientInterface Http Client
      */
     public static function getHttpClient()
     {
-        $client = 'Cloudipsp\\HttpClient\\' . self::$HttpClient;
-        return new $client();
+        return self::setHttpClient(self::$HttpClient);
     }
 
     /**
-     * @return mixed http Client
+     * @param $client
+     * @return string
      */
     public static function setHttpClient($client)
     {
-        $HttpClient = 'Cloudipsp\\HttpClient\\' . $client;
-        if (class_exists($HttpClient)) {
+        if (is_string($client)) {
+            $HttpClient = 'Cloudipsp\\HttpClient\\' . $client;
+            if (class_exists($HttpClient)) {
+                return self::$HttpClient =  new $HttpClient();
+            }
+        } elseif ($client instanceof ClientInterface) {
             return self::$HttpClient = $client;
-        } else {
-            trigger_error('Client Class not found or name set up incorrectly. Available clients: HttpCurl, HttpGuzzle', E_USER_NOTICE);
-            return self::$HttpClient = 'Cloudipsp\\HttpClient\\HttpCurl';
         }
+        trigger_error('Client Class not found or name set up incorrectly. Available clients: HttpCurl, HttpGuzzle', E_USER_NOTICE);
+        $HttpClient = 'Cloudipsp\\HttpClient\\HttpCurl';
+        return self::$HttpClient = new $HttpClient();
+
     }
 
     /**
+     * @param $RequestType
      * @return string
      */
     public static function setRequestType($RequestType)

@@ -164,8 +164,8 @@ class ResponseHelper
      */
     public static function formToArray($data)
     {
-        $respnonse = [];
-        parse_str($data, $respnonse);
-        return $respnonse;
+        $response = [];
+        parse_str($data, $response);
+        return $response;
     }
 }

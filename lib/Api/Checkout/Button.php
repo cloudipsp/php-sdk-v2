@@ -4,6 +4,7 @@ namespace Cloudipsp\Api\Checkout;
 
 use Cloudipsp\Api\Api;
 use Cloudipsp\Helper\ApiHelper;
+use Cloudipsp\Configuration;
 
 class Button extends Api
 {
@@ -23,13 +24,12 @@ class Button extends Api
     /**
      * @param $data
      * @return string
-     *
      */
     public function get($data)
     {
-        if (\Cloudipsp\Configuration::getApiVersion() !== $this->requiredApiVersion) {
+        if (Configuration::getApiVersion() !== $this->requiredApiVersion) {
             trigger_error('Button method allowed only for api version \'1.0\'', E_USER_NOTICE);
-            \Cloudipsp\Configuration::setApiVersion($this->requiredApiVersion);
+            Configuration::setApiVersion($this->requiredApiVersion);
         }
         $requestData = $this->prepareButtonParams($data);
         $url = $this->createUrl($this->url);

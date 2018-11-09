@@ -6,7 +6,6 @@ use PHPUnit\Framework\TestCase;
 
 class ConfigurationTest extends TestCase
 {
-
     public function testGetApiUrl()
     {
         $this->assertEquals('https://api.fondy.eu/api', \Cloudipsp\Configuration::getApiUrl());
@@ -37,13 +36,19 @@ class ConfigurationTest extends TestCase
 
     public function testSetHttpClient()
     {
-        \Cloudipsp\Configuration::setHttpClient('HttpCurl');
-        $this->assertInstanceOf('\\Cloudipsp\\HttpClient\\HttpCurl', \Cloudipsp\Configuration::getHttpClient());
         \Cloudipsp\Configuration::setHttpClient('HttpGuzzle');
         $this->assertInstanceOf('\\Cloudipsp\\HttpClient\\HttpGuzzle', \Cloudipsp\Configuration::getHttpClient());
         \Cloudipsp\Configuration::setHttpClient('HttpCurl');
+        $this->assertInstanceOf('\\Cloudipsp\\HttpClient\\HttpCurl', \Cloudipsp\Configuration::getHttpClient());
+        $this->setExpectedException('PHPUnit_Framework_Error_Notice');
+        $this->assertFalse(\Cloudipsp\Configuration::setHttpClient('Unknown'));
     }
 
+    public function testSetHttpClientClass()
+    {
+        \Cloudipsp\Configuration::setHttpClient(new \Cloudipsp\HttpClient\HttpCurl());
+        $this->assertInstanceOf('\\Cloudipsp\\HttpClient\\HttpCurl', \Cloudipsp\Configuration::getHttpClient());
+    }
 
     public function testSetSecretKey()
     {

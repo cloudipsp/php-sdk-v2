@@ -86,6 +86,7 @@ class Response
     }
 
     /**
+     * Getting checkout_url from response
      * @return bool|string
      */
     public function getUrl()
@@ -112,6 +113,9 @@ class Response
         }
     }
 
+    /**
+     * @return array|mixed
+     */
     protected function buildVerifyData()
     {
         if ($this->apiVersion === '2.0') {
@@ -125,6 +129,7 @@ class Response
     }
 
     /**
+     * Get order id
      * @return mixed
      */
     public function getOrderID()
@@ -133,6 +138,7 @@ class Response
     }
 
     /**
+     * Checking if order is approved
      * @return bool
      */
     public function isApproved()
@@ -142,6 +148,7 @@ class Response
     }
 
     /**
+     * Checking if order signature is valid
      * @return bool
      */
     public function isValid()

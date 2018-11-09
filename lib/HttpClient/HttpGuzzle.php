@@ -5,7 +5,11 @@ namespace Cloudipsp\HttpClient;
 
 class HttpGuzzle implements ClientInterface
 {
-    private $crulOptions = [
+    /**
+     * Default options
+     * @var array
+     */
+    private $curlOptions = [
         CURLOPT_FOLLOWLOCATION => false,
         CURLOPT_HEADER => false,
         CURLOPT_RETURNTRANSFER => true,
@@ -29,6 +33,7 @@ class HttpGuzzle implements ClientInterface
         $method = strtolower($method);
         $this->isGuzzleHere();
         $client = new \GuzzleHttp\Client();
+        $guzzleHeaders = [];
         foreach ($headers as $header) {
             $guzzleHeaders = explode(':', $header);
             $guzzleHeaders = [$guzzleHeaders[0] => $guzzleHeaders[1]];
@@ -38,7 +43,7 @@ class HttpGuzzle implements ClientInterface
             'headers' => $guzzleHeaders,
             'config' => [
                 'curl' => [
-                    $this->crulOptions,
+                    $this->curlOptions,
                 ]
             ]
         ];

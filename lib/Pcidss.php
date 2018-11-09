@@ -40,9 +40,9 @@ class Pcidss
     /**
      * generate form 3ds step 2
      * @param $data
-     * @param array $headers
+     * @param string $response_url
      * @return string
-     * @throws Exception\ApiException
+     * @throws ApiException
      */
     public static function get3dsFrom($data, $response_url = '')
     {

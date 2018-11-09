@@ -9,8 +9,10 @@ class ResultHelper
 {
     /**
      * Check is Payment Valid
-     * @param array $response
-     * @return bool
+     * @param $result
+     * @param string $secretKey
+     * @param string $ver
+     * @return bool|string
      */
     public static function isPaymentValid($result, $secretKey = '', $ver = '')
     {
@@ -32,8 +34,8 @@ class ResultHelper
     }
 
     /**
-     * Clearing before generate sign
-     * @param array $response
+     * Clearing before generate signature
+     * @param array $result
      * @return array
      */
     public static function clearResult(Array $result)
@@ -60,7 +62,10 @@ class ResultHelper
     }
 
     /**
-     * @return bool
+     * @param $data
+     * @param string $secretKey
+     * @param string $ver
+     * @return bool|string
      */
     public static function isPaymentApproved($data, $secretKey = '', $ver = '')
     {
@@ -75,7 +80,8 @@ class ResultHelper
     }
 
     /**
-     * @return mixed
+     * @param $data
+     * @return bool
      */
     public function getVerifyStatus($data)
     {

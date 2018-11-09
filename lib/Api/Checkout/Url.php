@@ -21,6 +21,7 @@ class Url extends Api
     /**
      * @param $data
      * @param array $headers
+     * @param array $requiredParams
      * @return mixed
      * @throws \Cloudipsp\Exception\ApiException
      */

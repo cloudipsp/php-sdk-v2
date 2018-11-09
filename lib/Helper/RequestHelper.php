@@ -18,7 +18,7 @@ class RequestHelper
      * @param $type
      * @return array headers
      */
-    public static function parseHeadres($headers, $type)
+    public static function parseHeaders($headers, $type)
     {
         if (is_array($headers)) {
             array_push($headers, 'Content-Type: ' . self::$type[$type]);

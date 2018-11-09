@@ -35,7 +35,6 @@ class Verification
     /**
      * return checkout form with card verify
      * @param $data
-     * @param array $headers
      * @return string
      * @throws Exception\ApiException
      */

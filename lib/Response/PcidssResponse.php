@@ -22,9 +22,8 @@ class PcidssResponse extends Response
 
     /**
      * get form page for 3ds step 2
-     * @param $data
-     * @param array $headers
-     * @return Response
+     * @param string $response_url
+     * @return mixed
      * @throws ApiException
      */
     public function get3dsFormContent($response_url = '')

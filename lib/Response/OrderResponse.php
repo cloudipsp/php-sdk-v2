@@ -55,7 +55,7 @@ class OrderResponse extends Response
     }
 
     /**
-     * Cheking if Captured transaction
+     * Checking if Captured transaction
      * @return bool
      * @throws \Exception
      */

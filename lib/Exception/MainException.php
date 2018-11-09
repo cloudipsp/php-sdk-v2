@@ -23,7 +23,7 @@ abstract class MainException extends Exception
         parent::__construct($message);
     }
 
-    public function getfondyCode()
+    public function getFondyCode()
     {
         return $this->fondyCode;
     }
