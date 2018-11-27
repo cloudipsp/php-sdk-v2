@@ -9,4 +9,4 @@ ini_set('display_errors', 'On');
 define('SDK_ROOTPATH', __DIR__);
 require_once SDK_ROOTPATH . '/../vendor/autoload.php';
 \Cloudipsp\Configuration::setMerchantId(1396424);
-// \Cloudipsp\Configuration::setSecretKey('test');
+\Cloudipsp\Configuration::setSecretKey('test');
