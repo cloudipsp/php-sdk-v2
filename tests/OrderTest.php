@@ -107,13 +107,13 @@ class OrderTest extends TestCase
     /**
      * @throws Exception\ApiException
      */
-    public function testAtolLogs()
+    /*public function testAtolLogs()
     {
         $this->setTestConfig();
         $data = \Cloudipsp\Order::atolLogs($this->orderID);
         $result = $data->getData();
         $this->assertInternalType('array', $result);
-    }
+    }*/
 
     /**
      * @param $data

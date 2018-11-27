@@ -17,7 +17,11 @@ class ResultHelper
     public static function isPaymentValid($result, $secretKey = '', $ver = '')
     {
         if ($secretKey == '') {
-            $secretKey = Configuration::getSecretKey();
+            if (Configuration::getSecretKey() != '') {
+                $secretKey = Configuration::getSecretKey();
+            }elseif (Configuration::getCreditKey() != '') {
+                $secretKey = Configuration::getCreditKey();
+            }
         }
         if ($ver == '') {
             $ver = Configuration::getApiVersion();

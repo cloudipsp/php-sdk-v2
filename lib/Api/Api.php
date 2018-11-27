@@ -30,7 +30,7 @@ class Api
     protected $requestType;
 
     /**
-     * @param $data
+     * @param $type
      * @throws ApiException
      */
     public function __construct($type = '')

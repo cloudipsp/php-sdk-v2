@@ -20,6 +20,6 @@ class P2pcredit
     {
         $api = new Api\P2pcredit\Credit('credit');
         $result = $api->get($data, $headers);
-        return new Response($result);
+        return new Response($result, 'credit');
     }
 }

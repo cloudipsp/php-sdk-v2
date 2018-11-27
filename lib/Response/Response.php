@@ -16,6 +16,10 @@ class Response
     /**
      * @var string
      */
+    protected $paymentKey;
+    /**
+     * @var string
+     */
     protected $requestType;
     /**
      * @var array
@@ -29,15 +33,17 @@ class Response
     /**
      * Response constructor.
      * @param $data
+     * @param $type
      * @throws ApiException
      */
-    public function __construct($data)
+    public function __construct($data, $type = '')
     {
         if (isset($data['order_id']))
             $this->orderID = $data['order_id'];
         $data = $data['response'];
         $this->requestType = Configuration::getRequestType();
         $this->apiVersion = Configuration::getApiVersion();
+        $this->setKeyByOperationType($type);
         switch ($this->requestType) {
             case 'xml':
                 $response = ResponseHelper::xmlToArray($data);
@@ -144,7 +150,7 @@ class Response
     public function isApproved()
     {
         $data = $this->buildVerifyData();
-        return ResultHelper::isPaymentApproved($data, '', $this->apiVersion);
+        return ResultHelper::isPaymentApproved($data, $this->paymentKey, $this->apiVersion);
     }
 
     /**
@@ -154,6 +160,19 @@ class Response
     public function isValid()
     {
         $data = $this->buildVerifyData();
-        return ResultHelper::isPaymentValid($data, '', $this->apiVersion);
+        return ResultHelper::isPaymentValid($data, $this->paymentKey, $this->apiVersion);
+    }
+
+    /**
+     * setting secret key by operation type
+     * @param $type
+     */
+    protected function setKeyByOperationType($type = '')
+    {
+        if ($type === 'credit') {
+            $this->paymentKey = Configuration::getCreditKey();
+        } else {
+            $this->paymentKey = Configuration::getSecretKey();
+        }
     }
 }

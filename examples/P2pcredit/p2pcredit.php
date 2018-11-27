@@ -5,8 +5,8 @@ require_once SDK_ROOTPATH . '/../vendor/autoload.php';
 
 //P2P card credit https://docs.fondy.eu/docs/page/24/
 try {
-    \Cloudipsp\Configuration::setMerchantId(1000);
-    \Cloudipsp\Configuration::setCreditKey('testcreditmonche'); // to generate in you need use credit key
+    \Cloudipsp\Configuration::setMerchantId(1396424);
+    \Cloudipsp\Configuration::setCreditKey('testcredit'); // to generate in you need use credit key
     $TestOrderData = [
         'currency' => 'USD',
         'amount' => 111,
@@ -48,6 +48,10 @@ try {
             <td>
                 <pre><?php print_r($orderData->getData()); ?></pre>
             </td>
+        </tr>
+        <tr>
+            <td>Check order is approved:</td>
+            <td><?php var_dump($orderData->isApproved()); ?></td>
         </tr>
         <tr>
             <td>Check order data is valid:</td>

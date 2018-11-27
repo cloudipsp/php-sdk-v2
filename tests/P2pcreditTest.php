@@ -31,8 +31,9 @@ class P2pcreditTest extends TestCase
         $this->setTestConfig();
         foreach ($this->request_types as $type) {
             \Cloudipsp\Configuration::setRequestType($type);
-            $result = \Cloudipsp\P2pcredit::start($this->TestData)->getData();
-            $this->validateResult($result);
+            $result = \Cloudipsp\P2pcredit::start($this->TestData);
+            $this->validateResult($result->getData());
+            $this->isValid($result->isValid());
         }
     }
 
@@ -41,5 +42,10 @@ class P2pcreditTest extends TestCase
         $this->assertNotEmpty($result['order_id'], 'order_id is empty');
         $this->assertNotEmpty($result['payment_id'], 'payment_id is empty');
         $this->assertEquals($result['response_status'], 'success');
+    }
+
+    private function isValid($result)
+    {
+        $this->assertEquals($result, true);
     }
 }
