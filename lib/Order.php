@@ -76,5 +76,18 @@ class Order
         $result = $api->get($data, $headers);
         return new OrderResponse($result);
     }
+    /**
+     * Generate request to create settlement order
+     * @param $data
+     * @param array $headers
+     * @return Response\Response
+     * @throws Exception\ApiException
+     */
+    public static function settlement($data, $headers = [])
+    {
+        $api = new Api\Settlements();
+        $result = $api->get($data, $headers);
+        return new Response\Response($result);
+    }
 
 }
