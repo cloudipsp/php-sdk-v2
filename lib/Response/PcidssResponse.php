@@ -2,9 +2,7 @@
 
 namespace Cloudipsp\Response;
 
-use Cloudipsp\Helper;
-use Cloudipsp\Exception\ApiException;
-use Cloudipsp\Configuration;
+use Cloudipsp\Pcidss;
 
 class PcidssResponse extends Response
 {
@@ -21,26 +19,14 @@ class PcidssResponse extends Response
     }
 
     /**
-     * get form page for 3ds step 2
      * @param string $response_url
      * @return mixed
-     * @throws ApiException
+     * @throws \Cloudipsp\Exception\ApiException
      */
     public function get3dsFormContent($response_url = '')
     {
+        trigger_error('Deprecated: this function is deprecated use get3dsForm instead!', E_NOTICE);
         $data = $this->getData();
-
-        if (!isset($data['md'])) {
-            throw new ApiException('Required param MD is missing or empty.');
-        }
-        Helper\ValidationHelper::validateURL($data['acs_url']);
-        $formData = [
-            'PaReq' => $data['pareq'],
-            'MD' => $data['md'],
-            'TermUrl' => $response_url ? $response_url : ''
-        ];
-        $client = Configuration::getHttpClient();
-        $form3dsContent = $client->request('POST', $data['acs_url'], ['Content-Type: multipart/form-data'], $formData);
-        return $form3dsContent;
+        return Pcidss::get3dsFrom($data, $response_url);
     }
 }
