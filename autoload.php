@@ -20,6 +20,7 @@ require(dirname(__FILE__) . '/lib/Api/Checkout/Verification.php');
 require(dirname(__FILE__) . '/lib/Api/Order/Atol.php');
 require(dirname(__FILE__) . '/lib/Api/Order/Capture.php');
 require(dirname(__FILE__) . '/lib/Api/Order/Reverse.php');
+require(dirname(__FILE__) . '/lib/Api/Order/Settlements.php');
 require(dirname(__FILE__) . '/lib/Api/Order/Status.php');
 require(dirname(__FILE__) . '/lib/Api/Order/TransactionList.php');
 require(dirname(__FILE__) . '/lib/Api/P2pcredit/Credit.php');

@@ -17,10 +17,10 @@ class P2pcreditTest extends TestCase
 
     private function setTestConfig()
     {
-        \Cloudipsp\Configuration::setMerchantId($this->mid);
-        \Cloudipsp\Configuration::setSecretKey('');
-        \Cloudipsp\Configuration::setCreditKey($this->CreditKey);
-        \Cloudipsp\Configuration::setApiVersion('1.0');
+        Configuration::setMerchantId($this->mid);
+        Configuration::setSecretKey('');
+        Configuration::setCreditKey($this->CreditKey);
+        Configuration::setApiVersion('1.0');
     }
 
     /**
@@ -30,8 +30,8 @@ class P2pcreditTest extends TestCase
     {
         $this->setTestConfig();
         foreach ($this->request_types as $type) {
-            \Cloudipsp\Configuration::setRequestType($type);
-            $result = \Cloudipsp\P2pcredit::start($this->TestData);
+            Configuration::setRequestType($type);
+            $result = P2pcredit::start($this->TestData);
             $this->validateResult($result->getData());
             $this->isValid($result->isValid());
         }

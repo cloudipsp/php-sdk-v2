@@ -27,9 +27,9 @@ class PcidssTest extends TestCase
 
     private function setTestConfig()
     {
-        \Cloudipsp\Configuration::setMerchantId($this->mid);
-        \Cloudipsp\Configuration::setSecretKey($this->secret_key);
-        \Cloudipsp\Configuration::setApiVersion('1.0');
+        Configuration::setMerchantId($this->mid);
+        Configuration::setSecretKey($this->secret_key);
+        Configuration::setApiVersion('1.0');
     }
 
     /**
@@ -40,8 +40,8 @@ class PcidssTest extends TestCase
         $this->setTestConfig();
         $data = array_merge($this->TestPcidssData, $this->TestCardnon3ds);
         foreach ($this->request_types as $type) {
-            \Cloudipsp\Configuration::setRequestType($type);
-            $result = \Cloudipsp\Pcidss::start($data)->getData();
+            Configuration::setRequestType($type);
+            $result = Pcidss::start($data)->getData();
 
             $this->validateNon3dResult($result);
         }
@@ -58,7 +58,7 @@ class PcidssTest extends TestCase
             'md' => 'pareq',
             'TermUrl' => 'http://some-url.com'
         ];
-        $form = \Cloudipsp\Pcidss::get3dsFrom($data, 'some_url');
+        $form = Pcidss::get3dsFrom($data, 'some_url');
         $this->assertTrue(is_string($form), "Got a " . gettype($form) . " instead of a string");
     }
 
@@ -70,8 +70,8 @@ class PcidssTest extends TestCase
         $this->setTestConfig();
         $data = array_merge($this->TestPcidssData, $this->TestCard3ds);
         foreach ($this->request_types as $type) {
-            \Cloudipsp\Configuration::setRequestType($type);
-            $result = \Cloudipsp\Pcidss::start($data)->getData();
+            Configuration::setRequestType($type);
+            $result = Pcidss::start($data)->getData();
             $this->validate3dResult($result);
         }
     }

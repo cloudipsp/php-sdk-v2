@@ -46,10 +46,13 @@ class PaymentTest extends TestCase
         parent::__construct($name, $data, $dataName);
     }
 
+    /**
+     * Setting test config
+     */
     private function setTestConfig()
     {
-        \Cloudipsp\Configuration::setMerchantId($this->mid);
-        \Cloudipsp\Configuration::setSecretKey($this->Secret);
+        Configuration::setMerchantId($this->mid);
+        Configuration::setSecretKey($this->Secret);
 
     }
 
@@ -59,10 +62,10 @@ class PaymentTest extends TestCase
     public function testRecurring()
     {
         $this->setTestConfig();
-        \Cloudipsp\Configuration::setApiVersion('1.0');
+        Configuration::setApiVersion('1.0');
         foreach ($this->request_types as $type) {
-            \Cloudipsp\Configuration::setRequestType($type);
-            $result = \Cloudipsp\Payment::recurring($this->TestData);
+            Configuration::setRequestType($type);
+            $result = Payment::recurring($this->TestData);
             $this->assertEquals($result->isApproved(), true);
             $this->assertEquals($result->isValid(), true);
             $this->assertEquals($result->getData()['response_status'], 'success');
@@ -75,9 +78,9 @@ class PaymentTest extends TestCase
     public function testRecurringv2()
     {
         $this->setTestConfig();
-        \Cloudipsp\Configuration::setApiVersion('2.0');
-        \Cloudipsp\Configuration::setRequestType('json');
-        $result = \Cloudipsp\Payment::recurring($this->TestData);
+        Configuration::setApiVersion('2.0');
+        Configuration::setRequestType('json');
+        $result = Payment::recurring($this->TestData);
         $this->assertEquals($result->isApproved(), true);
         $this->assertEquals($result->isValid(), true);
         $this->assertEquals($result->getData()['response_status'], 'success');
@@ -94,7 +97,7 @@ class PaymentTest extends TestCase
             "date_from" => date('d.m.Y H:i:s', time() - 7200),
             "date_to" => date('d.m.Y H:i:s', time() - 3600),
         ];
-        $reports = \Cloudipsp\Payment::reports($data);
+        $reports = Payment::reports($data);
         $this->assertEquals($reports->getData()[0]['response_status'], 'success');
 
     }
@@ -106,7 +109,7 @@ class PaymentTest extends TestCase
      */
     private function getToken($data)
     {
-        $data = \Cloudipsp\Pcidss::start($data);
+        $data = Pcidss::start($data);
         return $data->getData()['rectoken'];
     }
 }

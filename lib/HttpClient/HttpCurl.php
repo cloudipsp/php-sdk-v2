@@ -25,10 +25,10 @@ class HttpCurl implements ClientInterface
      * @param string $url
      * @param array $headers
      * @param array $params
-     * @return array
+     * @return string
      * @throws Exception\HttpClientException
      */
-    public function request($method, $url, $headers = [], $params)
+    public function request($method, $url, $headers = [], $params = [])
     {
         $method = strtoupper($method);
         if (!$this->curlEnabled())

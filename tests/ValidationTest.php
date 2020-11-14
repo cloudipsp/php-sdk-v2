@@ -34,7 +34,8 @@ class ValidationTest extends TestCase
     public function testValidateCard()
     {
         try {
-            Helper\ValidationHelper::validateRequiredParams($this->TestData, $this->requiredParams);
+            $is_true = Helper\ValidationHelper::validateRequiredParams($this->TestData, $this->requiredParams);
+            $this->assertTrue($is_true, 'Params is valid');
         } catch (InvalidArgumentException $e) {
             $this->fail($e);
         }

@@ -16,9 +16,9 @@ class VerificationTest extends TestCase
 
     private function setTestConfig()
     {
-        \Cloudipsp\Configuration::setMerchantId($this->mid);
-        \Cloudipsp\Configuration::setSecretKey($this->secret_key);
-        \Cloudipsp\Configuration::setApiVersion('1.0');
+        Configuration::setMerchantId($this->mid);
+        Configuration::setSecretKey($this->secret_key);
+        Configuration::setApiVersion('1.0');
     }
 
     /**
@@ -28,8 +28,8 @@ class VerificationTest extends TestCase
     {
         $this->setTestConfig();
         foreach ($this->request_types as $type) {
-            \Cloudipsp\Configuration::setRequestType($type);
-            $result = \Cloudipsp\Verification::url($this->minTestData)->getData();
+            Configuration::setRequestType($type);
+            $result = Verification::url($this->minTestData)->getData();
             $this->validateUrlResult($result);
         }
     }

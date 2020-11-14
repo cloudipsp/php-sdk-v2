@@ -34,11 +34,14 @@ class CheckoutTest extends TestCase
         )
     ];
 
+    /**
+     * Setup config
+     */
     private function setTestConfig()
     {
-        \Cloudipsp\Configuration::setMerchantId($this->mid);
-        \Cloudipsp\Configuration::setSecretKey($this->secret_key);
-        \Cloudipsp\Configuration::setApiVersion('1.0');
+        Configuration::setMerchantId($this->mid);
+        Configuration::setSecretKey($this->secret_key);
+        Configuration::setApiVersion('1.0');
     }
 
     /**
@@ -48,8 +51,8 @@ class CheckoutTest extends TestCase
     {
         $this->setTestConfig();
         foreach ($this->request_types as $type) {
-            \Cloudipsp\Configuration::setRequestType($type);
-            $result = \Cloudipsp\Checkout::url($this->fullTestData)->getData();
+            Configuration::setRequestType($type);
+            $result = Checkout::url($this->fullTestData)->getData();
             $this->validateCheckoutUrlResult($result);
         }
     }
@@ -60,11 +63,9 @@ class CheckoutTest extends TestCase
     public function testToken()
     {
         $this->setTestConfig();
-        //foreach ($this->request_types as $type) {
-            \Cloudipsp\Configuration::setRequestType('json');
-            $result = \Cloudipsp\Checkout::token($this->fullTestData)->getData();
-            $this->validateTokenResult($result);
-       // }
+        Configuration::setRequestType('json');
+        $result = Checkout::token($this->fullTestData)->getData();
+        $this->validateTokenResult($result);
     }
 
     /**
@@ -73,16 +74,37 @@ class CheckoutTest extends TestCase
     public function testForm()
     {
         $this->setTestConfig();
-        $result = \Cloudipsp\Checkout::form($this->fullTestData);
-        $this->assertInternalType('string', $result, "Got a " . gettype($result) . " instead of a string");
+        $result = Checkout::form($this->fullTestData);
+        $this->assertIsMyString($result, "Got a " . gettype($result) . " instead of a string");
     }
 
+    /**
+     * Checking correct result for token request
+     * @param $result
+     */
     private function validateTokenResult($result)
     {
         $this->assertNotEmpty($result['token'], 'payment_id is empty');
-        $this->assertInternalType('string', $result['token'], "Got a " . gettype($result['token']) . " instead of a string");
+        $this->assertIsMyString($result['token'], "Got a " . gettype($result['token']) . " instead of a string");
     }
 
+    /**
+     * @param $string
+     * @param $message
+     */
+    private function assertIsMyString($string, $message)
+    {
+        if (method_exists(get_parent_class($this), 'assertIsString')) {
+            $this->assertIsString($string, $message);
+        } else {
+            $this->assertInternalType('string', $string, $message);
+        }
+    }
+
+    /**
+     * Checking correct result of get checkout url
+     * @param $result
+     */
     private function validateCheckoutUrlResult($result)
     {
         $this->assertNotEmpty($result['checkout_url'], 'checkout_url is empty');

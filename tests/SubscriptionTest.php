@@ -23,10 +23,10 @@ class SubscriptionTest extends TestCase
 
     private function setTestConfig()
     {
-        \Cloudipsp\Configuration::setMerchantId($this->mid);
-        \Cloudipsp\Configuration::setSecretKey($this->secret_key);
-        \Cloudipsp\Configuration::setRequestType('json');
-        \Cloudipsp\Configuration::setApiVersion('2.0');
+        Configuration::setMerchantId($this->mid);
+        Configuration::setSecretKey($this->secret_key);
+        Configuration::setRequestType('json');
+        Configuration::setApiVersion('2.0');
     }
 
     /**
@@ -35,7 +35,7 @@ class SubscriptionTest extends TestCase
     public function testSubscriptionToken()
     {
         $this->setTestConfig();
-        $result = \Cloudipsp\Subscription::token($this->TestSubscriptionData)->getData();
+        $result = Subscription::token($this->TestSubscriptionData)->getData();
         $this->assertNotEmpty($result['token'], 'payment_id is empty');
     }
 
@@ -45,11 +45,14 @@ class SubscriptionTest extends TestCase
     public function testSubscriptionUrl()
     {
         $this->setTestConfig();
-        $result = \Cloudipsp\Subscription::url($this->TestSubscriptionData)->getData();
+        $result = Subscription::url($this->TestSubscriptionData)->getData();
         $this->validate($result);
 
     }
 
+    /**
+     * @param $result
+     */
     private function validate($result)
     {
         $this->assertNotEmpty($result['checkout_url'], 'checkout_url is empty');
