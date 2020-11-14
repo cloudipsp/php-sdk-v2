@@ -81,7 +81,7 @@ class OrderTest extends TestCase
         $this->setTestConfig();
         $reverseData = [
             'currency' => 'USD',
-            'amount' => 10,
+            'amount' => 1000,
             'order_id' => $this->orderID['order_id']
         ];
         $data = \Cloudipsp\Order::reverse($reverseData);

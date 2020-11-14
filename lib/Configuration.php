@@ -133,7 +133,7 @@ class Configuration
     }
 
     /**
-     * @return ClientInterface Http Client
+     * @return string
      */
     public static function getHttpClient()
     {
