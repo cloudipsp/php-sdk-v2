@@ -65,7 +65,7 @@ try {
         </tr>
         <tr>
             <td>Check order is captured:</td>
-            <td><?php var_dump($capture_order->isCaptured()); ?></td>
+            <td><?php var_dump($capture_order->isCaptured(true)); ?></td>
         </tr>
         </tbody>
     </table>
