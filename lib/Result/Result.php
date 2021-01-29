@@ -55,18 +55,21 @@ class Result
     }
 
     /**
-     * @return string
+     * @return array|string
      */
     private function parseResult()
     {
         $result = $_POST;
-
         if (empty($result))
             $result = file_get_contents('php://input');
         return $result;
 
     }
 
+    /**
+     * @param $result
+     * @return array|string
+     */
     private function formatResult($result)
     {
         if ($this->apiVersion === '1.0' && is_string($result)) {
@@ -78,13 +81,27 @@ class Result
                     $result = ResponseHelper::jsonToArray($result);
                     break;
             }
+        } else if ($this->apiVersion === '2.0') {
+            $result = ResponseHelper::jsonToArray($result);
         }
         return $result;
     }
 
+    /**
+     * Get formatted data
+     * @return array
+     */
     public function getData()
     {
+        if(!$this->result or $this->result == '')
+            return [];
+
+        if(isset($this->result['response']))
+            $this->result = $this->result['response'];
+
         if ($this->apiVersion === '2.0') {
+            if(!isset($this->result['data']))
+                return [];
             $result = ResponseHelper::getBase64Data(['response' => $this->result]);
             $result['encodedData'] = $this->result['data'];
             $result['signature'] = $this->result['signature'];
@@ -113,6 +130,7 @@ class Result
     }
 
     /**
+     * @param $param
      * @return bool
      */
     public function getParam($param)
@@ -122,11 +140,13 @@ class Result
     }
 
     /**
+     * @param null $data
      * @return bool
      */
-    public function isValid()
+    public function isValid($data = null)
     {
-        $data = $this->getData();
+        if ($data == null)
+            $data = $this->getData();
         return ResultHelper::isPaymentValid($data, $this->secretKey, $this->apiVersion);
     }
 
@@ -138,12 +158,11 @@ class Result
         $data = $this->getData();
         if (!isset($data['order_status']))
             return false;
-        $valid = $this->isValid();
+        $valid = $this->isValid($data);
         if ($valid && $data['order_status'] === 'processing')
             return true;
 
         return false;
-
     }
 
     /**
@@ -154,12 +173,11 @@ class Result
         $data = $this->getData();
         if (!isset($data['order_status']))
             return false;
-        $valid = $this->isValid();
+        $valid = $this->isValid($data);
         if ($valid && $data['order_status'] === 'declined')
             return true;
 
         return false;
-
     }
 
     /**
@@ -170,11 +188,10 @@ class Result
         $data = $this->getData();
         if (!isset($data['order_status']))
             return false;
-        $valid = $this->isValid();
+        $valid = $this->isValid($data);
         if ($valid && $data['order_status'] === 'expired')
             return true;
 
         return false;
-
     }
 }
