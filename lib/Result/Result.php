@@ -81,7 +81,7 @@ class Result
                     $result = ResponseHelper::jsonToArray($result);
                     break;
             }
-        } else if ($this->apiVersion === '2.0') {
+        } else if ($this->apiVersion === '2.0' and is_string($result)) {
             $result = ResponseHelper::jsonToArray($result);
         }
         return $result;
