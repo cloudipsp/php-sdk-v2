@@ -155,11 +155,13 @@ class Response
 
     /**
      * Checking if order signature is valid
+     * @param null $data
      * @return bool
      */
-    public function isValid()
+    public function isValid($data = null)
     {
-        $data = $this->buildVerifyData();
+        if ($data == null)
+            $data = $this->buildVerifyData();
         return ResultHelper::isPaymentValid($data, $this->paymentKey, $this->apiVersion);
     }
 

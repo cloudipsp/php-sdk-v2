@@ -53,6 +53,8 @@ class OrderTest extends TestCase
         $this->assertNotEmpty($result['order_id'], 'order_id is empty');
         $this->assertNotEmpty($result['order_status'], 'order_status is empty');
         $this->assertEquals($result['response_status'], 'success');
+        $this->assertEquals( true, $data->isApproved());
+        $this->assertEquals( true, $data->isValid());
 
     }
 
@@ -71,6 +73,7 @@ class OrderTest extends TestCase
         $result = $data->getData();
         $this->assertIsMyArray($result);
         $this->assertEquals($result['capture_status'], 'captured');
+        $this->assertEquals(true, $data->isCaptured(true));
     }
 
     /**
@@ -89,6 +92,7 @@ class OrderTest extends TestCase
         $this->assertNotEmpty($result['order_id'], 'order_id is empty');
         $this->assertEquals($result['response_status'], 'success');
         $this->assertEquals($result['reverse_status'], 'approved');
+        $this->assertEquals(true, $data->isReversed());
     }
 
     /**

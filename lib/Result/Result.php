@@ -137,7 +137,7 @@ class Result
     {
         $data = $this->getData();
         if (!isset($data['order_status']))
-            return 'Nothing to check';
+            return false;
         $valid = $this->isValid();
         if ($valid && $data['order_status'] === 'processing')
             return true;
@@ -153,7 +153,7 @@ class Result
     {
         $data = $this->getData();
         if (!isset($data['order_status']))
-            return 'Nothing to check';
+            return false;
         $valid = $this->isValid();
         if ($valid && $data['order_status'] === 'declined')
             return true;
@@ -169,7 +169,7 @@ class Result
     {
         $data = $this->getData();
         if (!isset($data['order_status']))
-            return 'Nothing to check';
+            return false;
         $valid = $this->isValid();
         if ($valid && $data['order_status'] === 'expired')
             return true;

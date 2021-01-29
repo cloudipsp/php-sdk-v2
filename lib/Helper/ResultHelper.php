@@ -12,7 +12,7 @@ class ResultHelper
      * @param $result
      * @param string $secretKey
      * @param string $ver
-     * @return bool|string
+     * @return bool
      */
     public static function isPaymentValid($result, $secretKey = '', $ver = '')
     {
@@ -26,7 +26,8 @@ class ResultHelper
         if ($ver == '') {
             $ver = Configuration::getApiVersion();
         }
-        if (!array_key_exists('signature', $result)) return 'Nothing to validate';
+        if (!array_key_exists('signature', $result))
+            return false;
         $signature = $result['signature'];
         if ($ver === '2.0') {
             $encoded = $result['encodedData'];
@@ -74,7 +75,7 @@ class ResultHelper
     public static function isPaymentApproved($data, $secretKey = '', $ver = '')
     {
         if (!isset($data['order_status']))
-            return 'Nothing to check';
+            return false;
         $valid = self::isPaymentValid($data, $secretKey, $ver);
         if ($valid && $data['order_status'] === 'approved')
             return true;

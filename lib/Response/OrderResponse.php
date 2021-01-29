@@ -30,8 +30,8 @@ class OrderResponse extends Response
     {
         $data = $this->buildVerifyData();
         if (!isset($data['reverse_status']))
-            return 'Nothing to check';
-        $valid = $this->isValid();
+            return false;
+        $valid = $this->isValid($data);
         if ($valid && $data['reverse_status'] === 'approved')
             return true;
 
@@ -39,15 +39,15 @@ class OrderResponse extends Response
     }
 
     /**
-     * @return bool|string
-     * @throws \Exception
+     * @param bool $direct if synchronous call
+     * @return bool
      */
-    public function isCaptured()
+    public function isCaptured($direct = false)
     {
         $data = $this->buildVerifyData();
         if (!isset($data['capture_status']))
-            return 'Nothing to check';
-        $valid = $this->isValid();
+            return false;
+        $valid = $direct ? $direct : $this->isValid($data);
         if ($valid && $data['capture_status'] === 'captured')
             return true;
 
