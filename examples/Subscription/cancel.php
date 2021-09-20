@@ -26,7 +26,7 @@ try {
     //Call method to start calendar order subscription
     \Cloudipsp\Configuration::setApiVersion('2.0'); //allow only json, api protocol 2.0
     $orderData = Cloudipsp\Pcidss::start($TestOrderData);
-    $cancel = Cloudipsp\Subscription::stop('1396424_26aed9412954da8a12ff36fcdeee10db');
+    $cancel = Cloudipsp\Subscription::stop($orderData->getData()['order_id']);
     //getting returned data
     ?>
     <!doctype html>
