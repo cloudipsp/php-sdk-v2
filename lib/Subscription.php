@@ -4,6 +4,7 @@
 namespace Cloudipsp;
 
 use Cloudipsp\Api\Checkout as Api;
+use Cloudipsp\Api\Order as ApiRecurring;
 use Cloudipsp\Response\Response;
 
 class Subscription
@@ -41,6 +42,28 @@ class Subscription
         $data = array_merge($data, self::$defaultParams);
         $api = new Api\Url();
         $result = $api->get($data, $headers, self::$requiredParams);
+        return new Response($result);
+    }
+
+    /**
+     * stop calendar recurring payments
+     * @param $order_id
+     * @param array $headers
+     * @return Response
+     * @throws Exception\ApiException
+     */
+    public static function stop($order_id, $headers = [])
+    {
+        if (\Cloudipsp\Configuration::getApiVersion() !== self::$requiredApiVersion) {
+            trigger_error('Reccuring_data allowed only for api version \'2.0\'', E_USER_NOTICE);
+            \Cloudipsp\Configuration::setApiVersion(self::$requiredApiVersion);
+        }
+        $api = new ApiRecurring\Subscription();
+        $data = [
+            "order_id" => $order_id,
+            "action" => "stop"
+        ];
+        $result = $api->get($data, $headers);
         return new Response($result);
     }
 
