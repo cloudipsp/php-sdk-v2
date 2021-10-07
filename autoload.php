@@ -23,6 +23,7 @@ require(dirname(__FILE__) . '/lib/Api/Order/Reverse.php');
 require(dirname(__FILE__) . '/lib/Api/Order/Settlements.php');
 require(dirname(__FILE__) . '/lib/Api/Order/Status.php');
 require(dirname(__FILE__) . '/lib/Api/Order/TransactionList.php');
+require(dirname(__FILE__) . '/lib/Api/Order/Subscription.php');
 require(dirname(__FILE__) . '/lib/Api/P2pcredit/Credit.php');
 require(dirname(__FILE__) . '/lib/Api/Payment/Pcidss/StepOne.php');
 require(dirname(__FILE__) . '/lib/Api/Payment/Pcidss/StepTwo.php');
